@@ -1,0 +1,59 @@
+.c-btn {
+	color: $white;
+	display: inline-block;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1;
+	padding: 22px 30px 22px 40px;
+	position: relative;
+	text-transform: uppercase;
+	transition: 0.3s;
+    background-image: -moz-linear-gradient(0deg, #428cd4 0%, #004e9a 100%);
+    background-image: -webkit-linear-gradient(0deg, #428cd4 0%, #004e9a 100%);
+    background-image: -ms-linear-gradient(0deg, #428cd4 0%, #004e9a 100%);
+	border-radius: 5px;
+	border: none;
+    transition: .3s;
+    font-family: $poppins;
+	& i{
+		font-size: 15px;
+		margin-left: 25px;
+		transition: .3s;
+	}
+	&:hover {
+		color: $white;
+		& i{
+			transform: translateX(5px);
+		}
+	}
+}
+
+.blue-btn{background: $blue;}
+.white-btn{
+	background: none;
+	border: 2px solid $white;
+	transition: .3s;
+	color:$white;
+	padding: 16px 26px 16px 20px;
+	&:hover{
+		background: $white;
+		color:$theme-color;
+		border-color:$white;
+	}
+}
+// btn-border
+.btn-border {
+	background: transparent;
+	border: 2px solid #828080;
+	padding: 20px 30px 20px 40px;
+	&:hover{
+		background: $white;
+		border-color: $white;
+		color:$theme-color;
+	}
+}
+
+button{
+	transition: .3s;
+}
+

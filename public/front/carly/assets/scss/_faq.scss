@@ -1,0 +1,107 @@
+.faq-area{
+    background-size: cover;
+    background-position: center center;
+}
+.faq-wrapper{
+	@media #{$lg}{
+        margin-top: 0;
+      }
+	@media #{$md}{
+        margin-top: 0;
+      }
+	@media #{$xs}{
+        margin-top: 0;
+      }
+}
+.faq-img{
+    & img{
+        width: 100%;
+    }
+}
+.faq-box .btn-link {
+	display: block;
+	font-size: 18px;
+	border: 0;
+	text-decoration: none;
+	line-height: 1;
+	font-weight: 600;
+	padding: 20px 30px;
+	font-family: "Poppins";
+}
+.faq-box .btn-link {
+	background: $white;
+	color:$blue;
+	box-shadow: 0px 6px 47px 3px rgba(37, 37, 37, 0.05);
+}
+  
+.faq-box .btn-link.collapsed {
+    background: $white;
+	color:$blue;
+	box-shadow: 0px 6px 47px 3px rgba(37, 37, 37, 0.05);
+}
+.faq-box .card-header {
+	padding: 0;
+	border-bottom: 0;
+	background: none;
+	border-radius: 0;
+}
+.faq-box .card {
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 0;
+	border-radius: 0;
+	background: none;
+	margin-bottom: 16px;
+}
+.faq-box .card-body {
+	-webkit-box-flex: 1;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	padding: 0 0 0 0;
+	border-bottom: 0;
+	padding-bottom: 13px;
+	border-top: 0;
+	padding-top: 18px;
+	margin-top: 0;
+	padding-left: 30px;
+	padding-right: 30px;
+	background: none;
+}
+.faq-box .card-body p {
+	margin: 0;
+	margin-right: 26px;
+}
+.faq-box .btn-link.collapsed::before {
+	content: "\f067";
+    color: $theme-color;
+    background: none;
+}
+.faq-box .btn-link::before {
+	content: "\f068";
+	position: absolute;
+	right: 20px;
+	font-size: 16px;
+	font-family: "Font Awesome 5 Pro";
+	color: $white;
+	height: 36px;
+	width: 36px;
+	line-height: 36px;
+	border-radius: 5px;
+	background-image: -moz-linear-gradient( 0deg, rgb(66,140,212) 0%, rgb(0,78,154) 100%);
+    background-image: -webkit-linear-gradient( 0deg, rgb(66,140,212) 0%, rgb(0,78,154) 100%);
+    background-image: -ms-linear-gradient( 0deg, rgb(66,140,212) 0%, rgb(0,78,154) 100%);
+	text-align: center;
+	top: 11px;
+}
+
+  

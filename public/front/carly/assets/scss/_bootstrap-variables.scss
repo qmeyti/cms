@@ -1,0 +1,36 @@
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1200px
+);
+
+
+// Font Family
+$rubik: 'rubik';
+$poppins: 'Poppins';
+
+// Colors ---------------
+$white: #ffffff;
+$black: #222933;
+$black-soft: #222;
+$red: #e25a44;
+$blue: #234969;
+$blue-soft: #222f5a;
+$grey:#f0f4f9;
+$grey-soft:#ededed;
+$green:#03b664;
+$theme-color: #408ad2;
+$body-text-color: #565872;
+$hr-border-color:#eceff8;
+$menu-bg:#222f5a;
+
+// Heading Color
+$heading-color: #1f2044;
+
+// Responsive Variables
+$laptop: 'only screen and (min-width: 1200px) and (max-width: 1600px)';
+$lg : 'only screen and (min-width: 992px) and (max-width: 1200px)';
+$md:'only screen and (min-width: 768px) and (max-width: 991px)';
+$xs:'(max-width: 767px)';
+$sm: 'only screen and (min-width: 576px) and (max-width: 767px)';

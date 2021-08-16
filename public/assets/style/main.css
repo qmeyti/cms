@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Tanha';
+    src: url('../../fonts/tanha-font-v0.9/Farsi-Digits/Tanha-FD.eot');
+    src: url('../../fonts/tanha-font-v0.9/Farsi-Digits/Tanha-FD.eot?#iefix') format('Tanha-opentype'),
+    url('../../fonts/tanha-font-v0.9/Farsi-Digits/Tanha-FD.woff') format('woff'),
+    url('../../fonts/tanha-font-v0.9/Farsi-Digits/Tanha-FD.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    font-family: 'Tanha', sans-serif, tahoma;
+}

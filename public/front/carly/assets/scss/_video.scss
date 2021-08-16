@@ -1,0 +1,95 @@
+// video 
+.video-area{
+    margin-bottom: -115px;
+}
+.c-video{
+    & a{
+        z-index: 9;
+        position: relative;
+    }
+}
+.c-v-border {
+	height: 120px;
+	width: 120px;
+	border: 12px solid #3d87d0;
+	display: inline-block;
+	border-radius: 50%;
+	left: -60px;
+	top: 100px;
+	position: absolute;
+    z-index: 1;
+    @media #{$lg}{
+        left: -34px;
+        top: -30px;
+    }
+    @media #{$xs}{
+        display: none;
+    }
+}
+.c-v-cirlce {
+    background-image: -moz-linear-gradient(0deg, #428cd4 0%, #004e9a 100%);
+    background-image: -webkit-linear-gradient(0deg, #428cd4 0%, #004e9a 100%);
+    background-image: -ms-linear-gradient(0deg, #428cd4 0%, #004e9a 100%);
+	height: 95px;
+	width: 95px;
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	border-radius: 50%;
+	bottom: -45px;
+	right: -45px;
+    z-index: 1;
+    @media #{$xs}{
+        display: none;
+    }
+}
+.play-video-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 9;
+    & a{
+    font-size: 22px;
+    color: $white;
+    background-image: -moz-linear-gradient( 0deg, rgb(66,140,212) 0%, rgb(0,78,154) 100%);
+    background-image: -webkit-linear-gradient( 0deg, rgb(66,140,212) 0%, rgb(0,78,154) 100%);
+    background-image: -ms-linear-gradient( 0deg, rgb(66,140,212) 0%, rgb(0,78,154) 100%);
+	height: 100px;
+	display: inline-block;
+	width: 100px;
+	line-height: 100px;
+	text-align: center;
+	border-radius: 50%;
+    transition: .3s;
+    position: relative;
+    &::before{
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        bottom: -2px;
+        right: -2px;
+        border-radius: inherit;
+        border: 1px solid #0a58a3;
+        -webkit-animation: btnIconRipple 2s cubic-bezier(0.23, 1, 0.32, 1) both infinite;
+        animation: btnIconRipple 2s cubic-bezier(0.23, 1, 0.32, 1) both infinite;
+        transition: .3s;
+     }
+    }
+}
+@-webkit-keyframes btnIconRipple { 0% { border-width: 4px; -webkit-transform: scale(1); transform: scale(1); }
+80% { border-width: 1px; -webkit-transform: scale(1.35); transform: scale(1.35); }
+100% { opacity: 0; } }
+
+
+.shape-item {
+    position: absolute;
+}
+.vd-01 {
+	top: 15%;
+	right: 22%;
+}

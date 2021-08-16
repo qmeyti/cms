@@ -1,0 +1,297 @@
+.contact-us-area {
+	background-size: cover;
+	background-position: center;
+}
+.contact-wrapper {
+	padding: 70px;
+	background-image: -moz-linear-gradient(0deg, #428cd4 0%, #004e9a 100%);
+	background-image: -webkit-linear-gradient(0deg, #428cd4 0%, #004e9a 100%);
+	background-image: -ms-linear-gradient(0deg, #428cd4 0%, #004e9a 100%);
+	border-radius: 5px;
+    margin-bottom: -121px;
+    @media #{$xs}{
+        padding: 70px 25px;
+    }
+}
+ .contact-text{
+     & h3{
+         font-size: 24px;
+         color:$white;
+         line-height: 1.2;
+         margin-bottom: 34px;
+     }
+ } 
+.contact-address-icon{
+    margin-right: 30px;
+    @media #{$xs}{
+        margin-right: 15px;
+    }
+    & i{
+        height: 80px;
+        width: 80px;
+        line-height: 80px;
+        background: $white;
+        line-height: 80px;
+        text-align: center;
+        font-size: 35px;
+        border-radius: 15px;
+        color:$theme-color;
+        @media #{$xs}{
+            height: 70px;
+            width: 70px;
+            font-size: 30px;
+            line-height: 70px;
+        }
+    }
+}
+.contact-address-text{
+    overflow: hidden;
+    padding-top: 7px;
+    @media #{$xs}{
+        padding-top: 0;
+    }
+    & h3{
+        font-size: 24px;
+        color:$blue;
+        margin-bottom: 17px;
+    }
+    & span{
+        display: block;
+        font-size: 16px;
+        font-weight: 400;
+        color:$body-text-color;
+        margin-bottom: 6px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+        @media #{$xs}{
+            font-size: 14px;
+        }
+    }
+}
+.contacts-form {
+    & input{
+        border: 2px solid #72a6d8;
+        height: 70px;
+        margin-bottom: 30px;
+        padding: 0 28px;
+        width: 100%;
+        font-size: 16px;
+		color: $white;
+		font-weight: 400;
+        border-radius: 5px;
+        background: none;
+    }
+    & textarea{
+        border: 2px solid #72a6d8;
+        height: 200px;
+        margin-bottom: 30px;
+        padding: 28px;
+        width: 100%;
+        font-size: 16px;
+		color: $white;
+		font-weight: 400; 
+        border-radius: 5px;
+        background: none;
+    }
+}
+.contacts-form input:focus{border-color:$white;}
+.contacts-form textarea:focus{border-color:$white;}
+.contacts-form input::-moz-placeholder {
+	font-size: 16px;
+	color: $white;
+	font-weight: 400;
+}
+.contacts-form input::placeholder {
+	font-size: 16px;
+	color:  $white;
+	font-weight: 400;
+}
+.contacts-form textarea::-moz-placeholder {
+	font-size: 16px;
+	color:  $white;
+	font-weight: 400;
+}
+.contacts-form textarea::placeholder {
+	font-size: 16px;
+	color: $white;
+	font-weight: 400;
+}
+.contacts-icon{
+    position:relative;
+}
+.contacts-icon::after {
+	position: absolute;
+	content: "";
+	font-family: "Font Awesome 5 Pro";
+	font-weight: 400;
+	display: inline-block;
+	font-size: 16px;
+	text-align: center;
+	right: 25px;
+	color: $white;
+	top: 22px;
+}
+.contactss-message::after {
+    content: "\f303";
+}
+.contactss-name::after {
+    content: "\f007";
+}
+.contactss-email::after {
+    content: "\f0e0";
+}
+.contactss-website::after {
+    content: "\f0ac";
+}
+.contacts-button button {
+	padding: 16px 30px;
+	width: 100%;
+	border: none;
+	font-size: 18px;
+	color: #222933;
+	font-weight: 500;
+	border-radius: 5px;
+	line-height: 1;
+    transition: .3s;
+    cursor: pointer;
+    &:hover{
+        background: $blue;
+        color:$white;
+    }
+}
+// style-2
+.contact-bg-img {
+	background-size: cover;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 50%;
+	background-position: center center;
+    transform: translateY(-99PX);
+    @media #{$md}{
+        width: 100%;
+        height: 500px;
+        position: static;
+        transform: inherit;
+      }
+    @media #{$xs}{
+        width: 100%;
+        height: 500px;
+        position: static;
+        transform: inherit;
+      }
+}
+.contact-02-address-wrapper{
+    padding: 135px 20px 130px 90px;
+    @media #{$lg}{
+        padding: 135px 20px 130px 30px;
+      }
+    @media #{$xs}{
+        padding: 135px 0 130px 0;
+      }
+    & .contact-address-text{
+        & h3{
+            color:$white;
+        }
+        & span{
+            color:$white;
+        }
+    }
+    
+}
+// style-3
+.contacts-wrapper {
+	border: 2px solid #f0f0f0;
+    padding: 95px 10px 90px;
+    transition: .3s;
+    &:hover{
+        border-color: $theme-color;
+        & i{
+            background: $theme-color;
+            color:$white;
+        }
+    }
+}
+.contactss-icon {
+    & i{
+        background: #e6eef6;
+        font-size: 35px;
+        height: 100px;
+        width: 100px;
+        color: $theme-color;
+        border-radius: 50%;
+        margin-bottom: 30px;
+        line-height: 100px;
+        transition: .3s;
+    }
+}
+.contacts-text{
+    & h4{
+        font-size: 20px;
+        color: $black;
+	    margin-bottom: 15px;
+    }
+    & p{
+        margin: 0;
+    }
+}
+.contacts-us-form{
+    & input{
+        border: 2px solid #475275;
+        height: 70px;
+        margin-bottom: 30px;
+        padding: 0 28px;
+        width: 100%;
+        font-size: 16px;
+		color: $white;
+		font-weight: 400;
+        border-radius: 5px;
+        background: none;
+    }
+    & textarea{
+        border: 2px solid #475275;
+        height: 200px;
+        margin-bottom: 30px;
+        padding: 28px;
+        width: 100%;
+        font-size: 16px;
+		color: $white;
+		font-weight: 400; 
+        border-radius: 5px;
+        background: none;
+    }
+}
+.contacts-us-form input:focus{border-color:$white;}
+.contacts-us-form textarea:focus{border-color:$white;}
+.contacts-us-form input::-moz-placeholder {
+	font-size: 16px;
+	color: $white;
+	font-weight: 400;
+}
+.contacts-us-form input::placeholder {
+	font-size: 16px;
+	color:  $white;
+	font-weight: 400;
+}
+.contacts-us-form textarea::-moz-placeholder {
+	font-size: 16px;
+	color:  $white;
+	font-weight: 400;
+}
+.contacts-us-form textarea::placeholder {
+	font-size: 16px;
+	color: $white;
+	font-weight: 400;
+}
+.contacts-us-button{
+    & button.c-btn{
+        padding: 17px 80px;
+        text-transform: capitalize;
+    }
+}
+// map
+.contact-map {
+	min-height: 700px;
+}
