@@ -7,9 +7,13 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Create New %%modelName%%</div>
+                    <div class="card-header">
+                        ویرایش دسته بندی
+                        #
+                        {{ $category->id }}
+                        {{ $category->title }}</div>
                     <div class="card-body">
-                        <a href="{{ url('/%%routeGroup%%%%viewName%%') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/category') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
                         <br />
                         <br />
 
@@ -21,9 +25,14 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/%%routeGroup%%%%viewName%%', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::model($category, [
+                            'method' => 'PATCH',
+                            'url' => ['/admin/category', $category->id],
+                            'class' => 'form-horizontal',
+                            'files' => true
+                        ]) !!}
 
-                        @include ('%%viewTemplateDir%%.form', ['formMode' => 'create'])
+                        @include ('admin.category.form', ['formMode' => 'edit'])
 
                         {!! Form::close() !!}
 

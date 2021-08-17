@@ -30,7 +30,20 @@ class Page extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'content', 'feature_photo', 'language', 'parent', 'author', 'is_translation', 'type'];
+    protected $fillable = [
+        'title',
+        'slug',
+        'content',
+        'feature_photo',
+        'language',
+        'parent',
+        'author',
+        'is_translation',
+        'status',
+        'type',
+        'excerpt',
+        'meta_description'
+    ];
 
     /**
      * Change activity log event description
@@ -42,5 +55,41 @@ class Page extends Model
     public function getDescriptionForEvent($eventName)
     {
         return __CLASS__ . " model has been {$eventName}";
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function category()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    /**
+     * Get parent page
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo(Page::class, 'parent', 'id');
+    }
+
+    /**
+     * Get children pages
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(Page::class, 'parent', 'id');
     }
 }

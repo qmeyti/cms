@@ -11,10 +11,10 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Create New Page</div>
+                    <div class="card-header">ساخت صفحه جدید</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/pages') }}" title="Back">
-                            <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> Back</button>
+                        <a href="{{ url('/admin/pages') }}" title="بازگشت">
+                            <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                         <br/>
                         <br/>
@@ -42,9 +42,17 @@
 @endsection
 
 @section('scripts')
+
     <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 
-    <script>
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.8.1/tinymce.min.js"></script>--}}
+    {{--    <script src="https://cdn.tiny.cloud/1/1lx5nhnj3ybljvrcy8qsrtfnc6xl60ugs7neudi6ep07d7h5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
+
+    <script type="text/javascript">
+        // tinymce.init({
+        //     selector: '.crud-richtext'
+        // });
+
         document.addEventListener("DOMContentLoaded", function () {
 
             document.getElementById('button-image').addEventListener('click', (event) => {
@@ -62,9 +70,37 @@
 
             const imageTag = document.querySelector('#FEATURE_PHOTO_PREVIEW img');
 
-            console.log(imageTag);
-
             imageTag.setAttribute('src', $url);
         }
+
+        function postTypeSwitcher() {
+
+            const type = $('#type option:selected').val();
+
+            if (type === 'post') {
+
+                $('#CATEGORY_SECTION').removeClass('d-none');
+
+                $('#PARENT_SECTION').addClass('d-none')
+
+            } else {
+
+                $('#PARENT_SECTION').removeClass('d-none');
+
+                $('#CATEGORY_SECTION').addClass('d-none')
+
+            }
+
+        }
+
+        $(document).ready(function () {
+            postTypeSwitcher();
+
+            $('#type').change(function (){
+                postTypeSwitcher();
+            });
+
+        });
+
     </script>
 @endsection

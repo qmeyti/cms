@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
-use App\Models\Tag;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
-class TagController extends Controller
+class SliderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,13 +21,13 @@ class TagController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $tags = Tag::where('name', 'LIKE', "%$keyword%")
+            $slider = Slider::where('title', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $tags = Tag::latest()->paginate($perPage);
+            $slider = Slider::latest()->paginate($perPage);
         }
 
-        return view('admin.tags.index', compact('tags'));
+        return view('admin.slider.index', compact('slider'));
     }
 
     /**
@@ -37,7 +37,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('admin.tags.create');
+        return view('admin.slider.create');
     }
 
     /**
@@ -49,12 +49,12 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         $requestData = $request->all();
+        
+        Slider::create($requestData);
 
-        Tag::create($requestData);
-
-        return redirect('admin/tags')->with('flash_message', 'Tag added!');
+        return redirect('admin/slider')->with('flash_message', 'Slider added!');
     }
 
     /**
@@ -66,9 +66,9 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        $tag = Tag::findOrFail($id);
+        $slider = Slider::findOrFail($id);
 
-        return view('admin.tags.show', compact('tag'));
+        return view('admin.slider.show', compact('slider'));
     }
 
     /**
@@ -80,9 +80,9 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        $tag = Tag::findOrFail($id);
+        $slider = Slider::findOrFail($id);
 
-        return view('admin.tags.edit', compact('tag'));
+        return view('admin.slider.edit', compact('slider'));
     }
 
     /**
@@ -95,13 +95,13 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        
         $requestData = $request->all();
+        
+        $slider = Slider::findOrFail($id);
+        $slider->update($requestData);
 
-        $tag = Tag::findOrFail($id);
-        $tag->update($requestData);
-
-        return redirect('admin/tags')->with('flash_message', 'Tag updated!');
+        return redirect('admin/slider')->with('flash_message', 'Slider updated!');
     }
 
     /**
@@ -113,8 +113,8 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        Tag::destroy($id);
+        Slider::destroy($id);
 
-        return redirect('admin/tags')->with('flash_message', 'Tag deleted!');
+        return redirect('admin/slider')->with('flash_message', 'Slider deleted!');
     }
 }

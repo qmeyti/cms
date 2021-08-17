@@ -18,13 +18,21 @@ class CreatePagesTable extends Migration
 
             $table->string('title')->nullable();
 
+            $table->string('slug')->nullable()->unique();
+
             $table->text('content')->nullable();
 
-            $table->string('type',12)->default('post');
+            $table->string('type', 12)->default('post');
 
-            $table->string('language',2)->default('fa');
+            $table->string('language', 2)->default('fa');
 
-            $table->string('feature_photo')->nullable();
+            $table->text('feature_photo')->nullable();
+
+            $table->text('excerpt')->nullable();
+
+            $table->text('meta_description')->nullable();
+
+            $table->string('status', 16)->default('draft');//published,trash
 
             $table->unsignedBigInteger('parent')->index()->nullable();
 

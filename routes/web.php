@@ -39,17 +39,23 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 
     Route::resource('/pages', 'PagesController');
 
+    Route::resource('/slider', 'SliderController');
+
+    Route::resource('/tags','TagController');
+
+    Route::resource('/sliders', 'Admin\SliderController');
+
+    Route::resource('category', 'CategoryController');
+
     Route::resource('/activitylogs', 'ActivityLogsController')->only([
         'index', 'show', 'destroy'
     ]);
 
     Route::resource('/settings', 'SettingsController');
 
+    Route::get('/generator', ['uses' => 'ProcessController@getGenerator']);
 
-
-
-    Route::get('/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
-
-    Route::post('/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
+    Route::post('/generator', ['uses' => 'ProcessController@postGenerator']);
 
 });
+

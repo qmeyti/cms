@@ -1,17 +1,17 @@
 (function ($) {
 	"use strict";
-	
+
 	// meanmenu
 	$('#mobile-menu').meanmenu({
 		meanMenuContainer: '.mobile-menu',
 		meanScreenWidth: "992"
 	});
-	
+
 	// info-bar
 	$('.info-bar').on('click', function () {
 		$('.extra-info').addClass('info-open');
 	})
-	
+
 	$('.close-icon').on('click', function () {
 		$('.extra-info').removeClass('info-open');
 	})
@@ -24,8 +24,8 @@
 	$("[data-bg-color]").each(function () {
 		$(this).css("background", $(this).attr("data-bg-color"))
 	})
-	
-	
+
+
 	// sticky
 	var wind = $(window);
 	var sticky = $('#sticky-headers');
@@ -37,16 +37,16 @@
 			sticky.addClass('sticky');
 		}
 	});
-	
-	
+
+
   // active
   $('.service-box').on('mouseenter', function () {
     $(this).addClass('active').parent().siblings().find('.service-box').removeClass('active');
   })
-	
 
 
-	
+
+
 	// mainSlider
 	function mainSlider() {
 		var BasicSlider = $('.slider-active');
@@ -309,12 +309,12 @@ $('.case-02-active').slick({
 		delay: 10,
 		time: 1000
 	});
-	
+
 		/* magnificPopup video view */
 		$('.popup-video').magnificPopup({
 			type: 'iframe'
 		});
-	
+
 		/* magnificPopup img view */
 		$('.popup-image').magnificPopup({
 			type: 'image',
@@ -322,8 +322,8 @@ $('.case-02-active').slick({
 				enabled: true
 			}
 		});
-	
-	
+
+
 		$('#portfolio-grid').imagesLoaded(function () {
 			// init Isotope
 			var $grid = $('#portfolio-grid').isotope({
@@ -340,19 +340,19 @@ $('.case-02-active').slick({
 				$grid.isotope({ filter: filterValue });
 			});
 		});
-	
-	
+
+
 		//for menu active class
 		$('.portfolio-menu button').on('click', function (event) {
 			$(this).siblings('.active').removeClass('active');
 			$(this).addClass('active');
 			event.preventDefault();
 		});
-	
-	
-	
-	
-	
+
+
+
+
+
 	// scrollToTop
 	$.scrollUp({
 		scrollName: 'scrollUp', // Element ID
@@ -364,10 +364,10 @@ $('.case-02-active').slick({
 		scrollText: '<i class="fas fa-angle-up"></i>', // Text for element
 		activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
 	});
-	
+
 	// WOW active
 	new WOW().init();
-	
+
 		// map
 function basicmap() {
 	// Basic options for a simple Google Map
@@ -429,5 +429,5 @@ if (typeof ($.fn.knob) != 'undefined') {
 	  });
 	});
   }
-	
+
 	})(jQuery);

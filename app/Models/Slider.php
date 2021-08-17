@@ -5,22 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Category extends Model
+class Slider extends Model
 {
     use LogsActivity;
+    
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'categories';
+    protected $table = 'sliders';
 
     /**
-     * The database primary key value.
-     *
-     * @var string
-     */
+    * The database primary key value.
+    *
+    * @var string
+    */
     protected $primaryKey = 'id';
 
     /**
@@ -28,23 +29,9 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'parent'];
+    protected $fillable = ['title'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function pages()
-    {
-        return $this->belongsToMany(Page::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function parent()
-    {
-        return $this->belongsTo(Category::class, 'parent', 'id');
-    }
+    
 
     /**
      * Change activity log event description

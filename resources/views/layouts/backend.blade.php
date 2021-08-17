@@ -13,10 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href={{ asset('css/app.css') }}>
 
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{asset('vendor/font-awesome/css/font-awesome.min.css')}}">
 
     <link rel="stylesheet" href={{ asset('assets/style/main.css') }}>
 
@@ -95,12 +92,6 @@
     <!-- Scripts -->
     <script src="{{ asset('vendor/jquery/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.8.1/tinymce.min.js"></script>
-    <script type="text/javascript">
-        tinymce.init({
-            selector: '.crud-richtext'
-        });
-    </script>
     <script type="text/javascript">
         $(function () {
             // Navigation active

@@ -7,15 +7,15 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Pages</div>
+                    <div class="card-header">صفحات و خبرهای سایت</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/pages/create') }}" class="btn btn-success" title="Add New Page">
+                        <a href="{{ url('/admin/pages/create') }}" class="btn btn-success" title="ایجاد صفحه جدید">
                             <i class="fa fa-plus" aria-hidden="true"></i> افزودن
                         </a>
 
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/pages', 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
                         <div class="input-group">
-                            <input type="text" class="form-control" dir="rtl" name="search" placeholder="Search..." value="{{ request('search') }}">
+                            <input type="text" class="form-control" dir="rtl" name="search" placeholder="جستجو..." value="{{ request('search') }}">
                                 <button class="btn btn-secondary" type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
@@ -28,7 +28,10 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Title</th><th>Content</th><th>Actions</th>
+                                        <th>شناسه</th>
+                                        <th>عنوان</th>
+                                        <th>محتوا</th>
+                                        <th>عملیات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -37,8 +40,8 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->title }}</td><td>{{ $item->content }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/pages/' . $item->id) }}" title="View Page"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                            <a href="{{ url('/admin/pages/' . $item->id . '/edit') }}" title="Edit Page"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/pages/' . $item->id) }}" title="مشاهده صفحه"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/pages/' . $item->id . '/edit') }}" title="ویرایش صفحه"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             {!! Form::open([
                                                 'method' => 'DELETE',
                                                 'url' => ['/admin/pages', $item->id],
@@ -47,8 +50,8 @@
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
                                                         'type' => 'submit',
                                                         'class' => 'btn btn-danger btn-sm',
-                                                        'title' => 'Delete Page',
-                                                        'onclick'=>'return confirm("Confirm delete?")'
+                                                        'title' => 'ویرایش صفحه',
+                                                        'onclick'=>'return confirm("آیا مطمعنی که قصد حذف این صفحه را داری؟")'
                                                 )) !!}
                                             {!! Form::close() !!}
                                         </td>

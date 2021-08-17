@@ -7,9 +7,9 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Create New %%modelName%%</div>
+                    <div class="card-header">ایجاد دسته بندی جدید</div>
                     <div class="card-body">
-                        <a href="{{ url('/%%routeGroup%%%%viewName%%') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/category') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
                         <br />
                         <br />
 
@@ -21,9 +21,9 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/%%routeGroup%%%%viewName%%', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => '/admin/category', 'class' => 'form-horizontal', 'files' => true]) !!}
 
-                        @include ('%%viewTemplateDir%%.form', ['formMode' => 'create'])
+                        @include ('admin.category.form', ['formMode' => 'create'])
 
                         {!! Form::close() !!}
 
