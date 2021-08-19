@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests;
+use App\Http\Requests\PageRequest as PageRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Models\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
@@ -41,66 +42,104 @@ class PagesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function create()
     {
-        return view('admin.pages.create');
+        /**
+         * Delete all old Auto-draft posts
+         */
+        $page = null;
+
+        DB::beginTransaction();
+
+        try {
+
+            Page::deleteAutoDrafts();
+
+            $page = Page::makeAutoDraft();
+
+            DB::commit();
+
+        } catch (\Exception $exception) {
+
+            DB::rollBack();
+
+            return redirect('admin/pages')->with('flash_error', 'خطایی در هنگام ایجاد فرم رخ داد!');
+
+        }
+
+        return view('admin.pages.create', [
+            'page' => $page,
+            'categories' => [],
+            'tags' => [],
+            'multipleCategorySelection' => true,
+        ]);
     }
 
     /**
-     * @param Request $request
+     * @param PageRequest $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(PageRequest $request)
     {
+        $data = $request->validated();
 
-        __sanitize('title');
-        __sanitize('excerpt');
-        __sanitize('meta_description');
+        $data['content'] = htmlentities($data['content'], ENT_QUOTES, 'UTF-8', false);
 
-        $request->merge(['slug' => Str::slug((string)$request->input('slug'))]);
+        DB::beginTransaction();
 
-        $data = $this->validate($request, [
-            "title" => ["required", "min:2", "max:255", "string"],
-            "status" => ["required", "string", "in:draft,published,pending"],
-            "type" => ["required", "string", "in:post,page"],
-            "slug" => ["required", "min:2", "max:255", "string"],
-            "tags" => ["nullable", "sometimes", 'array'],
-            "tags.*" => ["required", "min:1", "max:50", "string"],
-            "categories" => ["nullable", "sometimes", 'array'],
-            "categories.*" => ["required", 'exists:categories,id', "min:1", "integer"],
-            "content" => ["nullable", "sometimes", "max:65535", "string"],
-            "parent" => ["nullable", "sometimes", 'integer', 'min:1', 'exists:posts,id'],
-            "feature_photo" => ['url', "nullable", "sometimes", 'max:2048', 'string'],
-            "excerpt" => ["nullable", "sometimes", "max:300", "string"],
-            "meta_description" => ["nullable", "sometimes", "max:200", "string"],
-//            "post_id" => ['required', 'integer', 'min:1', 'exists:posts,id'],
-        ],[],[
-           'title' => 'عنوان نوشته',
-           'status' => 'وضعیت انتشار',
-           'type' => 'نوع نوشته',
-           'slug' => 'عنوان انگلیسی نوشته',
-           'tags' => 'برچسب ها',
-           'categories' => 'دسته بندی ها',
-           'content' => 'محتوای نوشته',
-           'parent' => 'نوشته والد',
-           'feature_photo' => 'تصویر شاخص',
-           'excerpt' => 'خلاصه متن',
-           'meta_description' => 'توضیحات متا',
-           'post_id' => 'شناسه پست',
-        ]);
+        try {
 
-        $data = $request->all();
+            $page = __null404(Page::find($data['page_id']));
 
-        $data = htmlentities($data['body'], ENT_QUOTES, 'UTF-8', false);
+            /**
+             * Insert new tags
+             */
+            if (isset($data['tags']) && !empty($data['tags']))
+            {
+                /**
+                 * Insert new tags and get all selected tags ids for store
+                 */
+                $tags = Tag::savePostTags($data['tags']);
 
-        Page::create($data);
+                /**
+                 * Insert new tags
+                 */
+                if (!empty($tags))
+                    $page->tags()->sync(array_values($tags));
 
-        return redirect('admin/pages')->with('flash_message', 'Page added!');
+            }
+
+            if ($data['type'] === 'post') {
+                /**
+                 * Unset parent page if is post
+                 */
+                if (isset($data['parent']))
+                    unset($data['parent']);
+
+                /**
+                 * Insert categories
+                 */
+                if (isset($data['categories']) && !empty($data['categories']))
+                    $page->categories()->sync(array_values($data['categories']));
+            }
+
+            $page->update($data);
+
+            DB::commit();
+
+        } catch (\Exception $exception) {
+
+            dd($exception->getMessage());
+
+            DB::rollBack();
+
+            return back()->with('flash_error', 'خطایی در هنگام ذخیره سازی رخ داده است!');
+        }
+
+        return redirect('admin/pages')->with('flash_message', 'نوشته جدید با موفقیت ایجاد شد!');
+
     }
 
     /**

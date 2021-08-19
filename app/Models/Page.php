@@ -68,7 +68,7 @@ class Page extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function category()
+    public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
@@ -91,5 +91,55 @@ class Page extends Model
     public function children()
     {
         return $this->hasMany(Page::class, 'parent', 'id');
+    }
+
+    /**
+     * Delete all old Auto-draft posts
+     *
+     * @param int $from
+     */
+    public static function deleteAutoDrafts(int $from = 86400)
+    {
+        Page::where('status', 'auto-draft')
+            ->where('created_at', '<', date('Y-m-d H:i:s', time() - $from))
+            ->delete();
+    }
+
+    /**
+     * Make new auto draft post
+     *
+     * @param string $postType
+     * @param User|null $user
+     * @param string $language
+     * @return mixed
+     */
+    public static function makeAutoDraft(string $postType = 'post', User $user = null, string $language = 'fa')
+    {
+        return Page::create([
+            'status' => 'auto-draft',
+            'author' => ($user ?? auth()->user())->id,
+            'type' => $postType,
+            'language' => $language,
+        ]);
+    }
+
+
+    /**
+     * Create post slug
+     *
+     * @param $string
+     * @param string $separator
+     * @return bool|false|mixed|string|string[]|null
+     */
+    public static function slugify($string, $separator = '-')
+    {
+        $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
+        $special_cases = array('&' => 'and', "'" => '');
+        $string = mb_strtolower(trim($string), 'UTF-8');
+        $string = str_replace(array_keys($special_cases), array_values($special_cases), $string);
+        $string = preg_replace($accents_regex, '$1', htmlentities($string, ENT_QUOTES, 'UTF-8'));
+        $string = preg_replace("/[^a-z0-9]/u", "$separator", $string);
+        $string = preg_replace("/[$separator]+/u", "$separator", $string);
+        return $string;
     }
 }

@@ -26,7 +26,7 @@ if (!function_exists('__num_sanitize')) {
      */
     function __num_sanitize(string $field, $default = 0, \Illuminate\Http\Request $request = null)
     {
-        \App\Libraries\Sanitize::numberRequest($field, $default,$request);
+        \App\Libraries\Sanitize::numberRequest($field, $default, $request);
     }
 }
 
@@ -42,3 +42,21 @@ if (!function_exists('__num2en')) {
         return \App\Libraries\Jdf::tr_num($persianNumericString, 'en');
     }
 }
+
+
+if (!function_exists('__null404')) {
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    function __null404($data)
+    {
+
+        if (is_null($data))
+            abort(404);
+
+        return $data;
+    }
+}
+

@@ -28,3 +28,22 @@ body {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+
+#validationTags + .dropdown input[type="text"]{
+
+     --tw-ring-offset-color: unset;
+     --tw-ring-color: unset;
+     --tw-ring-offset-shadow: unset;
+     --tw-ring-shadow: unset;
+    border-color: unset;
+    box-shadow: unset;
+    outline: unset;
+    outline-offset: unset;
+}
+
+.help-block{
+    color: red;
+    font-size: 0.8rem;
+    margin: 5px;
+}

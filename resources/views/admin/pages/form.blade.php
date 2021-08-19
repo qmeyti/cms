@@ -1,19 +1,32 @@
+@section('head')
+    <link rel="stylesheet" href="{{ asset('vendor/tagify-master/dist/tagify.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
+@endsection
+
+<input type="hidden" value="{{$page->id}}" name="page_id">
+
 <div class="form-group{{ $errors->has('title') ? 'has-error' : ''}} mb-3">
     {!! Form::label('title', 'عنوان نوشته', ['class' => 'control-label mb-3' ]) !!}
-    {!! Form::text('title', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! Form::text('title', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required','maxlength' => 255] : ['class' => 'form-control','maxlength' => 255]) !!}
     {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group{{ $errors->has('slug') ? 'has-error' : ''}} mb-3">
     {!! Form::label('slug', 'عنوان به انگلیسی', ['class' => 'control-label mb-3' ]) !!}
-    {!! Form::text('slug', null, ('required' == 'required') ? ['class' => 'form-control ltr', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! Form::text('slug', null, ('required' == 'required') ? ['class' => 'form-control ltr', 'required' => 'required','maxlength' => 255] : ['class' => 'form-control','maxlength' => 255]) !!}
     {!! $errors->first('slug', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group{{ $errors->has('type') ? 'has-error' : ''}} mb-3">
-    {!! Form::label('type', 'نوع صفحه', ['class' => 'control-label mb-3' ]) !!}
+<div class="form-group{{ $errors->has('content') ? 'has-error' : ''}} mb-3">
+    {!! Form::label('content', 'محتوای نوشته', ['class' => 'control-label mb-3' ]) !!}
+    {!! Form::textarea('content', null, ['class' => 'form-control crud-richtext']) !!}
+    {!! $errors->first('content', '<p class="help-block">:message</p>') !!}
+</div>
 
-    {{Form::select('type',['post' => 'خبر یا مقاله','page' => 'صفحه تکی'] , null , ['id' => 'type','class' => 'form-control'])}}
+<div class="form-group{{ $errors->has('type') ? 'has-error' : ''}} mb-3">
+    {!! Form::label('type', 'نوع نوشته', ['class' => 'control-label mb-3' ]) !!}
+
+    {{Form::select('type',['post' => 'خبر یا مقاله','page' => 'صفحه تکی'] , null , ['type' => 'select','id' => 'type','class' => 'form-control'])}}
 
     {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
 </div>
@@ -28,13 +41,12 @@
         }
     @endphp
 
-    {{Form::select('categories[]',$cs , ($formMode === 'edit'? $page->categories->pluck('id')->toArray() : null) ,
- ['class' => 'form-control',
- 'placeholder' => 'دسته بندی',
- 'multiple'=>'multiple',
- 'name'=>'categories[]',
- 'id' => 'categories',
- ])}}
+    {{Form::select('categories[]',$cs , ($formMode === 'edit'? $page->categories->pluck('id')->toArray() : null) ,[
+    'class' => 'form-control',
+    'multiple'=>'multiple',
+    'name'=>'categories[]',
+    'id' => 'categories'
+    ])}}
 
     {!! $errors->first('categories', '<p class="help-block">:message</p>') !!}
 </div>
@@ -54,11 +66,31 @@
     {!! $errors->first('parent', '<p class="help-block">:message</p>') !!}
 </div>
 
+<div class="form-group{{ $errors->has('excerpt') ? 'has-error' : ''}} mb-3">
+    {!! Form::label('excerpt', 'خلاصه نوشته', ['class' => 'control-label mb-3' ]) !!}
+    {!! Form::textarea('excerpt', null, ['class' => 'form-control']) !!}
+    {!! $errors->first('excerpt', '<p class="help-block">:message</p>') !!}
+</div>
 
-<div class="form-group{{ $errors->has('content') ? 'has-error' : ''}} mb-3">
-    {!! Form::label('content', 'محتوای نوشته', ['class' => 'control-label mb-3' ]) !!}
-    {!! Form::textarea('content', null, ['class' => 'form-control crud-richtext']) !!}
-    {!! $errors->first('content', '<p class="help-block">:message</p>') !!}
+<div class="form-group{{ $errors->has('meta_description') ? 'has-error' : ''}} mb-3">
+    {!! Form::label('meta_description', 'توضیحات متا', ['class' => 'control-label mb-3' ]) !!}
+    {!! Form::textarea('meta_description', null, ['class' => 'form-control']) !!}
+    {!! $errors->first('meta_description', '<p class="help-block">:message</p>') !!}
+</div>
+
+<div class="form-group{{ $errors->has('tags') ? 'has-error' : ''}} mb-3">
+    <label for="validationTags" class="form-label">تگ ها</label>
+    <input name='tags' value='' class="form-control ltr">
+    <div class="invalid-feedback">لطفا یک تگ صحیح را بنویسید.</div>
+</div>
+
+
+<div class="form-group{{ $errors->has('status') ? 'has-error' : ''}} mb-3">
+    {!! Form::label('status', 'وضعیت انتشار', ['class' => 'control-label mb-3' ]) !!}
+
+    {{Form::select('status',['pending' => 'در انتظار تایید','published' => 'انتشار یابد'] , null , ['class' => 'form-control'])}}
+
+    {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group{{ $errors->has('feature_image') ? 'has-error' : ''}} mb-3">
@@ -83,15 +115,106 @@
 
 </div>
 
-
-<div class="form-group{{ $errors->has('status') ? 'has-error' : ''}} mb-3">
-    {!! Form::label('status', 'وضعیت انتشار', ['class' => 'control-label mb-3' ]) !!}
-
-    {{Form::select('status',['draft' => 'پیشنویس','published' => 'انتشار','pending' => 'در انتظار انتشار'] , null , ['class' => 'form-control'])}}
-
-    {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
-</div>
-
 <div class="form-group">
     <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{$formMode === 'edit' ? 'ویرایش' : 'ذخیره'}} </button>
 </div>
+
+@section('scripts')
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.8.1/tinymce.min.js"></script>
+    {{--    <script src="https://cdn.tiny.cloud/1/1lx5nhnj3ybljvrcy8qsrtfnc6xl60ugs7neudi6ep07d7h5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '.crud-richtext',
+            plugins: "directionality",
+            // menubar: 'file edit view format',
+            toolbar: 'undo redo | styleselect | fontselect fontsizeselect formatselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | ltr rtl | code'
+        });
+    </script>
+
+    <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+
+    <script src="{{ asset('vendor/tagify-master/dist/jQuery.tagify.min.js') }}"></script>
+
+    <script type="text/javascript">
+        var $input = $('input[name=tags]')
+            .tagify({
+                direction:'rtl',
+                whitelist : [
+                    {"id":1, "value":"some string"}
+                ]
+            })
+            .on('add', function(e, tagName){
+                console.log('JQEURY EVENT: ', 'added', tagName)
+            })
+            .on("invalid", function(e, tagName) {
+                console.log('JQEURY EVENT: ',"invalid", e, ' ', tagName);
+            });
+
+        // get the Tagify instance assigned for this jQuery input object so its methods could be accessed
+        var jqTagify = $input.data('tagify');
+
+        // bind the "click" event on the "remove all tags" button
+        $('.tags-jquery--removeAllBtn').on('click', jqTagify.removeAllTags.bind(jqTagify))
+
+
+
+
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.getElementById('button-image').addEventListener('click', (event) => {
+
+                event.preventDefault();
+
+                window.open('/file-manager/fm-button', 'fm', 'width=1400,height=800');
+            });
+        });
+
+        // set file link
+        function fmSetLink($url) {
+
+            document.getElementById('FEATURE_PHOTO_INPUT').value = $url;
+
+            const imageTag = document.querySelector('#FEATURE_PHOTO_PREVIEW img');
+
+            imageTag.setAttribute('src', $url);
+        }
+
+        function postTypeSwitcher() {
+
+            const type = $('#type option:selected').val();
+
+            if (type === 'post') {
+
+                $('#CATEGORY_SECTION').removeClass('d-none');
+
+                $('#PARENT_SECTION').addClass('d-none')
+
+            } else {
+
+                $('#PARENT_SECTION').removeClass('d-none');
+
+                $('#CATEGORY_SECTION').addClass('d-none')
+
+            }
+
+        }
+
+        $(document).ready(function () {
+            postTypeSwitcher();
+
+            $('#type').change(function () {
+                postTypeSwitcher();
+            });
+
+        });
+
+    </script>
+@endsection
