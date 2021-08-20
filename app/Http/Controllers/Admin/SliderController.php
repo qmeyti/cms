@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -49,18 +47,19 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        Slider::create($requestData);
+        __sanitize('title');
 
-        return redirect('admin/slider')->with('flash_message', 'Slider added!');
+        $data = $request->validate(['title' => 'required|string|min:2|max:255']);
+
+        Slider::create($data);
+
+        return redirect('admin/slider')->with('flash_message', 'اسلایدر جدید با موفقیت ایجاد شد!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\View\View
      */
@@ -74,7 +73,7 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\View\View
      */
@@ -89,17 +88,17 @@ class SliderController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Slider $slider)
     {
-        
-        $requestData = $request->all();
-        
-        $slider = Slider::findOrFail($id);
-        $slider->update($requestData);
+        __sanitize('title');
+
+        $data = $request->validate(['title' => 'required|string|min:2|max:255']);
+
+        $slider->update($data);
 
         return redirect('admin/slider')->with('flash_message', 'Slider updated!');
     }
@@ -107,7 +106,7 @@ class SliderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

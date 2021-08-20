@@ -46,6 +46,14 @@ class Page extends Model
     ];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function writer()
+    {
+        return $this->belongsTo(User::class, 'author', 'id');
+    }
+
+    /**
      * Change activity log event description
      *
      * @param string $eventName
@@ -123,23 +131,12 @@ class Page extends Model
         ]);
     }
 
-
     /**
-     * Create post slug
-     *
-     * @param $string
-     * @param string $separator
-     * @return bool|false|mixed|string|string[]|null
+     * @param array $notInIds
+     * @return mixed
      */
-    public static function slugify($string, $separator = '-')
+    public static function getParentablePage(array $notInIds)
     {
-        $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
-        $special_cases = array('&' => 'and', "'" => '');
-        $string = mb_strtolower(trim($string), 'UTF-8');
-        $string = str_replace(array_keys($special_cases), array_values($special_cases), $string);
-        $string = preg_replace($accents_regex, '$1', htmlentities($string, ENT_QUOTES, 'UTF-8'));
-        $string = preg_replace("/[^a-z0-9]/u", "$separator", $string);
-        $string = preg_replace("/[$separator]+/u", "$separator", $string);
-        return $string;
+        return \App\Models\Page::where('status', 'published')->whereNotIn('id', $notInIds)->where('type', 'page')->get();
     }
 }

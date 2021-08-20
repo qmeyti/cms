@@ -7,15 +7,15 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Slider</div>
+                    <div class="card-header">اسلایدر</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/slider/create') }}" class="btn btn-success" title="Add New Slider">
+                        <a href="{{ url('/admin/slider/create') }}" class="btn btn-success" title="افزودن اسلایدر جدید">
                             <i class="fa fa-plus" aria-hidden="true"></i> افزودن
                         </a>
 
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/slider', 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
                         <div class="input-group">
-                            <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
+                            <input type="text" class="form-control" name="search" placeholder="جستجو..." value="{{ request('search') }}">
                             <button class="btn btn-secondary" type="submit">
                                 <i class="fa fa-search"></i>
                             </button>
@@ -29,8 +29,9 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Title</th>
-                                    <th>Actions</th>
+                                    <th>عنوان</th>
+                                     <th>اسلایدها</th>
+                                     <th>عملیات</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -39,10 +40,17 @@
                                         <td>{{ $loop->iteration or $item->id }}</td>
                                         <td>{{ $item->title }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/slider/' . $item->id) }}" title="View Slider">
+                                            <a href="{{ route('slides.index',['slider' => $item->id]) }}" class="btn btn-sm btn-success">
+                                                <i class="fa fa-picture-o"></i>
+                                                مشاهده اسلایدها
+                                            </a>
+
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('/admin/slider/' . $item->id) }}" title="نمایش اسلایدر">
                                                 <button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button>
                                             </a>
-                                            <a href="{{ url('/admin/slider/' . $item->id . '/edit') }}" title="Edit Slider">
+                                            <a href="{{ url('/admin/slider/' . $item->id . '/edit') }}" title="ویرایش اسلایدر">
                                                 <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                             </a>
                                             {!! Form::open([
@@ -53,8 +61,8 @@
                                             {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
                                                     'type' => 'submit',
                                                     'class' => 'btn btn-danger btn-sm',
-                                                    'title' => 'Delete Slider',
-                                                    'onclick'=>'return confirm("Confirm delete?")'
+                                                    'title' => 'حذف اسلایدر',
+                                                    'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
                                             )) !!}
                                             {!! Form::close() !!}
                                         </td>
@@ -62,9 +70,11 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="pagination-wrapper"> {!! $slider->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
+                    </div>
+                    <div class="card-footer ltr">
+                        <div class="pagination-wrapper"> {!! $slider->appends(['search' => Request::get('search')])->render() !!} </div>
                     </div>
                 </div>
             </div>

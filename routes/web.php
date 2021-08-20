@@ -43,9 +43,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 
     Route::resource('/tags','TagController');
 
-    Route::resource('/sliders', 'Admin\SliderController');
+    Route::resource('/sliders', 'SliderController');
 
-    Route::resource('category', 'CategoryController');
+    Route::resource('/{slider}/slides', 'SlideController');
+
+    Route::resource('/category', 'CategoryController');
 
     Route::resource('/activitylogs', 'ActivityLogsController')->only([
         'index', 'show', 'destroy'

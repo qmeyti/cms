@@ -5,23 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Slider extends Model
+class Slide extends Model
 {
     use LogsActivity;
-
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'sliders';
+    protected $table = 'slides';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -29,14 +28,14 @@ class Slider extends Model
      *
      * @var array
      */
-    protected $fillable = ['title'];
+    protected $fillable = ['header', 'text1', 'text2', 'url', 'image', 'slider_id'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function slides()
+    public function slider()
     {
-        return $this->hasMany(Slide::class,'slider_id','id');
+        return $this->belongsTo(Slider::class, 'slider_id', 'id');
     }
 
     /**

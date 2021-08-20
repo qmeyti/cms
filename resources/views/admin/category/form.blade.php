@@ -15,7 +15,14 @@
 
     @php
         $cs = [];
-        foreach (\App\Models\Category::all() as $item){
+
+        $cid = null;
+        if ($formMode === 'edit')
+            $cid = $category->id;
+
+        $cats = \App\Models\Category::where('id','!=',$cid)->get();
+
+        foreach ($cats as $item){
             $cs[$item->id] = $item->title;
         }
     @endphp

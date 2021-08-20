@@ -10,18 +10,18 @@
                     <div class="card-header">Setting</div>
                     <div class="card-body">
 
-                        <a href="{{ url('/admin/settings') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('/admin/settings/' . $setting->id . '/edit') }}" title="Edit Setting"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                        <a href="{{ url('/admin/settings') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
+                        <a href="{{ url('/admin/settings/' . $setting->id . '/edit') }}" title="Edit Setting"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['admin/settings', $setting->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> حذف', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-sm',
                                     'title' => 'Delete Setting',
-                                    'onclick'=>'return confirm("Confirm delete?")'
+                                    'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
                             ))!!}
                         {!! Form::close() !!}
                         <br/>

@@ -1,5 +1,11 @@
 @extends('layouts.backend')
-
+@section('head')
+    <style>
+        td{
+          vertical-align: middle;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container">
         <div class="row">
@@ -7,18 +13,20 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">دسته بندی های صفحات</div>
+                    <div class="card-header">اسلایدهای مربوط به {{$slider->title}}</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/category/create') }}" class="btn btn-success" title="افزودن یک دسته جدید">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                            افزودن دسته جدید
+                        <a href="{{ route('sliders.index') }}" class="btn btn-warning" title="بازگشت">
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت
                         </a>
 
-                        {!! Form::open(['method' => 'GET', 'url' => '/admin/category', 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
+                        <a href="{{ route('slides.create',['slider' => $slider->id]) }}" class="btn btn-success" title="ایجاد اسلاید جدید">
+                            <i class="fa fa-plus" aria-hidden="true"></i> افزودن
+                        </a>
+
+                        {!! Form::open(['method' => 'GET', 'url' => route('slides.index',['slider' => $slider->id]), 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="جستجو..." value="{{ request('search') }}">
-
-                            <button class="btn btn-secondary " type="submit">
+                            <button class="btn btn-secondary" type="submit">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -31,36 +39,35 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>عنوان</th>
-                                    <th>نامک</th>
-                                    <th>والد</th>
+                                    <th></th>
+                                    <th>عنوان اسلایدر</th>
                                     <th>عملیات</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($category as $item)
+                                @foreach($slide as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->title }}</td>
-                                        <td>{{ $item->slug }}</td>
-                                        <td>{{ is_null($c = $item->parent()->first()) ? '' : $c->title }}</td>
+                                        <td><img src="{{ $item->image }}" style="width: 80px;" alt=""></td>
+                                        <td>{{ $item->header }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/category/' . $item->id) }}" title="نمایش دسته بندی">
+                                            <a href="{{ route('slides.show',['slide' => $item->id,'slider' => $slider->id]) }}" title="نمایش اسلاید">
                                                 <button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button>
                                             </a>
-                                            <a href="{{ url('/admin/category/' . $item->id . '/edit') }}" title="ویرایش دسته بندی">
+                                            <a href="{{ route('slides.edit',['slide' => $item->id,'slider' => $slider->id]) }}" title="ویرایش اسلاید">
                                                 <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                             </a>
                                             {!! Form::open([
                                                 'method' => 'DELETE',
-                                                'url' => ['/admin/category', $item->id],
+                                                'url' => route('slides.destroy',['slide' => $item->id,'slider' => $slider->id]),
                                                 'style' => 'display:inline'
                                             ]) !!}
+
                                             {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
                                                     'type' => 'submit',
                                                     'class' => 'btn btn-danger btn-sm',
-                                                    'title' => 'حذف دسته بندی',
-                                                    'onclick'=>'return confirm("مطمعنی که قصد حذف کردن داری؟")'
+                                                    'title' => 'حذف اسلاید',
+                                                    'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
                                             )) !!}
                                             {!! Form::close() !!}
                                         </td>
@@ -68,12 +75,11 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="pagination-wrapper"></div>
                         </div>
-
                     </div>
+
                     <div class="card-footer ltr">
-                        {!! $category->appends(['search' => Request::get('search')])->render() !!}
+                        <div class="pagination-wrapper"> {!! $slide->appends(['search' => Request::get('search')])->render() !!} </div>
                     </div>
                 </div>
             </div>

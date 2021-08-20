@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-
+use App\Libraries\GeneralRegex;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -49,18 +48,21 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+        __sanitize('name', '');
 
-        $requestData = $request->all();
+        $data = $request->validate([
+            'name' => ['required', 'unique:tags,name', 'string', 'max:255', 'regex:' . GeneralRegex::tagsRegex()]
+        ], [], ['name' => 'عنوان برچسب']);
 
-        Tag::create($requestData);
+        Tag::create($data);
 
-        return redirect('admin/tags')->with('flash_message', 'Tag added!');
+        return redirect('admin/tags')->with('flash_message', 'برچسب با موفقیت ایجاد شد!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\View\View
      */
@@ -74,7 +76,7 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\View\View
      */
@@ -89,25 +91,27 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tag $tag)
     {
+        __sanitize('name', '');
 
-        $requestData = $request->all();
+        $data = $request->validate([
+            'name' => ['required', 'unique:tags,name,' . $tag->id, 'string', 'max:255', 'regex:' . GeneralRegex::tagsRegex()]
+        ], [], ['name' => 'عنوان برچسب']);
 
-        $tag = Tag::findOrFail($id);
-        $tag->update($requestData);
+        $tag->update($data);
 
-        return redirect('admin/tags')->with('flash_message', 'Tag updated!');
+        return redirect('admin/tags')->with('flash_message', 'ویرایش برچسب با موفقیت انجام شد!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -115,6 +119,6 @@ class TagController extends Controller
     {
         Tag::destroy($id);
 
-        return redirect('admin/tags')->with('flash_message', 'Tag deleted!');
+        return redirect('admin/tags')->with('flash_message', 'برچسب حذف شد!');
     }
 }

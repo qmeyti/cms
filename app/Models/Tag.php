@@ -60,7 +60,7 @@ class Tag extends Model
     public static function savePostTags($tags)
     {
         $tags = array_values($tags);
-        $exists = Tag::whereIn('name', $tags)->pluck('tag')->toArray();
+        $exists = Tag::whereIn('name', $tags)->pluck('name')->toArray();
 
         $new = [];
 

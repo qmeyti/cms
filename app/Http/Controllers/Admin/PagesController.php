@@ -23,6 +23,7 @@ class PagesController extends Controller
         $perPage = 25;
 
         $pages = Page::with('categories')
+            ->whereIn('status', ['published', 'pending', 'trash'])
             ->where('is_translation', false);
 
         if (!empty($keyword)) {
@@ -39,6 +40,21 @@ class PagesController extends Controller
         }
 
         return view('admin.pages.index', compact('pages'));
+    }
+
+    /**
+     * @param array $notInIds
+     * @return array
+     */
+    private function parentablePages(array $notInIds)
+    {
+        $ps = [];
+
+        foreach (Page::getParentablePage($notInIds) as $item) {
+            $ps[$item->id] = $item->title;
+        }
+
+        return $ps;
     }
 
     /**
@@ -71,10 +87,55 @@ class PagesController extends Controller
 
         return view('admin.pages.create', [
             'page' => $page,
-            'categories' => [],
-            'tags' => [],
+            'parents' => $this->parentablePages([$page->id]),
             'multipleCategorySelection' => true,
         ]);
+    }
+
+    /**
+     * @param $tagsString
+     * @return array|false|string[]
+     */
+    private function tagsParser($tagsString)
+    {
+        if (is_string($tagsString)) {
+            $tagsList = explode(',', $tagsString);
+
+            array_map(function ($item) {
+
+                return preg_replace('!\s+!', ' ', trim($item));
+
+            }, $tagsList);
+
+            return $tagsList;
+        }
+
+        return [];
+    }
+
+    /**
+     * Insert new tags
+     *
+     * @param Page $page
+     * @param string $tags
+     */
+    private function insertTags(Page $page, string $tags)
+    {
+        if (!empty($tags = $this->tagsParser($tags))) {
+
+            if (!empty($tags = Tag::savePostTags($tags))) {
+
+                $page->tags()->sync(array_values($tags));
+
+            }
+
+        }
+    }
+
+    private function insertCategories(Page $page, array $cats)
+    {
+        if (!empty($cats))
+            $page->categories()->sync(array_values($cats));
     }
 
     /**
@@ -83,6 +144,8 @@ class PagesController extends Controller
      */
     public function store(PageRequest $request)
     {
+        $request->validate(["slug" => ['unique:pages,slug']]);
+
         $data = $request->validated();
 
         $data['content'] = htmlentities($data['content'], ENT_QUOTES, 'UTF-8', false);
@@ -91,38 +154,38 @@ class PagesController extends Controller
 
         try {
 
+            /**
+             * Get Article
+             */
             $page = __null404(Page::find($data['page_id']));
 
             /**
              * Insert new tags
              */
-            if (isset($data['tags']) && !empty($data['tags']))
-            {
-                /**
-                 * Insert new tags and get all selected tags ids for store
-                 */
-                $tags = Tag::savePostTags($data['tags']);
+            $this->insertTags($page, (isset($data['tags']) ? $data['tags'] : ''));
 
-                /**
-                 * Insert new tags
-                 */
-                if (!empty($tags))
-                    $page->tags()->sync(array_values($tags));
-
-            }
-
+            /**
+             * Post type settings
+             */
             if ($data['type'] === 'post') {
                 /**
-                 * Unset parent page if is post
+                 * Parent page set null
                  */
-                if (isset($data['parent']))
-                    unset($data['parent']);
+                $data['parent'] = null;
 
                 /**
                  * Insert categories
                  */
-                if (isset($data['categories']) && !empty($data['categories']))
-                    $page->categories()->sync(array_values($data['categories']));
+                if (isset($data['categories'])) {
+                    $this->insertCategories($page, $data['categories']);
+                }
+
+            } else {
+
+                if (isset($data['parent']) && $page->id == $data['parent']) {
+                    return back()->with('flash_error', 'صفحه والد انتخاب شده صحیح نیست!');
+                }
+
             }
 
             $page->update($data);
@@ -130,8 +193,6 @@ class PagesController extends Controller
             DB::commit();
 
         } catch (\Exception $exception) {
-
-            dd($exception->getMessage());
 
             DB::rollBack();
 
@@ -167,29 +228,74 @@ class PagesController extends Controller
     {
         $page = Page::with('categories')->findOrFail($id);
 
-        return view('admin.pages.edit', compact('page'));
+        return view('admin.pages.edit', [
+            'page' => $page,
+            'parents' => $this->parentablePages([$page->id]),
+            'tags' => $page->tags->pluck('name')->toArray(),
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param PageRequest $request
+     * @param Page $page
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(PageRequest $request, Page $page)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'content' => 'required'
-        ]);
-        $requestData = $request->all();
+        $request->validate(["slug" => ['unique:pages,slug,' . $page->id]]);
 
-        $page = Page::findOrFail($id);
-        $page->update($requestData);
+        $data = $request->validated();
 
-        return redirect('admin/pages')->with('flash_message', 'Page updated!');
+        $data['content'] = htmlentities($data['content'], ENT_QUOTES, 'UTF-8', false);
+
+        DB::beginTransaction();
+
+        try {
+
+            /**
+             * Insert new tags
+             */
+            $this->insertTags($page, (isset($data['tags']) ? $data['tags'] : ''));
+
+            /**
+             * Post type settings
+             */
+            if ($data['type'] === 'post') {
+                /**
+                 * Parent page set null
+                 */
+                $data['parent'] = null;
+
+                /**
+                 * Insert categories
+                 */
+                if (isset($data['categories'])) {
+                    $this->insertCategories($page, $data['categories']);
+                }
+
+            } else {
+
+                if (isset($data['parent']) && $page->id == $data['parent']) {
+                    return back()->with('flash_error', 'صفحه والد انتخاب شده صحیح نیست!');
+                }
+
+                $page->categories()->sync([]);
+
+            }
+
+            $page->update($data);
+
+            DB::commit();
+
+        } catch (\Exception $exception) {
+
+            DB::rollBack();
+
+            return back()->with('flash_error', 'خطایی در هنگام ذخیره سازی رخ داده است!');
+        }
+
+        return redirect('admin/pages')->with('flash_message', 'نوشته با موفقیت ویرایش شد!');
+
     }
 
     /**

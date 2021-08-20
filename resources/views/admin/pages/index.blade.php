@@ -30,7 +30,10 @@
                                     <tr>
                                         <th>شناسه</th>
                                         <th>عنوان</th>
-                                        <th>محتوا</th>
+                                        <th>نوع</th>
+                                        <th>وضعیت</th>
+                                        <th>نویسنده</th>
+                                        <th>دسته بندی | والد</th>
                                         <th>عملیات</th>
                                     </tr>
                                 </thead>
@@ -38,7 +41,29 @@
                                 @foreach($pages as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->title }}</td><td>{{ $item->content }}</td>
+
+                                        <td><a href="{{route('pages.edit',['page' => $item->id])}}">{{$item->title}}</a></td>
+
+
+                                        <td>{{ str_replace(['post','page'],['خبر','صفحه'],$item->type) }}</td>
+
+                                        <td>{{ str_replace(['draft','published','trash','pending'],['پست موقت','منتشر شده','زباله دان','انتظار تایید'],$item->status) }}</td>
+
+                                        <td>{{ $item->writer->name }} {{ $item->writer->family }}</td>
+
+
+                                        <td>
+                                            @if($item->type === 'page')
+                                                @if(!is_null($pa = ($item->parent()->first())))
+                                                    {{$pa->title}}
+                                                @endif
+                                            @else
+                                                @if(!is_null($cat = ($item->categories->first())))
+                                                    {{$cat->title}}
+                                                @endif
+                                            @endif
+                                        </td>
+
                                         <td>
                                             <a href="{{ url('/admin/pages/' . $item->id) }}" title="مشاهده صفحه"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             <a href="{{ url('/admin/pages/' . $item->id . '/edit') }}" title="ویرایش صفحه"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
@@ -51,7 +76,7 @@
                                                         'type' => 'submit',
                                                         'class' => 'btn btn-danger btn-sm',
                                                         'title' => 'ویرایش صفحه',
-                                                        'onclick'=>'return confirm("آیا مطمعنی که قصد حذف این صفحه را داری؟")'
+                                                        'onclick'=>'return confirm("آیا مطمعنی که میخواهی این صفحه را حذف کنی؟")'
                                                 )) !!}
                                             {!! Form::close() !!}
                                         </td>
@@ -59,9 +84,11 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="pagination-wrapper"> {!! $pages->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
+                    </div>
+                    <div class="card-footer ltr">
+                        {!! $pages->appends(['search' => Request::get('search')])->render() !!}
                     </div>
                 </div>
             </div>

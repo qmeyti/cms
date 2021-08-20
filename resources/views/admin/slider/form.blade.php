@@ -1,10 +1,9 @@
-<div class="form-group{{ $errors->has('title') ? 'has-error' : ''}}">
-    {!! Form::label('title', 'Title', ['class' => 'control-label']) !!}
+<div class="form-group{{ $errors->has('title') ? 'has-error' : ''}} mb-3">
+    {!! Form::label('title', 'عنوان', ['class' => 'control-label mb-3']) !!}
     {!! Form::text('title', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
 </div>
 
-
 <div class="form-group">
-    {!! Form::submit($formMode === 'edit' ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
+    <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره اسلایدر جدید'}} </button>
 </div>

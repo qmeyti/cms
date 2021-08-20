@@ -34,6 +34,7 @@ class UsersController extends Controller
     public function create()
     {
         $roles = Role::select('id', 'name', 'label')->get();
+
         $roles = $roles->pluck('label', 'name');
 
         return view('admin.users.create', compact('roles'));
@@ -46,13 +47,21 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(
-            $request,
+        $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required|string|max:100',
+                'family' => 'required|string|max:100',
                 'email' => 'required|string|max:255|email|unique:users',
-                'password' => 'required',
-                'roles' => 'required'
+                'password' => 'required|string',
+                'roles' => 'required|exists:roles,name',
+                'avatar' => 'sometimes|nullable|url|max:2000|string',
+            ], [], [
+                'name' => 'نام',
+                'family' => 'نام خانوادگی',
+                'email' => 'ایمیل',
+                'password' => 'رمز عبور',
+                'roles' => 'نقش های کاربری',
+                'avatar' => 'تصویر آواتار',
             ]
         );
 
@@ -87,7 +96,7 @@ class UsersController extends Controller
         $roles = Role::select('id', 'name', 'label')->get();
         $roles = $roles->pluck('label', 'name');
 
-        $user = User::with('roles')->select('id', 'name', 'email')->findOrFail($id);
+        $user = User::with('roles')->findOrFail($id);
         $user_roles = [];
         foreach ($user->roles as $role) {
             $user_roles[] = $role->name;
@@ -102,23 +111,32 @@ class UsersController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        $this->validate(
-            $request,
+        $request->validate(
             [
-                'name' => 'required',
-                'email' => 'required|string|max:255|email|unique:users,email,' . $id,
-                'roles' => 'required'
+                'name' => 'required|string|max:100',
+                'family' => 'required|string|max:100',
+                'email' => 'required|string|max:255|email|unique:users,email,'.$user->id,
+                'password' => 'required|string',
+                'roles' => 'required|exists:roles,name',
+                'avatar' => 'sometimes|nullable|url|max:2000|string',
+            ], [], [
+                'name' => 'نام',
+                'family' => 'نام خانوادگی',
+                'email' => 'ایمیل',
+                'password' => 'رمز عبور',
+                'roles' => 'نقش های کاربری',
+                'avatar' => 'تصویر آواتار',
             ]
         );
 
         $data = $request->except('password');
+
         if ($request->has('password')) {
             $data['password'] = bcrypt($request->password);
         }
 
-        $user = User::findOrFail($id);
         $user->update($data);
 
         $user->roles()->detach();

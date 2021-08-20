@@ -28,8 +28,9 @@ body {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-
-
+/**
+    Posts pages
+ */
 #validationTags + .dropdown input[type="text"]{
 
      --tw-ring-offset-color: unset;
@@ -42,8 +43,43 @@ body {
     outline-offset: unset;
 }
 
+/**
+    Error handling
+ */
 .help-block{
     color: red;
     font-size: 0.8rem;
     margin: 5px;
+}
+
+
+/**
+    Bootstrap modify
+ */
+.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    /*@todo*/
+    /*border-radius: .25rem;*/
+    color: #212529;
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: .375rem .75rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    width: 100%;
+}
+
+select {
+    background-position:unset;
+    background-position-x: unset;
+    padding-right: unset;
+    background-position: left .5rem center;
+    background-position-x: left 0.5rem;
+    padding-left: 2.5rem;
 }

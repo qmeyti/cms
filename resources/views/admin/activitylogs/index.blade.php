@@ -7,12 +7,13 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Activity Logs</div>
+                    <div class="card-header">لاگ فعالیت ها</div>
+
                     <div class="card-body">
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/activitylogs', 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
 
                         <div class="input-group">
-                            <input type="text" class="form-control" name="search" dir="rtl" placeholder="Search..." value="{{ request('search') }}">
+                            <input type="text" class="form-control" name="search" dir="rtl" placeholder="جستجو..." value="{{ request('search') }}">
                             <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
                         </div>
                         {!! Form::close() !!}
@@ -23,11 +24,11 @@
                             <table class="table table-borderless">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Activity</th>
-                                    <th>Actor</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
+                                    <th>شناسه</th>
+                                    <th>فعالیت</th>
+                                    <th>توسط</th>
+                                    <th>تاریخ</th>
+                                     <th>عملیات</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -56,7 +57,7 @@
                                                     'type' => 'submit',
                                                     'class' => 'btn btn-danger btn-sm',
                                                     'title' => 'Delete Activity',
-                                                    'onclick'=>'return confirm("Confirm delete?")'
+                                                    'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
                                             )) !!}
                                             {!! Form::close() !!}
                                         </td>
@@ -64,9 +65,14 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="pagination-wrapper"> {!! $activitylogs->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
+                    </div>
+
+                    <div class="card-footer ltr">
+                        <div class="pagination-wrapper">
+                            {!! $activitylogs->appends(['search' => Request::get('search')])->render() !!}
+                        </div>
                     </div>
                 </div>
             </div>

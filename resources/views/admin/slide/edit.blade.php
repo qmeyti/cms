@@ -7,11 +7,13 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Edit User</div>
+                    <div class="card-header">ویرایش اسلاید #{{ $slide->id }}</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/users') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        <br />
-                        <br />
+                        <a href="{{ route('slides.index',['slider' => $slider->id]) }}" title="بازگشت">
+                            <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
+                        </a>
+                        <br/>
+                        <br/>
 
                         @if ($errors->any())
                             <ul class="alert alert-danger">
@@ -21,13 +23,14 @@
                             </ul>
                         @endif
 
-                        {!! Form::model($user, [
+                        {!! Form::model($slide, [
                             'method' => 'PATCH',
-                            'url' => ['/admin/users', $user->id],
-                            'class' => 'form-horizontal'
+                            'url' => route('slides.update',['slider' => $slider->id,'slide' => $slide->id]),
+                            'class' => 'form-horizontal',
+                            'files' => true
                         ]) !!}
 
-                        @include ('admin.users.form', ['formMode' => 'edit'])
+                        @include ('admin.slide.form', ['formMode' => 'edit'])
 
                         {!! Form::close() !!}
 

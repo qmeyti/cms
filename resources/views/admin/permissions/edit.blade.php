@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">Edit Permission</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/permissions') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/permissions') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
                         <br />
                         <br />
 

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;

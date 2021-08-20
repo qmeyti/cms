@@ -7,13 +7,16 @@
 
 <div class="form-group{{ $errors->has('title') ? 'has-error' : ''}} mb-3">
     {!! Form::label('title', 'عنوان نوشته', ['class' => 'control-label mb-3' ]) !!}
-    {!! Form::text('title', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required','maxlength' => 255] : ['class' => 'form-control','maxlength' => 255]) !!}
+    {!! Form::text('title', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required','maxlength' => 255,'placeholder' => 'عنوان نوشته'] :
+['class' => 'form-control','maxlength' => 255,'placeholder' => 'عنوان نوشته']) !!}
     {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group{{ $errors->has('slug') ? 'has-error' : ''}} mb-3">
     {!! Form::label('slug', 'عنوان به انگلیسی', ['class' => 'control-label mb-3' ]) !!}
-    {!! Form::text('slug', null, ('required' == 'required') ? ['class' => 'form-control ltr', 'required' => 'required','maxlength' => 255] : ['class' => 'form-control','maxlength' => 255]) !!}
+    {!! Form::text('slug', null, ('required' == 'required') ?
+ ['class' => 'form-control ltr', 'required' => 'required','maxlength' => 255,'placeholder' => 'عنوان انگلیسی'] :
+['class' => 'form-control','maxlength' => 255,'placeholder' => 'عنوان انگلیسی']) !!}
     {!! $errors->first('slug', '<p class="help-block">:message</p>') !!}
 </div>
 
@@ -54,14 +57,8 @@
 <div id="PARENT_SECTION" class="form-group{{ $errors->has('parent') ? 'has-error' : ''}} mb-3 d-none">
     {!! Form::label('parent', 'صفحه والد', ['class' => 'control-label mb-3' ]) !!}
 
-    @php
-        $ps = [];
-        foreach (\App\Models\Page::all() as $item){
-            $ps[$item->id] = $item->title;
-        }
-    @endphp
 
-    {{Form::select('parent',$ps , null , ['class' => 'form-control', 'placeholder' => 'انتخاب صفحه والد'])}}
+    {{Form::select('parent', $parents , null , ['class' => 'form-control', 'placeholder' => 'انتخاب صفحه والد'])}}
 
     {!! $errors->first('parent', '<p class="help-block">:message</p>') !!}
 </div>
@@ -79,11 +76,10 @@
 </div>
 
 <div class="form-group{{ $errors->has('tags') ? 'has-error' : ''}} mb-3">
-    <label for="validationTags" class="form-label">تگ ها</label>
-    <input name='tags' value='' class="form-control ltr">
-    <div class="invalid-feedback">لطفا یک تگ صحیح را بنویسید.</div>
+    <label for="validationTags" class="form-label">برچسب ها</label>
+    <input name="tags" value="{{old('tags',$formMode === 'edit' ? implode(',',$tags) : '')}}" class="form-control ltr" placeholder="ایجاد یک برچسب جدید">
+    <div class="invalid-feedback">لطفا یک برچسب صحیح را بنویسید.</div>
 </div>
-
 
 <div class="form-group{{ $errors->has('status') ? 'has-error' : ''}} mb-3">
     {!! Form::label('status', 'وضعیت انتشار', ['class' => 'control-label mb-3' ]) !!}
@@ -94,11 +90,14 @@
 </div>
 
 <div class="form-group{{ $errors->has('feature_image') ? 'has-error' : ''}} mb-3">
+    @php
+        $fmOld = old( 'feature_image', $formMode === 'edit' ? $page->feature_image : '' );
+    @endphp
 
     <div id="FEATURE_PHOTO_PREVIEW" class="d-flex flex-column justify-content-center align-items-center position-relative">
-        <div style="max-width: 280px;background: #f3f3f3;padding: 10px;box-shadow: 0 1px 2px rgb(0 0 0 / 20%);">
-            <input type="hidden" id="FEATURE_PHOTO_INPUT" class="form-control" name="feature_image" aria-label="Image" aria-describedby="button-image">
-            <img src="" alt="" style="width: 100%;">
+        <div style="max-width: 360px;background: #f3f3f3;padding: 6px;box-shadow: 0 1px 2px rgb(0 0 0 / 20%);">
+            <input value="{{$fmOld}}" type="hidden" id="FEATURE_PHOTO_INPUT" class="form-control" name="feature_image" aria-label="Image" aria-describedby="button-image">
+            <img src="{{$fmOld}}" alt="" style="width: 100%;">
             <div class="d-flex">
                 <div class="flex-grow-1">
                     <button style="width: 100%;border: unset;outline: unset;" class="btn" type="button" id="button-image">
@@ -107,23 +106,25 @@
                     </button>
                 </div>
                 <div>
-                    <button class="btn btn-text text-danger"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-text text-danger" id="FEATURE_PHOTO_TRASH"><i class="fa fa-trash"></i></button>
                 </div>
             </div>
         </div>
     </div>
 
+    {!! $errors->first('feature_image', '<p class="help-block">:message</p>') !!}
+
 </div>
 
 <div class="form-group">
-    <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{$formMode === 'edit' ? 'ویرایش' : 'ذخیره'}} </button>
+    <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره پست جدید'}} </button>
 </div>
 
 @section('scripts')
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.8.1/tinymce.min.js"></script>
+    {{--TINY-MCE--}}
     {{--    <script src="https://cdn.tiny.cloud/1/1lx5nhnj3ybljvrcy8qsrtfnc6xl60ugs7neudi6ep07d7h5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.8.1/tinymce.min.js"></script>
     <script type="text/javascript">
         tinymce.init({
             selector: '.crud-richtext',
@@ -133,40 +134,37 @@
         });
     </script>
 
-    <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
-
+    {{--TAGIFY--}}
     <script src="{{ asset('vendor/tagify-master/dist/jQuery.tagify.min.js') }}"></script>
-
     <script type="text/javascript">
+
         var $input = $('input[name=tags]')
             .tagify({
-                direction:'rtl',
-                whitelist : [
-                    {"id":1, "value":"some string"}
-                ]
+                direction: 'rtl',
+                originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','),
             })
-            .on('add', function(e, tagName){
+            .on('add', function (e, tagName) {
                 console.log('JQEURY EVENT: ', 'added', tagName)
             })
-            .on("invalid", function(e, tagName) {
-                console.log('JQEURY EVENT: ',"invalid", e, ' ', tagName);
+            .on("invalid", function (e, tagName) {
+                console.log('JQEURY EVENT: ', "invalid", e, ' ', tagName);
             });
+    </script>
 
-        // get the Tagify instance assigned for this jQuery input object so its methods could be accessed
-        var jqTagify = $input.data('tagify');
+    {{--FILE MANAGER--}}
+    <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+    <script>
 
-        // bind the "click" event on the "remove all tags" button
-        $('.tags-jquery--removeAllBtn').on('click', jqTagify.removeAllTags.bind(jqTagify))
+        /**
+         * Delete the feature photo
+         */
+        $('#FEATURE_PHOTO_TRASH').click(function () {
+            fmSetLink('');
+        });
 
-
-
-
-
-
-
-
-
-
+        /**
+         * Open file manager
+         */
         document.addEventListener("DOMContentLoaded", function () {
 
             document.getElementById('button-image').addEventListener('click', (event) => {
@@ -177,7 +175,11 @@
             });
         });
 
-        // set file link
+        /**
+         * Set image link to inputs
+         *
+         * @param $url
+         */
         function fmSetLink($url) {
 
             document.getElementById('FEATURE_PHOTO_INPUT').value = $url;
@@ -186,7 +188,14 @@
 
             imageTag.setAttribute('src', $url);
         }
+    </script>
 
+    {{--PAGE TYPE SWITCHER--}}
+    <script>
+
+        /**
+         * Switch page type
+         */
         function postTypeSwitcher() {
 
             const type = $('#type option:selected').val();
@@ -215,6 +224,5 @@
             });
 
         });
-
     </script>
 @endsection

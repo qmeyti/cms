@@ -7,9 +7,9 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">ساخت کاربر جدید</div>
+                    <div class="card-header">ایجاد اسلاید جدید برای {{$slider->title}}</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/users') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
+                        <a href="{{ route('slides.index',['slider' => $slider->id]) }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
                         <br />
                         <br />
 
@@ -21,9 +21,9 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/admin/users', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['url' => route('slides.store',['slider' => $slider->id]), 'class' => 'form-horizontal', 'files' => true]) !!}
 
-                        @include ('admin.users.form', ['formMode' => 'create'])
+                        @include ('admin.slide.form', ['formMode' => 'create'])
 
                         {!! Form::close() !!}
 

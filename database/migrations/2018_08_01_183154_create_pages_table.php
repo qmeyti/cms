@@ -14,7 +14,7 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
 
-            $table->bigIncrements('id');
+            $table->id();
 
             $table->string('title')->nullable();
 
