@@ -7,7 +7,7 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Roles</div>
+                    <div class="card-header">نقش های کاربران</div>
                     <div class="card-body">
                         <a href="{{ url('/admin/roles/create') }}" class="btn btn-success" title="افزودن نقش جدید">
                             <i class="fa fa-plus" aria-hidden="true"></i> افزودن
@@ -29,7 +29,10 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>شناسه</th><th>Name</th><th>Label</th><th>Actions</th>
+                                        <th>شناسه</th>
+                                        <th>عنوان</th>
+                                        <th>برچسب</th>
+                                        <th>عملیات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,8 +41,8 @@
                                         <td>{{ $item->id }}</td>
                                         <td><a href="{{ url('/admin/roles', $item->id) }}">{{ $item->name }}</a></td><td>{{ $item->label }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/roles/' . $item->id) }}" title="View Role"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                            <a href="{{ url('/admin/roles/' . $item->id . '/edit') }}" title="Edit Role"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/roles/' . $item->id) }}" title="نمایش نقش"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/roles/' . $item->id . '/edit') }}" title="ویرایش نقش کاربر"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             {!! Form::open([
                                                 'method' => 'DELETE',
                                                 'url' => ['/admin/roles', $item->id],
@@ -48,7 +51,7 @@
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
                                                         'type' => 'submit',
                                                         'class' => 'btn btn-danger btn-sm',
-                                                        'title' => 'Delete Role',
+                                                        'title' => 'حذف نقش',
                                                         'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
                                                 )) !!}
                                             {!! Form::close() !!}
@@ -57,9 +60,11 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="pagination"> {!! $roles->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
+                    </div>
+                    <div class="card-footer ltr">
+                        <div class="pagination"> {!! $roles->appends(['search' => Request::get('search')])->render() !!} </div>
                     </div>
                 </div>
             </div>

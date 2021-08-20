@@ -20,7 +20,7 @@ class PagesController extends Controller
     {
         $keyword = $request->get('search');
 
-        $perPage = 25;
+        $perPage =  __stg('element_per_page',  25);
 
         $pages = Page::with('categories')
             ->whereIn('status', ['published', 'pending', 'trash'])

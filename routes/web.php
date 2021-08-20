@@ -20,14 +20,14 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::group(['namespace' => 'App\Http\Controllers\Front', 'middleware' => []], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Front', 'middleware' => ['setting:home']], function () {
 
     Route::get('/', 'HomeController@index');
 
 });
 
 
-Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin','setting:admin']], function () {
 
     Route::get('/', 'AdminController@index');
 

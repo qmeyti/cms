@@ -7,9 +7,9 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Permissions</div>
+                    <div class="card-header">حقوق دسترسی</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/permissions/create') }}" class="btn btn-success" title="Add New Permission">
+                        <a href="{{ url('/admin/permissions/create') }}" class="btn btn-success" title="ایجاد حق دسترسی جدید">
                             <i class="fa fa-plus" aria-hidden="true"></i> افزودن
                         </a>
 
@@ -29,7 +29,10 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>شناسه</th><th>Name</th><th>Label</th><th>Actions</th>
+                                        <th>شناسه</th>
+                                        <th>نام</th>
+                                        <th>برچسب</th>
+                                        <th>عملیات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,8 +41,8 @@
                                         <td>{{ $item->id }}</td>
                                         <td><a href="{{ url('/admin/permissions', $item->id) }}">{{ $item->name }}</a></td><td>{{ $item->label }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/permissions/' . $item->id) }}" title="View Permission"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                            <a href="{{ url('/admin/permissions/' . $item->id . '/edit') }}" title="Edit Permission"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/permissions/' . $item->id) }}" title="نمایش حق دسترسی"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/permissions/' . $item->id . '/edit') }}" title="ویرایش حق دسترسی"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             {!! Form::open([
                                                 'method' => 'DELETE',
                                                 'url' => ['/admin/permissions', $item->id],
@@ -48,7 +51,7 @@
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
                                                         'type' => 'submit',
                                                         'class' => 'btn btn-danger btn-sm',
-                                                        'title' => 'Delete Permission',
+                                                        'title' => 'حذف حق دسترسی',
                                                         'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
                                                 )) !!}
                                             {!! Form::close() !!}
@@ -57,9 +60,11 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="pagination"> {!! $permissions->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
+                    </div>
+                    <div class="card-footer ltr">
+                        <div class="pagination"> {!! $permissions->appends(['search' => Request::get('search')])->render() !!} </div>
                     </div>
                 </div>
             </div>

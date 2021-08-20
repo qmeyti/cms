@@ -15,7 +15,10 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique();
-            $table->string('value')->nullable();
+            $table->text('value')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable()->index();
+            $table->string('type', 12)->default('string');//int,float,json,bool,string,text
+            $table->string('part', 12)->nullable();//admin,home
         });
     }
 

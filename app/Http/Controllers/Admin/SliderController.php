@@ -16,7 +16,7 @@ class SliderController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage =  __stg('element_per_page',  25);
 
         if (!empty($keyword)) {
             $slider = Slider::where('title', 'LIKE', "%$keyword%")

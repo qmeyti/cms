@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RolesController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return void
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
@@ -30,9 +30,7 @@ class RolesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -42,17 +40,28 @@ class RolesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return void
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required']);
+        $request->merge(['name' => Str::slug((string)$request->input('name'))]);
 
-        $role = Role::create($request->all());
+        __sanitize('label');
+
+        $data = $request->validate([
+            'name' => 'required|string|max:100|min:1|unique:roles,name|regex:!^[a-zA-Z0-9\-_]+$!',
+            'label' => 'required|string|max:100|min:1',
+            'permissions' => 'sometimes|array',
+            'permissions.*' => 'sometimes|string|max:100|exists:permissions,name',
+        ],[],[
+            'name' => 'عنوان نقش',
+            'label' => 'برچسب',
+            'permissions' => 'حقوق دسترسی',
+        ]);
+
+        $role = Role::create($data);
+
         $role->permissions()->detach();
 
         if ($request->has('permissions')) {
@@ -62,15 +71,12 @@ class RolesController extends Controller
             }
         }
 
-        return redirect('admin/roles')->with('flash_message', 'Role added!');
+        return redirect('admin/roles')->with('flash_message', 'نقش کاربر با موفقیت ایجاد شد!');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return void
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {
@@ -80,11 +86,8 @@ class RolesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return void
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
@@ -95,19 +98,29 @@ class RolesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     *
-     * @return void
+     * @param Request $request
+     * @param Role $role
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        $this->validate($request, ['name' => 'required']);
+        $request->merge(['name' => Str::slug((string)$request->input('name'))]);
 
-        $role = Role::findOrFail($id);
-        $role->update($request->all());
+        __sanitize('label');
+
+        $data = $request->validate([
+            'name' => 'required|string|max:100|min:1|regex:!^[a-zA-Z0-9\-_]+$!|unique:roles,name,'.$role->id,
+            'label' => 'required|string|max:100|min:1',
+            'permissions' => 'sometimes|array',
+            'permissions.*' => 'sometimes|string|max:100|exists:permissions,name',
+        ],[],[
+            'name' => 'عنوان نقش',
+            'label' => 'برچسب',
+            'permissions' => 'حقوق دسترسی',
+        ]);
+
+        $role->update($data);
+
         $role->permissions()->detach();
 
         if ($request->has('permissions')) {
@@ -117,20 +130,17 @@ class RolesController extends Controller
             }
         }
 
-        return redirect('admin/roles')->with('flash_message', 'Role updated!');
+        return redirect('admin/roles')->with('flash_message', 'نقش کاربر با موفقیت ویرایش شد!');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return void
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         Role::destroy($id);
 
-        return redirect('admin/roles')->with('flash_message', 'Role deleted!');
+        return redirect('admin/roles')->with('flash_message', 'نقش کاربر با موفقیت حذف شد!');
     }
 }

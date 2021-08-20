@@ -60,3 +60,16 @@ if (!function_exists('__null404')) {
     }
 }
 
+if (!function_exists('__stg')) {
+    /**
+     * Get a setting
+     *
+     * @param string $name
+     * @param null $default
+     * @return mixed|null
+     */
+    function __stg(string $name, $default = null)
+    {
+        return \App\Libraries\SettingProducer::getItem($name, $default);
+    }
+}

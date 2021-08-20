@@ -18,7 +18,7 @@ class SlideController extends Controller
     {
         $keyword = $request->get('search');
 
-        $perPage = 25;
+        $perPage =  __stg('element_per_page',  25);
 
         $slide = $slider->slides();
 

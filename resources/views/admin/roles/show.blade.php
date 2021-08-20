@@ -7,11 +7,11 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Role</div>
+                    <div class="card-header">نقش های کاربران</div>
                     <div class="card-body">
 
                         <a href="{{ url('/admin/roles') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        <a href="{{ url('/admin/roles/' . $role->id . '/edit') }}" title="Edit Role"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button></a>
+                        <a href="{{ url('/admin/roles/' . $role->id . '/edit') }}" title="ویرایش نقش"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button></a>
                         {!! Form::open([
                             'method' => 'DELETE',
                             'url' => ['/admin/roles', $role->id],
@@ -20,7 +20,7 @@
                             {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> حذف', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-sm',
-                                    'title' => 'Delete Role',
+                                    'title' => 'حذف نقش کاربری',
                                     'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
                             ))!!}
                         {!! Form::close() !!}
@@ -31,7 +31,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>ID.</th> <th>Name</th><th>Label</th>
+                                        <th>شناسه.</th> <th>نام</th><th>برچسب</th>
                                     </tr>
                                 </thead>
                                 <tbody>

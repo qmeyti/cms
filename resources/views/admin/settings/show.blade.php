@@ -7,11 +7,11 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Setting</div>
+                    <div class="card-header">مشاهده تنظیم</div>
                     <div class="card-body">
 
                         <a href="{{ url('/admin/settings') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        <a href="{{ url('/admin/settings/' . $setting->id . '/edit') }}" title="Edit Setting"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button></a>
+                        <a href="{{ url('/admin/settings/' . $setting->id . '/edit') }}" title="ویرایش تنظیمات"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['admin/settings', $setting->id],
@@ -20,7 +20,7 @@
                             {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> حذف', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-sm',
-                                    'title' => 'Delete Setting',
+                                    'title' => 'حذف تنظیم',
                                     'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
                             ))!!}
                         {!! Form::close() !!}
@@ -31,14 +31,34 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th> Key </th><td> {{ $setting->key }} </td>
+                                        <th> کلید </th>
+                                        <td class="ltr"> {{ $setting->key }} </td>
                                     </tr>
+
                                     <tr>
-                                        <th> Value </th><td> {{ $setting->value }} </td>
+                                        <th> نوع داده ای </th>
+                                        <td>
+                                            {{ str_replace(['int','float','json','bool','string','text'],['عدد صحیح','اعشاری','جیسون','صحیح غلط','رشته تک خطی','رشته چند خطی'],$setting->type) }}
+                                        </td>
                                     </tr>
+
                                     <tr>
-                                        <th> Usage </th><td> <code>setting('{{ $setting->key }}')</code> </td>
+                                        <th> بخش مورد استفاده </th>
+                                        <td>
+                                            @if($setting->part == 'admin')
+                                                پنل مدیر
+                                            @elseif($setting->part === 'home')
+                                                سمت کاربر
+                                            @else
+                                                عمومی
+                                            @endif
+                                        </td>
                                     </tr>
+
+                                    <tr>
+                                        <th> مقدار </th><td> {{ $setting->value }} </td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>

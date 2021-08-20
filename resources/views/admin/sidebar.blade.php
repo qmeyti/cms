@@ -3,6 +3,7 @@
         @if(isset($section['items']))
             <div class="card">
                 <div class="card-header">
+                    <i class="{{$section['icon']}}"></i>
                     {{ $section['section'] }}
                 </div>
 
@@ -11,6 +12,7 @@
                         @foreach($section['items'] as $menu)
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" href="{{ url($menu['url']) }}">
+                                    <i class="{{$menu['icon']}}"></i>
                                     {{ $menu['title'] }}
                                 </a>
                             </li>

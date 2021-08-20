@@ -14,14 +14,14 @@ class CreateRolesPermissionsTables extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->string('label')->nullable();
             $table->timestamps();
         });
 
         Schema::create('permissions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->string('label')->nullable();
             $table->timestamps();
