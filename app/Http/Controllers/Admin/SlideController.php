@@ -60,6 +60,8 @@ class SlideController extends Controller
         __sanitize('header');
         __sanitize('text1');
         __sanitize('text2');
+        __sanitize('button1_text');
+        __sanitize('button2_text');
 
         $data = $this->validate($request, [
             'header' => 'required|string|max:255',
@@ -67,12 +69,20 @@ class SlideController extends Controller
             'text2' => 'sometimes|nullable|string|max:2000',
             'url' => 'sometimes|nullable|url|max:2000',
             'image' => 'required|string|url|max:2000',
+            'button1_text' => 'sometimes|nullable|string|max:255',
+            'button2_text' => 'sometimes|nullable|string|max:255',
+            'button1_url' => 'sometimes|nullable|url|max:2000',
+            'button2_url' => 'sometimes|nullable|url|max:2000',
         ], [], [
             'header' => 'عنوان اسلاید',
             'text1' => 'توضیحات ۱',
             'text2' => 'توضیحات ۲',
             'url' => 'آدرس اینترنتی',
             'image' => 'تصویر اسلاید',
+            'button1_text' => 'متن دکمه ۱',
+            'button2_text' => 'متن دکمه ۲',
+            'button1_url' => 'آدرس دکمه ۱',
+            'button2_url' => 'آدرس دکمه ۲',
         ]);
 
         $slider->slides()->create($data);
@@ -114,6 +124,8 @@ class SlideController extends Controller
         __sanitize('header');
         __sanitize('text1');
         __sanitize('text2');
+        __sanitize('button1_text');
+        __sanitize('button2_text');
 
         $data = $this->validate($request, [
             'header' => 'required|string|max:255',
@@ -121,12 +133,20 @@ class SlideController extends Controller
             'text2' => 'sometimes|nullable|string|max:2000',
             'url' => 'sometimes|nullable|url|max:2000',
             'image' => 'required|string|url|max:2000',
+            'button1_text' => 'sometimes|nullable|string|max:255',
+            'button2_text' => 'sometimes|nullable|string|max:255',
+            'button1_url' => 'sometimes|nullable|url|max:2000',
+            'button2_url' => 'sometimes|nullable|url|max:2000',
         ], [], [
             'header' => 'عنوان اسلاید',
             'text1' => 'توضیحات ۱',
             'text2' => 'توضیحات ۲',
             'url' => 'آدرس اینترنتی',
             'image' => 'تصویر اسلاید',
+            'button1_text' => 'متن دکمه ۱',
+            'button2_text' => 'متن دکمه ۲',
+            'button1_url' => 'آدرس دکمه ۱',
+            'button2_url' => 'آدرس دکمه ۲',
         ]);
 
         $slide->update($data);

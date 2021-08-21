@@ -7,16 +7,13 @@
 
 <div class="form-group{{ $errors->has('title') ? 'has-error' : ''}} mb-3">
     {!! Form::label('title', 'عنوان نوشته', ['class' => 'control-label mb-3' ]) !!}
-    {!! Form::text('title', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required','maxlength' => 255,'placeholder' => 'عنوان نوشته'] :
-['class' => 'form-control','maxlength' => 255,'placeholder' => 'عنوان نوشته']) !!}
+    {!! Form::text('title', null, ['class' => 'form-control', 'required' => 'required','maxlength' => 255,'placeholder' => 'عنوان نوشته']) !!}
     {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group{{ $errors->has('slug') ? 'has-error' : ''}} mb-3">
     {!! Form::label('slug', 'عنوان به انگلیسی', ['class' => 'control-label mb-3' ]) !!}
-    {!! Form::text('slug', null, ('required' == 'required') ?
- ['class' => 'form-control ltr', 'required' => 'required','maxlength' => 255,'placeholder' => 'عنوان انگلیسی'] :
-['class' => 'form-control','maxlength' => 255,'placeholder' => 'عنوان انگلیسی']) !!}
+    {!! Form::text('slug', null, ['class' => 'form-control ltr', 'required' => 'required','maxlength' => 255,'placeholder' => 'عنوان انگلیسی']) !!}
     {!! $errors->first('slug', '<p class="help-block">:message</p>') !!}
 </div>
 

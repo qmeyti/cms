@@ -139,4 +139,13 @@ class Page extends Model
     {
         return \App\Models\Page::where('status', 'published')->whereNotIn('id', $notInIds)->where('type', 'page')->get();
     }
+
+
+    /**
+     * @return mixed
+     */
+    public static function getLinkablePages()
+    {
+        return \App\Models\Page::where('status', 'published')->get(['id', 'title', 'type']);
+    }
 }

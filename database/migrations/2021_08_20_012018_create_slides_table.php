@@ -20,15 +20,23 @@ class CreateSlidesTable extends Migration
 
             $table->unsignedBigInteger('slider_id')->index();
 
-            $table->string('header',255);
-
             $table->text('image');
+
+            $table->string('header',255);
 
             $table->text('text1')->nullable();
 
             $table->text('text2')->nullable();
 
             $table->text('url')->nullable();
+
+            $table->string('button1_text')->nullable();
+
+            $table->text('button1_url')->nullable();
+
+            $table->string('button2_text')->nullable();
+
+            $table->text('button2_url')->nullable();
 
         });
     }

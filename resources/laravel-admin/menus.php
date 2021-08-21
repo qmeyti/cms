@@ -44,6 +44,11 @@ return [
                             'url' => '/admin/permissions',
                         ],
                         [
+                            'icon' => 'fa fa-magic',
+                            'title' => 'مدیریت منوها',
+                            'url' => '/admin/menus',
+                        ],
+                        [
                             'icon' => 'fa fa-tasks',
                             'title' => 'لاگ تغییرات',
                             'url' => '/admin/activitylogs',

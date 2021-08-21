@@ -91,6 +91,19 @@ class ForeignKey extends Migration
 
         });
 
+        Schema::table('menu_items', function (Blueprint $table) {
+            $table->foreign('menu')
+                ->references('id')
+                ->on('menus')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreign('parent')
+                ->references('id')
+                ->on('menu_items')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+        });
 
     }
 

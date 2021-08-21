@@ -28,7 +28,18 @@ class Slide extends Model
      *
      * @var array
      */
-    protected $fillable = ['header', 'text1', 'text2', 'url', 'image', 'slider_id'];
+    protected $fillable = [
+        'header',
+        'text1',
+        'text2',
+        'url',
+        'image',
+        'slider_id',
+        'button1_text',
+        'button1_url',
+        'button2_text',
+        'button2_url',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

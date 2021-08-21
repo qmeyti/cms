@@ -49,6 +49,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 
     Route::resource('/category', 'CategoryController');
 
+    Route::resource('/menus', 'MenuController');
+
+    Route::resource('/{menu}/menu_items', 'MenuItemController');
+
+    Route::post('order/{menu}/items', 'MenuItemController@order')->name('order.menu.item');
+
     Route::resource('/activitylogs', 'ActivityLogsController')->only([
         'index', 'show', 'destroy'
     ]);
