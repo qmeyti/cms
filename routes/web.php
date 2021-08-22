@@ -13,21 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
-Route::group(['namespace' => 'App\Http\Controllers\Front', 'middleware' => ['setting:home']], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Front', 'middleware' => ['fs_init']], function () {
 
     Route::get('/', 'HomeController@index');
 
 });
 
 
-Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin','setting:admin']], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin', 'as_init']], function () {
 
     Route::get('/', 'AdminController@index');
 
@@ -41,7 +41,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 
     Route::resource('/slider', 'SliderController');
 
-    Route::resource('/tags','TagController');
+    Route::resource('/tags', 'TagController');
 
     Route::resource('/sliders', 'SliderController');
 
@@ -49,18 +49,25 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 
     Route::resource('/category', 'CategoryController');
 
+    //Menu
     Route::resource('/menus', 'MenuController');
 
     Route::resource('/{menu}/menu_items', 'MenuItemController');
 
     Route::post('order/{menu}/items', 'MenuItemController@order')->name('order.menu.item');
 
+    //Template
+    Route::resource('{module}/template', 'TemplateController');
+
+    //Log
     Route::resource('/activitylogs', 'ActivityLogsController')->only([
         'index', 'show', 'destroy'
     ]);
 
+    //Settings
     Route::resource('/settings', 'SettingsController');
 
+    //Generator
     Route::get('/generator', ['uses' => 'ProcessController@getGenerator']);
 
     Route::post('/generator', ['uses' => 'ProcessController@postGenerator']);

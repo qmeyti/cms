@@ -80,8 +80,10 @@
         <li data-id="1" class="item">
             @php
                 $ms = $menu->items->toArray();
-
-                $ms[] = \App\Models\MenuItem::find(1)->toArray();
+                if (is_null($first = \App\Models\MenuItem::find(1))) {
+                    $first = \App\Models\MenuItem::generateRoot();
+                }
+                $ms[] = $first->toArray();
             @endphp
             {!! loadMenu($ms, 1,$itemsEditPanels) !!}
         </li>

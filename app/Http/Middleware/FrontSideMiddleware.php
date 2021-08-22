@@ -6,7 +6,7 @@ use App\Libraries\SettingProducer;
 use Closure;
 use Illuminate\Http\Request;
 
-class SettingMiddleware
+class FrontSideMiddleware
 {
     /**
      * @param Request $request
@@ -15,9 +15,12 @@ class SettingMiddleware
      * @return mixed
      * @throws \Exception
      */
-    public function handle(Request $request, Closure $next,string $part)
+    public function handle(Request $request, Closure $next)
     {
-        new  SettingProducer($part);
+        /**
+         * Load settings
+         */
+        new SettingProducer('home');
 
         return $next($request);
     }

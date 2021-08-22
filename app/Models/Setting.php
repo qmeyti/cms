@@ -39,4 +39,24 @@ class Setting extends Model
         'type',
         'part',
     ];
+
+    /**
+     * Add or update new setting
+     *
+     * @param string $key
+     * @param $value
+     * @param string $type
+     * @param string|null $part
+     * @return Setting
+     */
+    public static function addOrUpdate(string $key, $value, string $type = 'text', string $part = null)
+    {
+        return self::updateOrCreate(['key' => $key], [
+            'key' => $key,
+            'value' => $value,
+            'user_id' => auth()->id(),
+            'type' => in_array($type, ['int', 'float', 'json', 'bool', 'string', 'text', 'array']) ? $type : 'text',
+            'part' => in_array($part, ['admin', 'home']) ? $part : null,
+        ]);
+    }
 }

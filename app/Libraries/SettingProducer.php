@@ -29,13 +29,15 @@ class SettingProducer
     public function __construct(string $part)
     {
 
-        if (self::$instance == null) {
+        if (is_null(self::$instance)) {
 
             if (!in_array($part, $this->acceptableParts)) {
                 throw new \Exception('بخش مورد نظر جهت بارگزاری تنظیمات صحیح نیست!');
             }
 
-            self::$settings = Setting::whereIn('part', [null, $part])->get();
+            self::$settings = Setting::where(function ($q) use ($part) {
+                $q->where('part', null)->orWhere('part', $part);
+            })->get();
 
             self::$instance = $this;
         }
@@ -69,6 +71,30 @@ class SettingProducer
     }
 
     /**
+     * @param string $name
+     * @param null $default
+     * @return mixed|null
+     */
+    public static function getItemStraight(string $name, $default = null)
+    {
+        $item = Setting::where('key', $name)->first();
+
+        if (!is_null($item)) {
+
+            $type = $item->type;
+
+            $value = $item->value;
+
+            $setTypeMethodName = 'setType' . ucfirst(strtolower($type));
+
+            return self::$instance->$setTypeMethodName($value);
+
+        }
+
+        return $default;
+    }
+
+    /**
      * @param $value
      * @return int
      */
@@ -83,7 +109,7 @@ class SettingProducer
      */
     private function setTypeString($value)
     {
-        return (string) $value;
+        return (string)$value;
     }
 
     /**
@@ -92,7 +118,7 @@ class SettingProducer
      */
     private function setTypeText($value)
     {
-        return (string) $value;
+        return (string)$value;
     }
 
     /**
@@ -101,7 +127,7 @@ class SettingProducer
      */
     private function setTypeFloat($value)
     {
-        return (double) $value;
+        return (double)$value;
     }
 
     /**
@@ -120,5 +146,14 @@ class SettingProducer
     private function setTypeJson($value)
     {
         return json_decode($value);
+    }
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    private function setTypeArray($value)
+    {
+        return unserialize($value);
     }
 }

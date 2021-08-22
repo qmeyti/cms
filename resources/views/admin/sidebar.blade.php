@@ -1,5 +1,5 @@
 <div class="col-md-3">
-    @foreach($laravelAdminMenus['menus'] as $section)
+    @foreach($laravelAdminMenus as $section)
         @if(isset($section['items']))
             <div class="card">
                 <div class="card-header">

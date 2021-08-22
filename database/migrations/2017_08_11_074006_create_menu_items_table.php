@@ -18,11 +18,11 @@ class CreateMenuItemsTable extends Migration
 
             $table->string('label');
 
-            $table->text('link');
+            $table->text('link')->nullable();
 
-            $table->string('type',12);//url,page,route
+            $table->string('type',12)->nullable();//url,page,route
 
-            $table->unsignedBigInteger('parent')->default(0)->index();
+            $table->unsignedBigInteger('parent')->nullable()->index();
 
             $table->integer('sort')->default(0);
 

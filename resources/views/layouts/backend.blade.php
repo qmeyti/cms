@@ -80,7 +80,7 @@
 
         @if (Session::has('flash_error'))
             <div class="container">
-                <div class="alert alert-success">
+                <div class="alert alert-danger">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     {{ Session::get('flash_error') }}
                 </div>

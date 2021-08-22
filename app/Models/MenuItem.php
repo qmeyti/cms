@@ -10,6 +10,7 @@ class MenuItem extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'label',
         'link',
         'type',
@@ -19,4 +20,21 @@ class MenuItem extends Model
         'menu',
         'depth'
     ];
+
+    /**
+     * @return mixed
+     */
+    public static function generateRoot()
+    {
+        return self::updateOrCreate(['id' => 1], [
+            'label' => 'سرشاخه',
+            'link' => null,
+            'type' => null,
+            'parent' => null,
+            'sort' => 0,
+            'class' => null,
+            'menu' => null,
+            'depth' => 0
+        ]);
+    }
 }

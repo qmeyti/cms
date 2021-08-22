@@ -25,10 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        if (File::exists(base_path('resources/laravel-admin/menus.php'))) {
-            $data = require_once __DIR__.'/../../resources/laravel-admin/menus.php';
-            view()->share('laravelAdminMenus', $data);
-        }
+
 
     }
 }

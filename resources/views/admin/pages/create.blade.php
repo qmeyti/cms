@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">ساخت صفحه جدید</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/pages') }}" title="بازگشت">
+                        <a href="{{ route('pages.index') }}" title="بازگشت">
                             <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                         <br/>
@@ -23,7 +23,7 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/admin/pages', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => route('pages.store'), 'class' => 'form-horizontal', 'files' => true]) !!}
 
                         @include ('admin.pages.form', ['formMode' => 'create'])
 

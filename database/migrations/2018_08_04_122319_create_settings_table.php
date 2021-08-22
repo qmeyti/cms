@@ -17,7 +17,7 @@ class CreateSettingsTable extends Migration
             $table->string('key')->unique();
             $table->text('value')->nullable();
             $table->unsignedBigInteger('user_id')->nullable()->index();
-            $table->string('type', 12)->default('string');//int,float,json,bool,string,text
+            $table->string('type', 12)->default('string');//int,float,json,bool,string,text,array
             $table->string('part', 12)->nullable();//admin,home
         });
     }
