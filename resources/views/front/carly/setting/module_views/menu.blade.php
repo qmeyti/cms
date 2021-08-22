@@ -16,7 +16,7 @@
 
 
                         <div class="form-group{{ $errors->has('__main_menu') ? 'has-error' : ''}} mb-3">
-                            {!! Form::label('__main_menu', 'انتخاب منوی اصلی', ['class' => 'control-label mb-3' ]) !!}
+                            {!! Form::label('__main_menu', 'منوی اصلی', ['class' => 'control-label mb-3' ]) !!}
 
                             {{Form::select('__main_menu', $menus , __stg_straight('__main_menu') , ['class' => 'form-control','required' => 'required', 'placeholder' => 'انتخاب منوی اصلی'])}}
 
@@ -30,9 +30,9 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('__footer_menu_1') ? 'has-error' : ''}} mb-3">
-                            {!! Form::label('__footer_menu_1', 'انتخاب منوی فوتر ۱', ['class' => 'control-label mb-3' ]) !!}
+                            {!! Form::label('__footer_menu_1', 'منوی فوتر ۱', ['class' => 'control-label mb-3' ]) !!}
 
-                            {{Form::select('__footer_menu_1', $menus , __stg_straight('__footer_menu_1') , ['class' => 'form-control','required' => 'required', 'placeholder' => 'انتخاب منوی فوتر ۱'])}}
+                            {{Form::select('__footer_menu_1', $menus , __stg_straight('__footer_menu_1') , ['class' => 'form-control','required' => 'required', 'placeholder' => 'منوی فوتر ۱'])}}
 
                             {!! $errors->first('__footer_menu_1', '<p class="help-block">:message</p>') !!}
                         </div>
@@ -45,9 +45,9 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('__footer_menu_2') ? 'has-error' : ''}} mb-3">
-                            {!! Form::label('__footer_menu_2', 'انتخاب منوی فوتر ۲', ['class' => 'control-label mb-3' ]) !!}
+                            {!! Form::label('__footer_menu_2', 'منوی فوتر ۲', ['class' => 'control-label mb-3' ]) !!}
 
-                            {{Form::select('__footer_menu_2', $menus , __stg_straight('__footer_menu_2') , ['class' => 'form-control','required' => 'required', 'placeholder' => 'انتخاب منوی فوتر ۲'])}}
+                            {{Form::select('__footer_menu_2', $menus , __stg_straight('__footer_menu_2') , ['class' => 'form-control','required' => 'required', 'placeholder' => 'منوی فوتر ۲'])}}
 
                             {!! $errors->first('__footer_menu_2', '<p class="help-block">:message</p>') !!}
                         </div>

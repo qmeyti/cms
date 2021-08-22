@@ -9,6 +9,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('front.carly.home');
+        return view('front.' . __stg('template') . '.home');
     }
 }

@@ -33,6 +33,7 @@ class AdminSideMiddleware
             $sidebar = require_once base_path('resources/laravel-admin/menus.php');
 
         }
+
         /**
          * Load template sidebar menu items
          */

@@ -36,7 +36,9 @@ class SettingProducer
             }
 
             self::$settings = Setting::where(function ($q) use ($part) {
-                $q->where('part', null)->orWhere('part', $part);
+                $q->where('part', $part)
+                    ->orWhere('part', null)
+                    ->orWhere('part', '');
             })->get();
 
             self::$instance = $this;
