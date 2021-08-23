@@ -5,23 +5,30 @@
             <div class="row align-items-center">
                 <div class="col-xl-3 col-lg-3 col-4">
                     <div class="logo logo-bg">
-                        <a href="index.html"><img src="{{asset('front/carly/assets/img/logo/logo.png')}}" alt="" /></a>
+                        <a href="{{url('/')}}"><img src="{{__stg('__logo')}}" alt="" /></a>
                     </div>
                 </div>
                 <div class="col-xl-7 col-lg-6 d-none d-lg-block">
                     <div class="main-menu">
+
                         <nav id="mobile-menu">
-                            <ul>
+
+                            @php
+                                require_once base_path('resources/views/front/carly/setting/functions.php');
+                                echo get_main_menu();
+                            @endphp
+
+                        {{--    <ul>
                                 <li class="active"><a href="index.html">خانه <i class="far fa-plus"></i></a>
                                     <ul class="sub-menu text-left">
                                         <li><a href="index.html">خانه 1</a></li>
                                         <li><a href="index-2.html">خانه 2</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="about.html">در باره ما </a></li>
+                                <li><a href="about.html">درباره ما </a></li>
                                 <li><a href="#">صفحات <i class="far fa-plus"></i></a>
                                     <ul class="sub-menu text-right">
-                                        <li><a href="about.html">در باره ما </a>
+                                        <li><a href="about.html">درباره ما </a>
                                         <li><a href="portfolio.html">نمونه کارها</a>
                                         <li><a href="portfolio-details.html">جزئیات نمونه کارها</a>
                                         <li><a href="team.html">تیم</a>
@@ -48,6 +55,8 @@
                                 </li>
                                 <li><a href="contact.html">تماس با ما</a></li>
                             </ul>
+
+--}}
                         </nav>
                     </div>
                 </div>
@@ -58,7 +67,7 @@
                         </div>
                         <div class="header-info">
                             <span>تلفن</span>
-                            <h5>021-1234567</h5>
+                            <h5>{{__stg('__header_phone')}}</h5>
                         </div>
                     </div>
                 </div>

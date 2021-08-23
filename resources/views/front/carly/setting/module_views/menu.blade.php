@@ -37,7 +37,6 @@
                             {!! $errors->first('__footer_menu_1', '<p class="help-block">:message</p>') !!}
                         </div>
 
-
                         <div class="form-group{{ $errors->has('__footer_menu_title_2') ? 'has-error' : ''}} mb-3">
                             {!! Form::label('__footer_menu_title_2', 'عنوان منوی فوتر ۲', ['class' => 'control-label mb-3' ]) !!}
                             {!! Form::text('__footer_menu_title_2', __stg_straight('__footer_menu_title_2'), ['class' => 'form-control', 'required' => 'required','maxlength' => 255,'placeholder' => 'عنوان منوی فوتر ۲']) !!}

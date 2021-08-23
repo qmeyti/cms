@@ -7,10 +7,15 @@ return [
         'section' => 'تنظیمات قالب',
         'items' =>
             [
-                [
+                /*[
                     'icon' => 'fa fa-home',
                     'title' => 'منوها',
                     'url' => route('template.create', ['module' => 'menu']),
+                ],*/
+                [
+                    'icon' => 'fa fa-home',
+                    'title' => 'سر صفحه',
+                    'url' => route('template.create', ['module' => 'header']),
                 ],
                 [
                     'icon' => 'fa fa-home',

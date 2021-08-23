@@ -23,7 +23,11 @@
 {{--    <link rel="stylesheet" href="{{asset('front/carly/assets/css/default.css')}}">--}}
     <link rel="stylesheet" href="{{asset('front/carly/assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('front/carly/assets/css/responsive.css')}}">
-
+    <style>
+        .menu-bg .logo {
+            padding-right: 0px;
+        }
+    </style>
 </head>
 <body>
 

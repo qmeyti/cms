@@ -7,15 +7,19 @@ class HeaderController implements \App\Libraries\Template\TemplateControllerInte
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @return mixed|void
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(\Illuminate\Http\Request $request)
     {
 
+        __sanitize('__header_phone');
+
         $data = $request->validate([
             '__main_menu' => 'required|integer|exists:menus,id',
 
-            '__header_image_link' => 'required|string|url|max:2000',
+            '__logo' => 'required|string|url|max:2000',
+
+            '__header_phone' => 'required|string|min:3|max:255',
         ]);
 
         DB::beginTransaction();
@@ -23,9 +27,12 @@ class HeaderController implements \App\Libraries\Template\TemplateControllerInte
 
             __add_stg('__main_menu', $data['__main_menu'], 'int', 'home');
 
-            __add_stg('__header_image_link', $data['__header_image_link'], 'text', 'home');
+            __add_stg('__header_phone', $data['__header_phone'], 'string', 'home');
+
+            __add_stg('__logo', $data['__logo'], 'text', 'home');
 
             DB::commit();
+
         } catch (Exception $exception) {
 
             DB::rollBack();
