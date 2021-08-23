@@ -1,6 +1,6 @@
 
 <!-- service-area-start -->
-<div class="service-area ser-pt pb-90" style="background-image: url(front/assets/img/bg/sbg.jpg);">
+<div class="service-area ser-pt pb-90" style="background-image: url({{url('front/carly/assets/img/bg/sbg.jpg')}});">
     <div class="container">
         <div class="row">
             <div class="col-xl-6 col-lg-6 offset-lg-3 offset-xl-3">

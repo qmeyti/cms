@@ -27,6 +27,11 @@ return [
                     'title' => 'درباره ما',
                     'url' => route('template.create', ['module' => 'about']),
                 ],
+                [
+                    'icon' => 'fa fa-home',
+                    'title' => 'همکاران',
+                    'url' => route('template.create', ['module' => 'brand']),
+                ],
             ],
     ],
 ];

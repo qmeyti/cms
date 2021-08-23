@@ -30,7 +30,9 @@ function imageUploader(fieldName) {
  */
 function fmSetLink(IMAGE_URL) {
 
-    document.getElementById(`${fieldNameUpperCase}_INPUT`).value = IMAGE_URL;
+    const inputTag = document.querySelector(`#${fieldNameUpperCase}_INPUT`);
+
+    inputTag.setAttribute('value', IMAGE_URL);
 
     const imageTag = document.querySelector(`#${fieldNameUpperCase}_PREVIEW img`);
 

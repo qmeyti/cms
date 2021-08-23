@@ -59,4 +59,12 @@ class Setting extends Model
             'part' => in_array($part, ['admin', 'home']) ? $part : null,
         ]);
     }
+
+    /**
+     * @param $key
+     */
+    public static function removeItem($key)
+    {
+        self::where('key', $key)->delete();
+    }
 }

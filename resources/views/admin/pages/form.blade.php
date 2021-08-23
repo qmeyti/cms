@@ -90,7 +90,7 @@
     $fmOld = old( 'feature_image', $formMode === 'edit' ? $page->feature_image : '' );
 @endphp
 
-@include('admin.component.image_uploader',['fieldName' => 'feature_image','old' => $fmOld])
+@include('admin.component.image_uploader',['fieldTitle' => 'انتخاب تصویر شاخص','fieldName' => 'feature_image','old' => $fmOld])
 
 <div class="form-group">
     <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره پست جدید'}} </button>

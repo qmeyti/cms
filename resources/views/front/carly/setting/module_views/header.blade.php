@@ -30,7 +30,7 @@
                             {!! $errors->first('__header_phone', '<p class="help-block">:message</p>') !!}
                         </div>
 
-                        @include('admin.component.image_uploader',['fieldName' => '__logo', 'old' => old( '__logo', __stg_straight('__logo'))])
+                        @include('admin.component.image_uploader',['fieldTitle' => 'انتخاب لوگوی سایت','fieldName' => '__logo', 'old' => old( '__logo', __stg_straight('__logo'))])
 
                         <div class="form-group">
                             <button class="btn btn-secondary" type="submit"><i class="fa fa-save"></i> ذخیره تغییرات</button>

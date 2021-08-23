@@ -5,13 +5,22 @@
             <img src="{{$old}}" alt="" style="width: 100%;">
             <div class="d-flex">
                 <div class="flex-grow-1">
-                    <button style="width: 100%;border: unset;outline: unset;" class="btn" type="button" id="{{strtoupper($fieldName)}}_BTN">
+                    <button style="width: 100%;border: unset;outline: unset;"
+
+                            @if(isset($uploadFunc))
+                                onclick="{{$uploadFunc}}"
+                            @endif
+                            class="btn" type="button" id="{{strtoupper($fieldName)}}_BTN">
                         <span class="fal fa-select"></span>
-                        انتخاب تصویر شاخص
+                        {{$fieldTitle}}
                     </button>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-text text-danger" id="{{strtoupper($fieldName)}}_TRASH"><i class="fa fa-trash"></i></button>
+                    <button
+                        @if(isset($removeFunc))
+                        onclick="{{$removeFunc}}"
+                        @endif
+                        type="button" class="btn btn-text text-danger" id="{{strtoupper($fieldName)}}_TRASH"><i class="fa fa-trash"></i></button>
                 </div>
             </div>
         </div>

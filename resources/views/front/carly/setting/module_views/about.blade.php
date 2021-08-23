@@ -14,7 +14,7 @@
                     <div class="card-body">
                         {!! Form::open(['url' => route('template.store',['module' => 'about']), 'class' => 'form-horizontal', 'files' => true]) !!}
 
-                        @include('admin.component.image_uploader',['fieldName' => '__about_image', 'old' => old( '__about_image', __stg_straight('__about_image'))])
+                        @include('admin.component.image_uploader',['fieldTitle' => 'انتخاب تصویر','fieldName' => '__about_image', 'old' => old( '__about_image', __stg_straight('__about_image'))])
 
                         <div class="form-group{{ $errors->has('__about_title') ? 'has-error' : ''}} mb-3">
                             {!! Form::label('__about_title', 'متن هدر', ['class' => 'control-label mb-3']) !!}

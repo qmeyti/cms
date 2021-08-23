@@ -1,10 +1,10 @@
 
 <!-- video-area-start -->
-<div class="video-area pt-120 pos-rel">
+<div class="video-area {{--pt-120--}} pos-rel">
     <div class="shape d-none d-xl-block">
         <div class="shape-item vd-01 bounce-animate"><img src="{{asset('front/carly/assets/img/shape/shape-1.png')}}" alt=""></div>
     </div>
-    <div class="container">
+{{--    <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-10">
                 <div class="c-video pos-rel">
@@ -17,6 +17,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 </div>
 <!-- video-area-end -->
