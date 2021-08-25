@@ -32,6 +32,16 @@ return [
                     'title' => 'همکاران',
                     'url' => route('template.create', ['module' => 'brand']),
                 ],
+                [
+                    'icon' => 'fa fa-home',
+                    'title' => 'خدمات',
+                    'url' => route('template.create', ['module' => 'service']),
+                ],
+                [
+                    'icon' => 'fa fa-home',
+                    'title' => 'نمونه کارها',
+                    'url' => route('template.create', ['module' => 'case']),
+                ],
             ],
     ],
 ];

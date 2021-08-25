@@ -1,6 +1,6 @@
 
 <!-- skill-area-start -->
-<div class="skill-area pt-120 pb-190" style="background-image: url(front/assets/img/bg/skills.jpg);">
+<div class="skill-area pt-120 pb-190" style="background-image: url({{asset('front/carly/assets/img/bg/skills.jpg')}});">
     <div class="container">
         <div class="row skill-parent">
             <div class="col-xl-3 col-lg-3 col-md-6">

@@ -87,10 +87,10 @@
 </div>
 
 @php
-    $fmOld = old( 'feature_image', $formMode === 'edit' ? $page->feature_image : '' );
+    $fmOld = old( 'feature_photo', $formMode === 'edit' ? $page->feature_photo : '' );
 @endphp
 
-@include('admin.component.image_uploader',['fieldTitle' => 'انتخاب تصویر شاخص','fieldName' => 'feature_image','old' => $fmOld])
+@include('admin.component.image_uploader',['fieldTitle' => 'انتخاب تصویر شاخص','fieldName' => 'feature_photo','old' => $fmOld])
 
 <div class="form-group">
     <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره پست جدید'}} </button>
@@ -131,7 +131,7 @@
     <script src="{{asset('assets/js/component/imageUploader.js')}}"></script>
     <script>
         $(document).ready(function () {
-            imageUploader('feature_image');
+            imageUploader('feature_photo');
         });
     </script>
 

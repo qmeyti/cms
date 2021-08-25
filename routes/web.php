@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+//use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-Route::group(['namespace' => 'App\Http\Controllers\Front', 'middleware' => ['fs_init']], function () {
+Route::name('front.')->namespace('App\Http\Controllers\Front')->middleware(['fs_init'])->group(function () {
 
     Route::get('/', 'HomeController@index');
+
+    Route::get('/page/{page}', 'HomeController@index')->name('page.show');
 
 });
 
@@ -48,6 +50,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
     Route::resource('/{slider}/slides', 'SlideController');
 
     Route::resource('/category', 'CategoryController');
+
+    Route::resource('/contacts', 'ContactController');
 
     //Menu
     Route::resource('/menus', 'MenuController');

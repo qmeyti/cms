@@ -1,3 +1,4 @@
+{{--
 <!-- team-area-start -->
 <div class="team-area pt-115 pb-90" style="background-image: url(front/assets/img/bg/team.png);">
     <div class="container">
@@ -78,3 +79,4 @@
     </div>
 </div>
 <!-- team-area-end -->
+--}}

@@ -47,6 +47,11 @@ return [
                     'url' => route('menus.index'),
                 ],
                 [
+                    'icon' => 'fa fa-phone',
+                    'title' => 'مدیریت تماس ها',
+                    'url' => route('contacts.index'),
+                ],
+                [
                     'icon' => 'fa fa-tasks',
                     'title' => 'لاگ تغییرات',
                     'url' => route('activitylogs.index'),
