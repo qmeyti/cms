@@ -20,7 +20,7 @@ class PagesController extends Controller
     {
         $keyword = $request->get('search');
 
-        $perPage =  __stg('element_per_page',  25);
+        $perPage = __stg('element_per_page', 25);
 
         $pages = Page::with('categories')
             ->whereIn('status', ['published', 'pending', 'trash'])
@@ -39,7 +39,12 @@ class PagesController extends Controller
 
         }
 
-        return view('admin.pages.index', compact('pages'));
+        $pageTitle = 'لیست نوشته ها';
+        $breadcrumb = [];
+        $pageBc = 'نوشته ها';
+        $pageSubtitle = 'در این قسمت لیست همه مقالات و اخبار سایت را مشاهده میکنید.';
+
+        return view('admin.pages.index', compact('pages', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**

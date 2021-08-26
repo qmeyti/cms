@@ -1,26 +1,44 @@
-<div class="col-md-3">
-    @foreach($laravelAdminMenus as $section)
-        @if(isset($section['items']))
-            <div class="card">
-                <div class="card-header">
-                    <i class="{{$section['icon']}}"></i>
-                    {{ $section['section'] }}
+<div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <div class="d-flex justify-content-between">
+                <div class="logo">
+                    <a href="{{url('/admin')}}"><img src="{{asset('admins/mazer/assets/images/logo/logo.png')}}" alt="Logo" srcset=""></a>
                 </div>
-
-                <div class="card-body">
-                    <ul class="nav flex-column" role="tablist">
-                        @foreach($section['items'] as $menu)
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" href="{{ url($menu['url']) }}">
-                                    <i class="{{$menu['icon']}}"></i>
-                                    {{ $menu['title'] }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+                <div class="toggler">
+                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                 </div>
             </div>
-            <br/>
-        @endif
-    @endforeach
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+
+                @foreach($laravelAdminMenus as $sections)
+
+                    <li class="sidebar-title">{{$sections['title']}}</li>
+
+                    @foreach($sections['parts'] as $part)
+
+                        <li class="sidebar-item {{$part['class']}} @if(!empty($part['items'])) has-sub @endif">
+                            <a href="@if(empty($part['items'])) {{$part['url']}} @else # @endif" class='sidebar-link'>
+                                <i class="{{$part['icon']}}"></i>
+                                <span>{{$part['title']}}</span>
+                            </a>
+                            <ul class="submenu">
+                                @foreach($part['items'] as $item)
+                                    <li class="submenu-item">
+                                        <a href="{{$item['url']}}">{{$item['title']}}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+
+                    @endforeach
+
+                @endforeach
+
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    </div>
 </div>

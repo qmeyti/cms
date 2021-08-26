@@ -8,11 +8,26 @@
     font-style: normal;
 }
 
-
 body {
     font-family: 'Tanha', sans-serif, tahoma;
 }
 
+.text-right{
+    text-align: right !important;
+}
+
+/*Master page*/
+#navbarSupportedContent .dropdown-menu.show{
+    left:0;
+}
+
+.breadcrumb-item+.breadcrumb-item:before {
+    color: #6c757d;
+    content: var(--bs-breadcrumb-divider,"/");
+    float: right;
+    padding-right: unset;
+    padding-left: .5rem;
+}
 .ltr {
     direction: ltr !important;
 }
@@ -29,24 +44,37 @@ body {
     border-bottom-right-radius: 0;
 }
 
-/**
-    Posts pages
- */
-#validationTags + .dropdown input[type="text"] {
+.input-group.has-validation>.dropdown-toggle:nth-last-child(n+4), .input-group.has-validation>:nth-last-child(n+3):not(.dropdown-toggle):not(.dropdown-menu), .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
 
-    --tw-ring-offset-color: unset;
-    --tw-ring-color: unset;
-    --tw-ring-offset-shadow: unset;
-    --tw-ring-shadow: unset;
-    border-color: unset;
-    box-shadow: unset;
-    outline: unset;
-    outline-offset: unset;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
 }
 
-/**
+#validationTags + .dropdown input[type="text"] {
+
+     --tw-ring-offset-color: unset;
+     --tw-ring-color: unset;
+     --tw-ring-offset-shadow: unset;
+     --tw-ring-shadow: unset;
+     border-color: unset;
+     box-shadow: unset;
+     outline: unset;
+     outline-offset: unset;
+ }
+/*
+
+
+
+!**
+    Posts pages
+ *!
+
+
+!**
     Error handling
- */
+ *!
 .help-block {
     color: red;
     font-size: 0.8rem;
@@ -54,9 +82,9 @@ body {
 }
 
 
-/**
+!**
     Bootstrap modify
- */
+ *!
 .form-control {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -64,8 +92,8 @@ body {
     background-clip: padding-box;
     background-color: #fff;
     border: 1px solid #ced4da;
-    /*@todo*/
-    /*border-radius: .25rem;*/
+    !*@todo*!
+    !*border-radius: .25rem;*!
     color: #212529;
     display: block;
     font-size: 1rem;
@@ -85,9 +113,9 @@ select {
     padding-left: 2.5rem;
 }
 
-/**
+!**
  * Global
- */
+ *!
 .h1, h1 {
     font-size: calc(1.375rem + 1.5vw)
 }
@@ -135,3 +163,4 @@ select {
 .h6, h6 {
     font-size: 1rem
 }
+*/

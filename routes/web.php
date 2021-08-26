@@ -31,7 +31,7 @@ Route::name('front.')->namespace('App\Http\Controllers\Front')->middleware(['fs_
 
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin', 'as_init']], function () {
 
-    Route::get('/', 'AdminController@index');
+    Route::get('/', 'AdminController@index')->name('dashboard');
 
     Route::resource('/roles', 'RolesController');
 

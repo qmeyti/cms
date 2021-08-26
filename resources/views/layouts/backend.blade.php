@@ -1,114 +1,86 @@
 <!DOCTYPE html>
 <html dir='RTL' lang="{{ app()->getLocale() }}">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- CSRF Token -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href={{ asset('css/app.css') }}>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{asset('vendor/font-awesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admins/mazer/assets/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('admins/mazer/assets/vendors/perfect-scrollbar/perfect-scrollbar.css')}}">
+    <link rel="stylesheet" href="{{asset('admins/mazer/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
+    <link rel="stylesheet" href="{{asset('admins/mazer/assets/css/app.rtl.css')}}">
 
     <link rel="stylesheet" href={{ asset('assets/style/main.css') }}>
 
+    {{--Todo change icon--}}
+    {{--    <link rel="shortcut icon" href="{{asset('admins/mazer/assets/images/favicon.svg')}}" type="image/x-icon">--}}
     @yield('head')
 
 </head>
+
 <body>
+
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light navbar-laravel" dir="ltr">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                هاویر
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
-                    <li><a href="{{ url('/admin') }}">داشبورد <span class="sr-only">(current)</span></a></li>
-                </ul>
+    @include('admin.sidebar')
 
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                        <li><a class="nav-link" href="{{ url('/login') }}">ورود کاربر</a></li>
-                        <li><a class="nav-link" href="{{ url('/register') }}">عضویت</a></li>
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+    <div id="main" class='layout-navbar'>
+        @include('admin.topbar')
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('/logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
+        <div id="main-content">
 
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
+            <div class="page-heading">
+
+                @include('admin.page_title')
+
+                @if (Session::has('flash_message'))
+                    <section class="section">
+                        <div class="alert alert-light-success color-success"><i class="bi bi-star"></i>
+                            {{ Session::get('flash_message') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </section>
+                @endif
+
+                @if (Session::has('flash_error'))
+                    <section class="section">
+                        <div class="alert alert-light-danger color-danger"><i class="bi bi-star"></i>
+                            {{ Session::get('flash_error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </section>
+                @endif
+
+                @yield('content')
+
+
             </div>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>کپی رایت {{ date('Y') }} &copy;</p>
+                    </div>
+                    <div class="float-end">
+                        <p>قدرت گرفته از <span class="text-danger"> <i class="bi bi-heart-fill icon-mid"></i></span> <a href="https://laravel.com"> لاراول</a></p>
+                    </div>
+                </div>
+            </footer>
         </div>
-    </nav>
-
-    <main class="py-4">
-        @if (Session::has('flash_message'))
-            <div class="container">
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    {{ Session::get('flash_message') }}
-                </div>
-            </div>
-        @endif
-
-        @if (Session::has('flash_error'))
-            <div class="container">
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    {{ Session::get('flash_error') }}
-                </div>
-            </div>
-        @endif
-
-        @yield('content')
-    </main>
-
-    <hr/>
-
-    <div class="container">
-        &copy; {{ date('Y') }}. تولید شده به دست <a href="https://www.haavir.com">هاویر</a>
-        <br/>
     </div>
-
 </div>
 
-<!-- Scripts -->
-<script src="{{ asset('vendor/jquery/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
-<script type="text/javascript">
-    $(function () {
-        // Navigation active
-        $('ul.navbar-nav a[href="{{ "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}"]').closest('li').addClass('active');
-    });
-</script>
 
+<script src="{{asset('admins/mazer/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+<script src="{{asset('admins/mazer/assets/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('admins/mazer/assets/js/main.js')}}"></script>
 @yield('scripts')
+
 </body>
+
 </html>
