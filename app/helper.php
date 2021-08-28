@@ -107,3 +107,36 @@ if (!function_exists('__add_stg')) {
 }
 
 
+
+if (!function_exists('__route')) {
+
+    /**
+     * Return route name
+     *
+     * @return string
+     */
+    function __route(): string
+    {
+        return \Illuminate\Support\Facades\Route::currentRouteName();
+    }
+
+}
+
+if (!function_exists('__active_links')) {
+
+    /**
+     * Get an array of routes and return `active` if current route equal to it
+     *
+     * @param array $route_names
+     * @return string
+     */
+    function __active_links(array $route_names): string
+    {
+        if (in_array(__route(), $route_names))
+            return 'active';
+        else
+            return '';
+    }
+
+}
+

@@ -11,11 +11,32 @@ class ContactController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::paginate(30);
 
-        return view('admin.contacts.index', compact('contacts'));
+        $perPage = __stg('element_per_page', 25);
+
+        __sanitize('search');
+
+        $keyword = $request->get('search');
+
+        if (!empty($keyword)) {
+            $contacts = Contact::where('subject', 'LIKE', "%$keyword%")
+                ->orWhere('email', 'LIKE', "%$keyword%")
+                ->orWhere('mobile', 'LIKE', "%$keyword%")
+                ->orWhere('name', 'LIKE', "%$keyword%")
+                ->latest()
+                ->paginate($perPage);
+        } else {
+            $contacts = Contact::latest()->paginate($perPage);
+        }
+
+        $pageTitle = 'لیست تماس ها';
+        $breadcrumb = [];
+        $pageBc = 'لیست تماس ها';
+        $pageSubtitle = 'در این لیست آخرین درخواست ها و تماس های دریافتی را مشاهده خواهید کرد.';
+
+        return view('admin.contacts.index', compact('contacts','pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -48,8 +69,12 @@ class ContactController extends Controller
         $contact->seen = 1;
 
         $contact->save();
+        $pageTitle = 'نمایش تماس ها';
+        $breadcrumb = [];
+        $pageBc = 'نمایش تماس ها';
+        $pageSubtitle = '';
 
-        return view('admin.contacts.show', compact('contact'));
+        return view('admin.contacts.show', compact('contact','pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**

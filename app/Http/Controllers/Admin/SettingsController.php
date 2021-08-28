@@ -18,7 +18,7 @@ class SettingsController extends Controller
     {
         $keyword = $request->get('search');
 
-        $perPage =  __stg('element_per_page',  25);
+        $perPage = __stg('element_per_page', 25);
 
         if (!empty($keyword)) {
             $settings = Setting::where('key', 'LIKE', "%$keyword%")
@@ -28,7 +28,12 @@ class SettingsController extends Controller
             $settings = Setting::orderBy('key')->paginate($perPage);
         }
 
-        return view('admin.settings.index', compact('settings'));
+        $pageTitle = 'لیست تنظیمات';
+        $breadcrumb = [];
+        $pageBc = 'لیست تنظیمات';
+        $pageSubtitle = '';
+
+        return view('admin.settings.index', compact('settings', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -38,7 +43,11 @@ class SettingsController extends Controller
      */
     public function create()
     {
-        return view('admin.settings.create');
+        $pageTitle = 'ایجاد تنظیم تنظیمات';
+        $breadcrumb = [];
+        $pageBc = 'ایجاد تنظیم';
+        $pageSubtitle = '';
+        return view('admin.settings.create', compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -126,8 +135,11 @@ class SettingsController extends Controller
     public function show($id)
     {
         $setting = Setting::findOrFail($id);
-
-        return view('admin.settings.show', compact('setting'));
+        $pageTitle = 'نمایش جزییات تنظیم';
+        $breadcrumb = [];
+        $pageBc = 'جزییات تنظیم';
+        $pageSubtitle = '';
+        return view('admin.settings.show', compact('setting', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -136,7 +148,11 @@ class SettingsController extends Controller
      */
     public function edit(Setting $setting)
     {
-        return view('admin.settings.edit', compact('setting'));
+        $pageTitle = 'ویرایش تنظیم';
+        $breadcrumb = [];
+        $pageBc = 'ویرایش تنظیم';
+        $pageSubtitle = '';
+        return view('admin.settings.edit', compact('setting', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**

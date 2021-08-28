@@ -24,7 +24,12 @@ class ActivityLogsController extends Controller
             $activitylogs = Activity::latest()->paginate($perPage);
         }
 
-        return view('admin.activitylogs.index', compact('activitylogs'));
+        $pageTitle = 'لاگ تغییرات';
+        $breadcrumb = [];
+        $pageBc = 'لاگ تغییرات';
+        $pageSubtitle = '';
+
+        return view('admin.activitylogs.index', compact('activitylogs','pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -38,7 +43,11 @@ class ActivityLogsController extends Controller
     {
         $activitylog = Activity::findOrFail($id);
 
-        return view('admin.activitylogs.show', compact('activitylog'));
+        $pageTitle = 'جزییات لاگ';
+        $breadcrumb = [];
+        $pageBc = 'جزییات لاگ';
+        $pageSubtitle = '';
+        return view('admin.activitylogs.show', compact('activitylog','pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**

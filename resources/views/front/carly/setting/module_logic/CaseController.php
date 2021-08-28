@@ -84,6 +84,16 @@ class CaseController implements \App\Libraries\Template\TemplateControllerInterf
      */
     public function create(\Illuminate\Http\Request $request)
     {
-        return view('front.carly.setting.module_views.case', ['pages' => $this->getLinkablePages()]);
+        $pageTitle = 'تنظیمات بخش  نمونه کارها';
+        $breadcrumb = [];
+        $pageBc = 'تنظیمات نمونه کارها';
+        $pageSubtitle = '';
+
+        return view('front.carly.setting.module_views.case', [
+            'pageTitle' => $pageTitle,
+            'breadcrumb' => $breadcrumb,
+            'pageBc' => $pageBc,
+            'pageSubtitle' => $pageSubtitle,
+            'pages' => $this->getLinkablePages()]);
     }
 }

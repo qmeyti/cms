@@ -54,7 +54,11 @@ class HeaderController implements \App\Libraries\Template\TemplateControllerInte
          * Get menus
          */
         $menus = Menu::all()->pluck('name', 'id');
+        $pageTitle = 'تنظیمات بخش  سرصفحه';
+        $breadcrumb = [];
+        $pageBc = 'تنظیمات سرصفحه';
+        $pageSubtitle = '';
 
-        return view('front.carly.setting.module_views.header', compact('menus'));
+        return view('front.carly.setting.module_views.header', compact('menus','pageTitle','breadcrumb','pageBc','pageSubtitle'));
     }
 }

@@ -16,7 +16,11 @@ class ProcessController extends Controller
      */
     public function getGenerator()
     {
-        return view('admin.generator');
+        $pageTitle = 'سازنده';
+        $breadcrumb = [];
+        $pageBc = 'سازنده';
+        $pageSubtitle = '';
+        return view('admin.generator',compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**

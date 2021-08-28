@@ -63,7 +63,11 @@ class MenuController implements \App\Libraries\Template\TemplateControllerInterf
          * Get menus
          */
         $menus = Menu::all()->pluck('name', 'id');
+        $pageTitle = 'تنظیمات منوها';
+        $breadcrumb = [];
+        $pageBc = 'تنظیمات منوها';
+        $pageSubtitle = '';
 
-        return view('front.carly.setting.module_views.menu', compact('menus'));
+        return view('front.carly.setting.module_views.menu', compact('menus','pageTitle','breadcrumb','pageBc','pageSubtitle'));
     }
 }

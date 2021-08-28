@@ -34,6 +34,11 @@ class SliderController implements \App\Libraries\Template\TemplateControllerInte
     {
         $sliders = \App\Models\Slider::all()->pluck('title' ,'id');
 
-        return view('front.carly.setting.module_views.slider', compact('sliders'));
+        $pageTitle = 'تنظیمات اسلایدر';
+        $breadcrumb = [];
+        $pageBc = 'تنظیمات اسلایدر';
+        $pageSubtitle = '';
+
+        return view('front.carly.setting.module_views.slider', compact('sliders','pageTitle','breadcrumb','pageBc','pageSubtitle'));
     }
 }

@@ -111,6 +111,18 @@ class AboutController implements \App\Libraries\Template\TemplateControllerInter
      */
     public function create(\Illuminate\Http\Request $request)
     {
-        return view('front.carly.setting.module_views.about', ['pages' => $this->getLinkablePages()]);
+
+        $pageTitle = 'تنظیمات بخش درباره ما';
+        $breadcrumb = [];
+        $pageBc = 'تنظیمات درباره ما';
+        $pageSubtitle = '';
+
+        return view('front.carly.setting.module_views.about', [
+            'pageTitle' => $pageTitle,
+            'breadcrumb' => $breadcrumb,
+            'pageBc' => $pageBc,
+            'pageSubtitle' => $pageSubtitle,
+            'pages' => $this->getLinkablePages()
+        ]);
     }
 }

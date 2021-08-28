@@ -88,6 +88,11 @@ class ServiceController implements \App\Libraries\Template\TemplateControllerInt
      */
     public function create(\Illuminate\Http\Request $request)
     {
-        return view('front.carly.setting.module_views.service');
+        $pageTitle = 'تنظیمات بخش  خدمات ما';
+        $breadcrumb = [];
+        $pageBc = 'تنظیمات خدمات ما';
+        $pageSubtitle = '';
+
+        return view('front.carly.setting.module_views.service',compact('pageTitle','breadcrumb','pageBc','pageSubtitle'));
     }
 }

@@ -49,6 +49,15 @@ class BrandController implements \App\Libraries\Template\TemplateControllerInter
      */
     public function create(\Illuminate\Http\Request $request)
     {
-        return view('front.carly.setting.module_views.brand');
+        $pageTitle = 'تنظیمات همکاران';
+        $breadcrumb = [];
+        $pageBc = 'تنظیمات همکاران';
+        $pageSubtitle = '';
+        return view('front.carly.setting.module_views.brand', [
+            'pageTitle' => $pageTitle,
+            'breadcrumb' => $breadcrumb,
+            'pageBc' => $pageBc,
+            'pageSubtitle' => $pageSubtitle,
+        ]);
     }
 }

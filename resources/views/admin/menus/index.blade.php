@@ -6,6 +6,11 @@
     {{--JQUERY-UI--}}
     <link rel="stylesheet" href="{{asset('vendor/jquery-ui-1.12.1/jquery-ui.min.css')}}">
     <style>
+        #MENU_DRAWER ul,#MENU_DRAWER ol,#MENU_DRAWER li{
+            margin: unset;
+            padding: unset;
+        }
+
         #MENU_DRAWER ol {
             display: block;
             margin-right: 30px!important;
@@ -100,7 +105,7 @@
 @section('content')
     <section class="section">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header border-bottom">
                 <div class="row">
                     <div class="col align-items-center d-flex">
                         <h4>
@@ -113,7 +118,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row mb-3">
+                <div class="row mt-3 mb-3">
                     <div class="col-auto">
                         @include('admin.menus.switch')
                     </div>
@@ -126,7 +131,7 @@
                     <div class="row">
                         <div class="col-md-4">
 
-                            <div class="card mb-3">
+                            <div class="card mb-3 border">
                                 <div class="card-header">
                                     <h6>
                                         <i class="fas fa-plus"></i>
@@ -138,7 +143,7 @@
                                 </div>
                             </div>
 
-                            <div class="card mb-3">
+                            <div class="card mb-3 border">
                                 <div class="card-header">
                                     <h6>
                                         <i class="fas fa-plus"></i>
@@ -150,7 +155,7 @@
                                 </div>
                             </div>
 
-                            <div class="card mb-3">
+                            <div class="card mb-3 border">
                                 <div class="card-header">
                                     <h6>
                                         <i class="fas fa-plus"></i>
@@ -167,12 +172,12 @@
                         </div>
                         <div class="col-md-8">
 
-                            <div class="card">
-                                <div class="card-header">
+                            <div class="card border">
+                                <div class="card-header border-bottom">
                                     @include('admin.menus.edit')
                                 </div>
                                 <div class="card-body">
-                                    <h6>ساختار منو</h6>
+                                    <h6 class="mt-3">ساختار منو</h6>
                                     <p style="font-size: .8rem">در این قسمت می توانید ایتم ها را مرتب و جابجا کنید. همچنین با کلیک بر روی فلش کنار هر آیتم میتوانید قسمت ویرایش را ببینید.</p>
                                     @include('admin.menus.menu')
                                 </div>
