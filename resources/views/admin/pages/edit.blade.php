@@ -10,7 +10,7 @@
                     <div class="card-header">ویرایش نوشته #{{ $page->id }}</div>
                     <div class="card-body">
                         <a href="{{ url('/admin/pages') }}" title="بازگشت">
-                            <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
+                            <button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                         <br/>
                         <br/>

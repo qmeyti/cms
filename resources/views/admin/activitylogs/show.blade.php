@@ -10,13 +10,13 @@
                     <div class="card-header">فعالیت {{ $activitylog->id }}</div>
                     <div class="card-body">
 
-                        <a href="{{ url('/admin/activitylogs') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
+                        <a href="{{ url('/admin/activitylogs') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['admin/activitylogs', $activitylog->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> حذف', array(
+                            {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i> حذف', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-sm',
                                     'title' => 'Delete Activity',

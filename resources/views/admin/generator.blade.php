@@ -112,7 +112,7 @@
                                     </select>
 
                                     <button class="btn btn-success btn-add inline btn-sm m-3" type="button">
-                                        <span class="fa fa-plus"></span>
+                                        <span class="fas fa-plus"></span>
                                         جدید
                                     </button>
                                 </div>
@@ -147,7 +147,7 @@
                 tableFields.find('.entry:not(:last) .btn-add')
                     .removeClass('btn-add').addClass('btn-remove')
                     .removeClass('btn-success').addClass('btn-danger')
-                    .html('<span class="fa fa-minus"></span> حذف');
+                    .html('<span class="fas fa-minus"></span> حذف');
             }).on('click', '.btn-remove', function(e) {
                 $(this).parents('.entry:first').remove();
 

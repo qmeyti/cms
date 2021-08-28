@@ -63,7 +63,7 @@
                     </button>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-text text-danger" id="FEATURE_PHOTO_TRASH"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-text text-danger" id="FEATURE_PHOTO_TRASH"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
 </div>
 
 <div class="form-group">
-    <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره اسلاید جدید'}} </button>
+    <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره اسلاید جدید'}} </button>
 </div>
 
 

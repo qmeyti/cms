@@ -20,7 +20,7 @@
 </div>
 
 <div class="form-group">
-    <button class="btn btn-warning" type="submit"><i class="fa fa-pencil"></i> ویرایش </button>
+    <button class="btn btn-warning" type="submit"><i class="fas fa-pencil"></i> ویرایش </button>
 </div>
 
 {!! Form::close() !!}

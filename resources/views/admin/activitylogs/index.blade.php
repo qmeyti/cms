@@ -14,7 +14,7 @@
 
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" dir="rtl" placeholder="جستجو..." value="{{ request('search') }}">
-                            <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
                         </div>
                         {!! Form::close() !!}
 
@@ -46,14 +46,14 @@
                                         <td>{{ $item->created_at }}</td>
                                         <td>
                                             <a href="{{ url('/admin/activitylogs/' . $item->id) }}" title="View Activity">
-                                                <button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                                <button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button>
                                             </a>
                                             {!! Form::open([
                                                 'method' => 'DELETE',
                                                 'url' => ['/admin/activitylogs', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
-                                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
+                                            {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i>', array(
                                                     'type' => 'submit',
                                                     'class' => 'btn btn-danger btn-sm',
                                                     'title' => 'Delete Activity',

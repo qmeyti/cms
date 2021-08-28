@@ -10,7 +10,7 @@
                     <div class="card-header">ویرایش اسلاید #{{ $slide->id }}</div>
                     <div class="card-body">
                         <a href="{{ route('slides.index',['slider' => $slider->id]) }}" title="بازگشت">
-                            <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
+                            <button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                         <br/>
                         <br/>

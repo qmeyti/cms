@@ -90,7 +90,16 @@ class PagesController extends Controller
 
         }
 
+        $pageTitle = 'ایجاد نوشته ی جدید';
+        $breadcrumb = [route('pages.index') => 'لیست نوشته ها'];
+        $pageBc = 'ایجاد نوشته';
+        $pageSubtitle = 'توجه نمایید برای ایجاد خبر نوع نوشته را بر روی (خبر یا مقاله) و برای ایجاد صفحه بر روی (صفحه تکی) قرار دهید.';
+
         return view('admin.pages.create', [
+            'pageTitle' => $pageTitle,
+            'breadcrumb' => $breadcrumb,
+            'pageBc' => $pageBc,
+            'pageSubtitle' => $pageSubtitle,
             'page' => $page,
             'parents' => $this->parentablePages([$page->id]),
             'multipleCategorySelection' => true,

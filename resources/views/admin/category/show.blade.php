@@ -10,8 +10,8 @@
                     <div class="card-header">{{ $category->title }}</div>
                     <div class="card-body">
 
-                        <a href="{{ url('/admin/category') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        <a href="{{ url('/admin/category/' . $category->id . '/edit') }}" title="ویرایش دسته بندی"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button></a>
+                        <a href="{{ url('/admin/category') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
+                        <a href="{{ url('/admin/category/' . $category->id . '/edit') }}" title="ویرایش دسته بندی"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['admin/category', $category->id],

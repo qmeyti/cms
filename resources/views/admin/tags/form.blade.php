@@ -5,6 +5,6 @@
 </div>
 
 <div class="form-group">
-    <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره برچسب جدید'}} </button>
+    <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره برچسب جدید'}} </button>
 </div>
 

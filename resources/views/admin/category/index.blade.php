@@ -10,7 +10,7 @@
                     <div class="card-header">دسته بندی های صفحات</div>
                     <div class="card-body">
                         <a href="{{ url('/admin/category/create') }}" class="btn btn-success" title="افزودن یک دسته جدید">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <i class="fas fa-plus" aria-hidden="true"></i>
                             افزودن دسته جدید
                         </a>
 
@@ -19,7 +19,7 @@
                             <input type="text" class="form-control" name="search" placeholder="جستجو..." value="{{ request('search') }}">
 
                             <button class="btn btn-secondary " type="submit">
-                                <i class="fa fa-search"></i>
+                                <i class="fas fa-search"></i>
                             </button>
                         </div>
                         {!! Form::close() !!}
@@ -46,17 +46,17 @@
                                         <td>{{ is_null($c = $item->parent()->first()) ? '' : $c->title }}</td>
                                         <td>
                                             <a href="{{ url('/admin/category/' . $item->id) }}" title="نمایش دسته بندی">
-                                                <button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                                <button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button>
                                             </a>
                                             <a href="{{ url('/admin/category/' . $item->id . '/edit') }}" title="ویرایش دسته بندی">
-                                                <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                <button class="btn btn-primary btn-sm"><i class="fas fa-pencil-square-o" aria-hidden="true"></i></button>
                                             </a>
                                             {!! Form::open([
                                                 'method' => 'DELETE',
                                                 'url' => ['/admin/category', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
-                                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
+                                            {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i>', array(
                                                     'type' => 'submit',
                                                     'class' => 'btn btn-danger btn-sm',
                                                     'title' => 'حذف دسته بندی',

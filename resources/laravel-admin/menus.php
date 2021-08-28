@@ -5,14 +5,14 @@ return [
         'title' => 'مدیریت سایت',
         'parts' => [
             [
-                'icon' => 'bi bi-grid-fill',
+                'icon' => 'fas fa-th-large',
                 'title' => 'داشبورد',
                 'url'=> route('dashboard'),
                 'class' => 'active',
                 'items' => [],
             ],
             [
-                'icon' => 'bi bi-pen-fill',
+                'icon' => 'fas fa-pen-alt',
                 'title' => 'نوشته ها',
                 'class' => '',
                 'items' => [
@@ -39,7 +39,7 @@ return [
                 ],
             ],
             [
-                'icon' => 'bi bi-people-fill',
+                'icon' => 'fas fa-users',
                 'title' => 'کاربران',
                 'class' => '',
                 'items' => [
@@ -61,7 +61,7 @@ return [
                 ],
             ],
             [
-                'icon' => 'bi bi-puzzle-fill',
+                'icon' => 'fas fa-puzzle-piece',
                 'title' => 'ماژول ها',
                 'class' => '',
                 'items' => [
@@ -78,7 +78,7 @@ return [
                 ],
             ],
             [
-                'icon' => 'bi bi-palette-fill',
+                'icon' => 'fas fa-palette',
                 'title' => 'تنظیمات ظاهری',
                 'class' => '',
                 'items' => [
@@ -96,7 +96,7 @@ return [
         'title' => 'ابزار مدیریتی',
         'parts' => [
             [
-                'icon' => 'bi bi-tools',
+                'icon' => 'fas fa-tools',
                 'title' => 'ابزار',
                 'class' => '',
                 'items' => [

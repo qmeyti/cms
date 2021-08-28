@@ -11,17 +11,17 @@
                     <div class="card-body">
 
                         <a href="{{ url('/admin/pages') }}" title="بازگشت">
-                            <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
+                            <button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                         <a href="{{ url('/admin/pages/' . $page->id . '/edit') }}" title="ویرایش">
-                            <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button>
+                            <button class="btn btn-primary btn-sm"><i class="fas fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button>
                         </a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['admin/pages', $page->id],
                             'style' => 'display:inline'
                         ]) !!}
-                        {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> حذف', array(
+                        {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i> حذف', array(
                                 'type' => 'submit',
                                 'class' => 'btn btn-danger btn-sm',
                                 'title' => 'حذف کردن',

@@ -133,7 +133,7 @@
                                     <div class="card mb-3">
                                         <div class="card-header">
                                             <h6>
-                                                <i class="fa fa-plus"></i>
+                                                <i class="fas fa-plus"></i>
                                                 لینک دلخواه
                                             </h6>
                                         </div>
@@ -145,7 +145,7 @@
                                     <div class="card mb-3">
                                         <div class="card-header">
                                             <h6>
-                                                <i class="fa fa-plus"></i>
+                                                <i class="fas fa-plus"></i>
                                                 لینک صفحات
                                             </h6>
                                         </div>
@@ -157,7 +157,7 @@
                                     <div class="card mb-3">
                                         <div class="card-header">
                                             <h6>
-                                                <i class="fa fa-plus"></i>
+                                                <i class="fas fa-plus"></i>
                                                 لینک مسیرها
                                             </h6>
                                         </div>

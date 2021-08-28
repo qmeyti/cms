@@ -20,7 +20,7 @@
                         @if(isset($removeFunc))
                         onclick="{{$removeFunc}}"
                         @endif
-                        type="button" class="btn btn-text text-danger" id="{{strtoupper($fieldName)}}_TRASH"><i class="fa fa-trash"></i></button>
+                        type="button" class="btn btn-text text-danger" id="{{strtoupper($fieldName)}}_TRASH"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         </div>

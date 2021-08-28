@@ -11,26 +11,24 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col">
-                        <a href="{{ url('/admin/pages/create') }}" class="btn btn-success" title="ایجاد صفحه جدید">
-                            <span class="bi bi-plus-circle-fill" aria-hidden="true"></span>
-                            افزودن
-                        </a>
-                    </div>
-                    <div class="col">
+                    <div class="col-md-auto">
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/pages', 'class' => 'form-inline', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="جستجو..." value="{{ request('search') }}">
                             <button class="btn btn-secondary" type="submit">
-                                <i class="bi bi-search"></i>
+                                <i class="fas fa-search"></i>
                             </button>
                         </div>
                         {!! Form::close() !!}
                     </div>
+
+                    <div class="col d-flex justify-content-end">
+                        <a href="{{ url('/admin/pages/create') }}" class="btn btn-success" title="ایجاد صفحه جدید">
+                            <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                            افزودن
+                        </a>
+                    </div>
                 </div>
-
-
-
 
                 <br/>
                 <br/>
@@ -73,14 +71,14 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{ url('/admin/pages/' . $item->id) }}" title="مشاهده صفحه"><button class="btn btn-info btn-sm"><i class="bi bi-eye" aria-hidden="true"></i></button></a>
-                                    <a href="{{ url('/admin/pages/' . $item->id . '/edit') }}" title="ویرایش صفحه"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    <a href="{{ url('/admin/pages/' . $item->id) }}" title="مشاهده صفحه"><button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button></a>
+                                    <a href="{{ url('/admin/pages/' . $item->id . '/edit') }}" title="ویرایش صفحه"><button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i></button></a>
                                     {!! Form::open([
                                         'method' => 'DELETE',
                                         'url' => ['/admin/pages', $item->id],
                                         'style' => 'display:inline'
                                     ]) !!}
-                                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
+                                    {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i>', array(
                                             'type' => 'submit',
                                             'class' => 'btn btn-danger btn-sm',
                                             'title' => 'ویرایش صفحه',
@@ -101,9 +99,3 @@
         </div>
     </section>
 @endsection
-
-{{--
-@section('scripts')
-    <script src="{{ asset('vendor/jquery/jquery-3.6.0.min.js') }}"></script>
-@endsection
---}}

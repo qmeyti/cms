@@ -10,14 +10,14 @@
                     <div class="card-header">نقش های کاربران</div>
                     <div class="card-body">
                         <a href="{{ url('/admin/roles/create') }}" class="btn btn-success" title="افزودن نقش جدید">
-                            <i class="fa fa-plus" aria-hidden="true"></i> افزودن
+                            <i class="fas fa-plus" aria-hidden="true"></i> افزودن
                         </a>
 
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/roles', 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="جستجو...">
                                 <button class="btn btn-secondary" type="submit">
-                                    <i class="fa fa-search"></i>
+                                    <i class="fas fa-search"></i>
                                 </button>
                         </div>
                         {!! Form::close() !!}
@@ -41,14 +41,14 @@
                                         <td>{{ $item->id }}</td>
                                         <td><a href="{{ url('/admin/roles', $item->id) }}">{{ $item->name }}</a></td><td>{{ $item->label }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/roles/' . $item->id) }}" title="نمایش نقش"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                            <a href="{{ url('/admin/roles/' . $item->id . '/edit') }}" title="ویرایش نقش کاربر"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/roles/' . $item->id) }}" title="نمایش نقش"><button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/roles/' . $item->id . '/edit') }}" title="ویرایش نقش کاربر"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             {!! Form::open([
                                                 'method' => 'DELETE',
                                                 'url' => ['/admin/roles', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
-                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
+                                                {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i>', array(
                                                         'type' => 'submit',
                                                         'class' => 'btn btn-danger btn-sm',
                                                         'title' => 'حذف نقش',

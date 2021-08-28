@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">ایجاد اسلاید جدید برای {{$slider->title}}</div>
                     <div class="card-body">
-                        <a href="{{ route('slides.index',['slider' => $slider->id]) }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
+                        <a href="{{ route('slides.index',['slider' => $slider->id]) }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
                         <br />
                         <br />
 

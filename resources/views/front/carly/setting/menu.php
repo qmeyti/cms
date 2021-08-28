@@ -3,10 +3,10 @@
 
 return [
     [
-        'title' => 'مدیریت پوسته',
+        'title' => 'مدیریت قالب',
         'parts' => [
             [
-                'icon' => 'bi bi-droplet-fill',
+                'icon' => 'fas fa-gem',
                 'title' => 'تنظیمات قالب',
                 'class' => '',
                 'items' => [
