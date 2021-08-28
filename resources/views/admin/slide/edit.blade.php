@@ -1,42 +1,46 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
+    <section class="section">
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">ویرایش اسلاید #{{ $slide->id }}</div>
-                    <div class="card-body">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+
+                    ویرایش اسلاید #{{ $slide->id }}
+                </h4>
+
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col">
                         <a href="{{ route('slides.index',['slider' => $slider->id]) }}" title="بازگشت">
-                            <button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
+                            <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
-                        <br/>
-                        <br/>
-
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-
-                        {!! Form::model($slide, [
-                            'method' => 'PATCH',
-                            'url' => route('slides.update',['slider' => $slider->id,'slide' => $slide->id]),
-                            'class' => 'form-horizontal',
-                            'files' => true
-                        ]) !!}
-
-                        @include ('admin.slide.form', ['formMode' => 'edit'])
-
-                        {!! Form::close() !!}
-
                     </div>
                 </div>
+
+                @if ($errors->any())
+                    <ul class="alert alert-light-danger color-danger">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+
+                {!! Form::model($slide, [
+                    'method' => 'PATCH',
+                    'url' => route('slides.update',['slider' => $slider->id,'slide' => $slide->id]),
+                    'class' => 'form-horizontal',
+                    'files' => true
+                ]) !!}
+
+                @include ('admin.slide.form', ['formMode' => 'edit'])
+
+                {!! Form::close() !!}
+
             </div>
         </div>
-    </div>
+
+    </section>
 @endsection

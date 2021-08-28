@@ -228,7 +228,12 @@ class PagesController extends Controller
     {
         $page = Page::with('categories')->findOrFail($id);
 
-        return view('admin.pages.show', compact('page'));
+        $pageTitle = 'مشاهده جزییات نوشته';
+        $breadcrumb = [route('pages.index') => 'لیست نوشته ها'];
+        $pageBc = 'مشاهده نوشته';
+        $pageSubtitle = $page->title;
+
+        return view('admin.pages.show', compact('page','pageTitle', 'breadcrumb' , 'pageBc' ,'pageSubtitle' ));
     }
 
     /**
@@ -242,7 +247,16 @@ class PagesController extends Controller
     {
         $page = Page::with('categories')->findOrFail($id);
 
+        $pageTitle = 'ویرایش نوشته';
+        $breadcrumb = [route('pages.index') => 'لیست نوشته ها'];
+        $pageBc = 'ویرایش نوشته';
+        $pageSubtitle = $page->title;
+
         return view('admin.pages.edit', [
+            'pageTitle' => $pageTitle,
+            'breadcrumb' => $breadcrumb,
+            'pageBc' => $pageBc,
+            'pageSubtitle' => $pageSubtitle,
             'page' => $page,
             'parents' => $this->parentablePages([$page->id]),
             'tags' => $page->tags->pluck('name')->toArray(),
@@ -323,6 +337,6 @@ class PagesController extends Controller
     {
         Page::destroy($id);
 
-        return redirect('admin/pages')->with('flash_message', 'Page deleted!');
+        return redirect('admin/pages')->with('flash_message', 'نوشته با موفقیت حذف شد!');
     }
 }

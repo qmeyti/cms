@@ -1,42 +1,43 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    ویرایش نوشته #{{ $page->id }}
+                </h4>
+            </div>
+            <div class="card-body">
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">ویرایش نوشته #{{ $page->id }}</div>
-                    <div class="card-body">
-                        <a href="{{ url('/admin/pages') }}" title="بازگشت">
-                            <button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
+                <div class="row mb-3">
+                    <div class="col">
+                        <a href="{{ route('pages.index') }}" title="بازگشت">
+                            <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
-                        <br/>
-                        <br/>
-
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-
-                        {!! Form::model($page, [
-                            'method' => 'PATCH',
-                            'url' => ['/admin/pages', $page->id],
-                            'class' => 'form-horizontal',
-                            'files' => true
-                        ]) !!}
-
-                        @include ('admin.pages.form', ['formMode' => 'edit'])
-
-                        {!! Form::close() !!}
-
                     </div>
                 </div>
+
+                @if ($errors->any())
+                    <ul class="alert alert-light-danger color-danger">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+
+                {!! Form::model($page, [
+                    'method' => 'PATCH',
+                    'url' => route('pages.update',['page'=>$page->id]),
+                    'class' => 'form-horizontal',
+                    'files' => true
+                ]) !!}
+
+                @include ('admin.pages.form', ['formMode' => 'edit'])
+
+                {!! Form::close() !!}
+
             </div>
         </div>
-    </div>
+    </section>
 @endsection

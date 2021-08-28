@@ -50,12 +50,12 @@ return [
                     ],
                     [
                         'icon' => '',
-                        'title' => 'نقش های کاربران',
+                        'title' => 'نقش کاربری',
                         'url' => route('roles.index'),
                     ],
                     [
                         'icon' => '',
-                        'title' => 'حقوق دسترسی',
+                        'title' => 'حق دسترسی',
                         'url' => route('permissions.index'),
                     ],
                 ],

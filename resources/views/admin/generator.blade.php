@@ -3,11 +3,17 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
+
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">سازنده</div>
+                    <div class="card-header">
+                                                <h4 class="card-title">
+
+                        سازنده
+                                            </h4>
+
+                    </div>
                     <div class="card-body">
 
                         <form class="form-horizontal" method="post" action="{{ url('/admin/generator') }}">

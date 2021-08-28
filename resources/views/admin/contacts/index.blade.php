@@ -3,14 +3,18 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
+
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">مدیریت تماس ها</div>
+                    <div class="card-header">
+                        <h4 class="card-title">
+مدیریت تماس ها
+                        </h4>
+</div>
                     <div class="card-body">
 
-                        {!! Form::open(['method' => 'GET', 'url' => route('contacts.index'), 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
+                        {!! Form::open(['method' => 'GET', 'url' => route('contacts.index'), 'class' => 'form-inline', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="جستجو...">
                                 <button class="btn btn-secondary" type="submit">
@@ -49,7 +53,7 @@
                                                 'url' => route('contacts.destroy', ['contact' => $item->id]),
                                                 'style' => 'display:inline'
                                             ]) !!}
-                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
+                                                {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i>', array(
                                                         'type' => 'submit',
                                                         'class' => 'btn btn-danger btn-sm',
                                                         'title' => 'حذف حق تماس',

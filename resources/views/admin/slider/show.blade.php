@@ -1,46 +1,53 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
+    <section class="section">
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">اسلایدر {{ $slider->id }}</div>
-                    <div class="card-body">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
 
-                        <a href="{{ url('/admin/slider') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        <a href="{{ url('/admin/slider/' . $slider->id . '/edit') }}" title="ویرایش اسلایدر"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button></a>
+                    اسلایدر {{ $slider->id }}
+                </h4>
+
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col">
+                        <a href="{{ route('slider.index') }}" title="بازگشت"><button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
+                        <a href="{{ route('slider.edit',['slider' => $slider->id]) }}" title="ویرایش اسلایدر"><button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i> ویرایش</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['admin/slider', $slider->id],
+                            'url' => route('slider.destroy',['slider' => $slider->id]),
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i> حذف', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-sm',
-                                    'title' => 'حذف اسلایدر',
-                                    'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
-                            ))!!}
+                        {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i> حذف', array(
+                                'type' => 'submit',
+                                'class' => 'btn btn-danger btn-sm',
+                                'title' => 'حذف اسلایدر',
+                                'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
+                        ))!!}
                         {!! Form::close() !!}
-                        <br/>
-                        <br/>
-
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <th>شناسه</th><td>{{ $slider->id }}</td>
-                                    </tr>
-                                    <tr><th> عنوان </th><td> {{ $slider->title }} </td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-
                     </div>
                 </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>شناسه</th>
+                            <td>{{ $slider->id }}</td>
+                        </tr>
+                        <tr>
+                            <th> عنوان </th>
+                            <td> {{ $slider->title }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
-    </div>
+
+    </section>
 @endsection

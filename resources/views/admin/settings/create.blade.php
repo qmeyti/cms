@@ -3,18 +3,25 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
+
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">ایجاد تنظیم جدید</div>
-                    <div class="card-body">
-                        <a href="{{ url('/admin/settings') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        <br />
-                        <br />
+                    <div class="card-header">
+                                                <h4 class="card-title">
+
+                        ایجاد تنظیم جدید
+                                            </h4>
+
+                    </div>
+                    <div class="card-body"><div class="row mb-3">
+                            <div class="col">
+                        <a href="{{ url('/admin/settings') }}" title="بازگشت"><button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
+                            </div>
+                        </div>
 
                         @if ($errors->any())
-                            <ul class="alert alert-danger">
+                            <ul class="alert alert-light-danger color-danger">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach

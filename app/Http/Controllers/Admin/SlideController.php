@@ -18,7 +18,7 @@ class SlideController extends Controller
     {
         $keyword = $request->get('search');
 
-        $perPage =  __stg('element_per_page',  25);
+        $perPage = __stg('element_per_page', 25);
 
         $slide = $slider->slides();
 
@@ -36,7 +36,12 @@ class SlideController extends Controller
 
         }
 
-        return view('admin.slide.index', compact('slide', 'slider'));
+        $pageTitle = 'لیست اسلایدها';
+        $breadcrumb = [];
+        $pageBc = 'لیست اسلایدها';
+        $pageSubtitle = $slider->title;
+
+        return view('admin.slide.index', compact('slide', 'slider', 'slider', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -46,7 +51,11 @@ class SlideController extends Controller
      */
     public function create(Request $request, Slider $slider)
     {
-        return view('admin.slide.create', compact('slider'));
+        $pageTitle = 'افزودن اسلاید';
+        $breadcrumb = [];
+        $pageBc = 'افزودن اسلاید';
+        $pageSubtitle = $slider->title;
+        return view('admin.slide.create', compact('slider', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -98,7 +107,12 @@ class SlideController extends Controller
      */
     public function show(Request $request, Slider $slider, Slide $slide)
     {
-        return view('admin.slide.show', compact('slide', 'slider'));
+        $pageTitle = 'نمایش اسلاید';
+        $breadcrumb = [];
+        $pageBc = 'نمایش اسلاید';
+        $pageSubtitle = $slider->title;
+
+        return view('admin.slide.show', compact('slide', 'slider', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -109,7 +123,11 @@ class SlideController extends Controller
      */
     public function edit(Request $request, Slider $slider, Slide $slide)
     {
-        return view('admin.slide.edit', compact('slide','slider'));
+        $pageTitle = 'ویرایش اسلاید';
+        $breadcrumb = [];
+        $pageBc = 'ویرایش اسلاید';
+        $pageSubtitle = $slider->title;
+        return view('admin.slide.edit', compact('slide', 'slider', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**

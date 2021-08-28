@@ -33,6 +33,6 @@
 </div>
 
 
-<div class="form-group mb-3">
-    {!! Form::submit($formMode === 'edit' ? 'ذخیره تغییرات' : 'ساخت دسته جدید', ['class' => 'btn btn-primary']) !!}
+<div class="form-group">
+    <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره دسته جدید'}} </button>
 </div>

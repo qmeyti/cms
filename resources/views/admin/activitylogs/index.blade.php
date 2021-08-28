@@ -3,14 +3,20 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
+
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">لاگ فعالیت ها</div>
+                    <div class="card-header">
+                                                <h4 class="card-title">
+
+                        لاگ فعالیت ها
+                                            </h4>
+
+                    </div>
 
                     <div class="card-body">
-                        {!! Form::open(['method' => 'GET', 'url' => '/admin/activitylogs', 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
+                        {!! Form::open(['method' => 'GET', 'url' => '/admin/activitylogs', 'class' => 'form-inline', 'role' => 'search'])  !!}
 
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" dir="rtl" placeholder="جستجو..." value="{{ request('search') }}">
@@ -21,7 +27,7 @@
                         <br/>
                         <br/>
                         <div class="table-responsive">
-                            <table class="table table-borderless">
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th>شناسه</th>
@@ -53,7 +59,7 @@
                                                 'url' => ['/admin/activitylogs', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
-                                            {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i>', array(
+                                            {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i>', array(
                                                     'type' => 'submit',
                                                     'class' => 'btn btn-danger btn-sm',
                                                     'title' => 'Delete Activity',

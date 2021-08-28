@@ -3,17 +3,23 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
+
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">نمایش پیام</div>
+                    <div class="card-header">
+                                            <h4 class="card-title">
+
+                        نمایش پیام
+                                            </h4>
+
+                    </div>
                     <div class="card-body">
 
                         <a href="{{ route('contacts.index') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
 
                         {!! Form::open(['method' => 'DELETE', 'url' => route('contacts.destroy', ['contact' => $contact->id]), 'style' => 'display:inline']) !!}
-                        {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> حذف', array(
+                        {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i> حذف', array(
                                 'type' => 'submit',
                                 'class' => 'btn btn-danger btn-sm',
                                 'title' => 'حذف حق تماس',

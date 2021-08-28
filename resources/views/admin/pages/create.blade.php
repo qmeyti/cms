@@ -14,13 +14,13 @@
                 <div class="row mb-3">
                     <div class="col">
                         <a href="{{ route('pages.index') }}" title="بازگشت">
-                            <button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
+                            <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                     </div>
                 </div>
 
                 @if ($errors->any())
-                    <ul class="alert alert-danger">
+                    <ul class="alert alert-light-danger color-danger">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach

@@ -17,7 +17,7 @@ class TagController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage =  __stg('element_per_page',  25);
+        $perPage = __stg('element_per_page', 25);
 
         if (!empty($keyword)) {
             $tags = Tag::where('name', 'LIKE', "%$keyword%")
@@ -26,7 +26,12 @@ class TagController extends Controller
             $tags = Tag::latest()->paginate($perPage);
         }
 
-        return view('admin.tags.index', compact('tags'));
+        $pageTitle = 'لیست برچسب ها';
+        $breadcrumb = [];
+        $pageBc = 'برچسب ها';
+        $pageSubtitle = '';
+
+        return view('admin.tags.index', compact('tags', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -36,7 +41,12 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('admin.tags.create');
+        $pageTitle = 'ایجاد برچسب جدید';
+        $breadcrumb = [route('tags.index') => 'برچسب ها'];
+        $pageBc = 'ایجاد برچسب';
+        $pageSubtitle = '';
+
+        return view('admin.tags.create', compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -70,7 +80,12 @@ class TagController extends Controller
     {
         $tag = Tag::findOrFail($id);
 
-        return view('admin.tags.show', compact('tag'));
+        $pageTitle = 'نمایش برچسب';
+        $breadcrumb = [route('tags.index') => 'برچسب ها'];
+        $pageBc = 'نمایش برچسب';
+        $pageSubtitle = $tag->name;
+
+        return view('admin.tags.show', compact('tag' ,'pageTitle','breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -84,16 +99,18 @@ class TagController extends Controller
     {
         $tag = Tag::findOrFail($id);
 
-        return view('admin.tags.edit', compact('tag'));
+        $pageTitle = 'ویرایش برچسب';
+        $breadcrumb = [route('tags.index') => 'برچسب ها'];
+        $pageBc = 'ویرایش برچسب';
+        $pageSubtitle = $tag->name;
+
+        return view('admin.tags.edit', compact('tag', 'pageTitle','breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @param Tag $tag
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, Tag $tag)
     {

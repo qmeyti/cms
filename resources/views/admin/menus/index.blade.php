@@ -98,104 +98,101 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
-
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col align-items-center d-flex">
-                                <h4>
-                                    مدیریت منوها
-                                </h4>
-                            </div>
-                            <div class="col">
-                                @include('admin.menus.create')
-                            </div>
-                        </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col align-items-center d-flex">
+                        <h4>
+                            مدیریت منوها
+                        </h4>
                     </div>
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-auto">
-                                @include('admin.menus.switch')
-                            </div>
-                            <div class="col">
-
-                            </div>
-                        </div>
-
-                        @if(!is_null($menu))
-                            <div class="row">
-                                <div class="col-md-4">
-
-                                    <div class="card mb-3">
-                                        <div class="card-header">
-                                            <h6>
-                                                <i class="fas fa-plus"></i>
-                                                لینک دلخواه
-                                            </h6>
-                                        </div>
-                                        <div class="card-body">
-                                            @include('admin.menus.create_link')
-                                        </div>
-                                    </div>
-
-                                    <div class="card mb-3">
-                                        <div class="card-header">
-                                            <h6>
-                                                <i class="fas fa-plus"></i>
-                                                لینک صفحات
-                                            </h6>
-                                        </div>
-                                        <div class="card-body">
-                                            @include('admin.menus.create_page')
-                                        </div>
-                                    </div>
-
-                                    <div class="card mb-3">
-                                        <div class="card-header">
-                                            <h6>
-                                                <i class="fas fa-plus"></i>
-                                                لینک مسیرها
-                                            </h6>
-                                        </div>
-                                        <div class="card-body">
-
-                                            @include('admin.menus.create_route')
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-8">
-
-                                    <div class="card">
-                                        <div class="card-header">
-                                            @include('admin.menus.edit')
-                                        </div>
-                                        <div class="card-body">
-                                            <h6>ساختار منو</h6>
-                                            <p style="font-size: .8rem">در این قسمت می توانید ایتم ها را مرتب و جابجا کنید. همچنین با کلیک بر روی فلش کنار هر آیتم میتوانید قسمت ویرایش را ببینید.</p>
-                                            @include('admin.menus.menu')
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-
-                    </div>
-                    <div class="card-footer ltr">
-
+                    <div class="col">
+                        @include('admin.menus.create')
                     </div>
                 </div>
             </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-auto">
+                        @include('admin.menus.switch')
+                    </div>
+                    <div class="col">
+
+                    </div>
+                </div>
+
+                @if(!is_null($menu))
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6>
+                                        <i class="fas fa-plus"></i>
+                                        لینک دلخواه
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    @include('admin.menus.create_link')
+                                </div>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6>
+                                        <i class="fas fa-plus"></i>
+                                        لینک صفحات
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    @include('admin.menus.create_page')
+                                </div>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6>
+                                        <i class="fas fa-plus"></i>
+                                        لینک مسیرها
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+
+                                    @include('admin.menus.create_route')
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-8">
+
+                            <div class="card">
+                                <div class="card-header">
+                                    @include('admin.menus.edit')
+                                </div>
+                                <div class="card-body">
+                                    <h6>ساختار منو</h6>
+                                    <p style="font-size: .8rem">در این قسمت می توانید ایتم ها را مرتب و جابجا کنید. همچنین با کلیک بر روی فلش کنار هر آیتم میتوانید قسمت ویرایش را ببینید.</p>
+                                    @include('admin.menus.menu')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+            </div>
+            <div class="card-footer ltr">
+
+            </div>
         </div>
-    </div>
+
+    </section>
 @endsection
 
 @section('scripts')
+    <script src="{{asset('vendor/jquery/jquery-3.6.0.min.js')}}"></script>
+
     <!-- SWEET ALERT -->
     <script src="{{asset('vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
     <script>

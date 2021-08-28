@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage =  __stg('element_per_page',  25);
+        $perPage = __stg('element_per_page', 25);
 
         if (!empty($keyword)) {
             $category = Category::where('title', 'LIKE', "%$keyword%")
@@ -28,7 +28,12 @@ class CategoryController extends Controller
             $category = Category::latest()->paginate($perPage);
         }
 
-        return view('admin.category.index', compact('category'));
+        $pageTitle = 'دسته بندی ها';
+        $breadcrumb = [];
+        $pageBc = 'لیست دسته بندی ها';
+        $pageSubtitle = '';
+
+        return view('admin.category.index', compact('category', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -38,7 +43,12 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        $pageTitle = 'ایجاد دسته بندی جدید';
+        $breadcrumb = [route('category.index') => 'دسته بندی ها'];
+        $pageBc = 'دسته بندی جدید';
+        $pageSubtitle = 'برای ایجاد دسته جدید، یک عنوان دلخواه و نامک یکتا انتخاب کنید.';
+
+        return view('admin.category.create', compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -71,7 +81,12 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        return view('admin.category.show', compact('category'));
+        $pageTitle = 'نمایش دسته';
+        $breadcrumb = [route('category.index') => 'دسته بندی ها'];
+        $pageBc = 'نمایش دسته';
+        $pageSubtitle = $category->title;
+
+        return view('admin.category.show', compact('category', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -81,8 +96,12 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
+        $pageTitle = 'ویرایش دسته';
+        $breadcrumb = [route('category.index') => 'دسته بندی ها'];
+        $pageBc = 'ویرایش دسته';
+        $pageSubtitle = '';
 
-        return view('admin.category.edit', compact('category'));
+        return view('admin.category.edit', compact('category', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**

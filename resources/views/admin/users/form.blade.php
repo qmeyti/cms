@@ -33,78 +33,23 @@
     {!! Form::select('roles[]', $roles, isset($user_roles) ? $user_roles : [], ['class' => 'form-control', 'multiple' => true]) !!}
 </div>
 
-<div class="form-group{{ $errors->has('avatar') ? 'has-error' : ''}} mb-3">
-    @php
-        $fmOld = old( 'avatar', $formMode === 'edit' ? $user->avatar : '' );
-    @endphp
+@php
+    $fmOld = old( 'avatar', $formMode === 'edit' ? $user->avatar : '' );
+@endphp
 
-    <div id="FEATURE_PHOTO_PREVIEW" class="d-flex flex-column justify-content-center align-items-center position-relative">
-        <div style="max-width: 360px;background: #f3f3f3;padding: 6px;box-shadow: 0 1px 2px rgb(0 0 0 / 20%);">
-            <input value="{{$fmOld}}" type="hidden" id="FEATURE_PHOTO_INPUT"
-                   class="form-control" name="avatar"
-                   aria-label="Image"
-                   aria-describedby="button-image">
-            <img src="{{$fmOld}}" alt="" style="width: 100%;">
-            <div class="d-flex">
-                <div class="flex-grow-1">
-                    <button style="width: 100%;border: unset;outline: unset;" class="btn" type="button" id="button-image">
-                        <span class="fal fa-select"></span>
-                        انتخاب تصویر اسلاید
-                    </button>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-text text-danger" id="FEATURE_PHOTO_TRASH"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {!! $errors->first('avatar', '<p class="help-block">:message</p>') !!}
-
-</div>
+@include('admin.component.image_uploader',['fieldTitle' => 'انتخاب تصویر کاربر','fieldName' => 'avatar','old' => $fmOld])
 
 <div class="form-group">
     <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره کاربر جدید'}} </button>
 </div>
 
 @section('scripts')
-
+    <script src="{{asset('vendor/jquery/jquery-3.6.0.min.js')}}"></script>
     {{--FILE MANAGER--}}
-    <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+    <script src="{{asset('assets/js/component/imageUploader.js')}}"></script>
     <script>
-
-        /**
-         * Delete the feature photo
-         */
-        $('#FEATURE_PHOTO_TRASH').click(function () {
-            fmSetLink('');
+        $(document).ready(function () {
+            imageUploader('avatar');
         });
-
-        /**
-         * Open file manager
-         */
-        document.addEventListener("DOMContentLoaded", function () {
-
-            document.getElementById('button-image').addEventListener('click', (event) => {
-
-                event.preventDefault();
-
-                window.open('/file-manager/fm-button', 'fm', 'width=1400,height=800');
-            });
-        });
-
-        /**
-         * Set image link to inputs
-         *
-         * @param $url
-         */
-        function fmSetLink($url) {
-
-            document.getElementById('FEATURE_PHOTO_INPUT').value = $url;
-
-            const imageTag = document.querySelector('#FEATURE_PHOTO_PREVIEW img');
-
-            imageTag.setAttribute('src', $url);
-        }
     </script>
 @endsection

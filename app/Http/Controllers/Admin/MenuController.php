@@ -62,8 +62,13 @@ class MenuController extends Controller
             }
         }
 
+        $pageTitle = 'مدیریت منوها';
+        $breadcrumb = [];
+        $pageBc = 'منوها';
+        $pageSubtitle = '';
 
-        return view('admin.menus.index', compact('menus', 'menu', 'pages', 'itemsEditPanels'));
+
+        return view('admin.menus.index', compact('menus', 'menu', 'pages', 'itemsEditPanels', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**

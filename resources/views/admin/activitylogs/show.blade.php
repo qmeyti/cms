@@ -3,28 +3,36 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
+
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">فعالیت {{ $activitylog->id }}</div>
-                    <div class="card-body">
+                    <div class="card-header">
+                                            <h4 class="card-title">
 
-                        <a href="{{ url('/admin/activitylogs') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['admin/activitylogs', $activitylog->id],
-                            'style' => 'display:inline'
-                        ]) !!}
-                            {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i> حذف', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-sm',
-                                    'title' => 'Delete Activity',
-                                    'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
-                            ))!!}
-                        {!! Form::close() !!}
-                        <br/>
-                        <br/>
+                        فعالیت {{ $activitylog->id }}
+                                            </h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col">
+                        <a href="{{ url('/admin/activitylogs') }}" title="بازگشت"><button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
+                                {!! Form::open([
+         'method'=>'DELETE',
+         'url' => ['admin/activitylogs', $activitylog->id],
+         'style' => 'display:inline'
+     ]) !!}
+                                {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i> حذف', array(
+                                        'type' => 'submit',
+                                        'class' => 'btn btn-danger btn-sm',
+                                        'title' => 'Delete Activity',
+                                        'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
+                                ))!!}
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+
 
                         <div class="table-responsive">
                             <table class="table">

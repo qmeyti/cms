@@ -1,20 +1,18 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    دسته بندی های صفحات
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">دسته بندی های صفحات</div>
-                    <div class="card-body">
-                        <a href="{{ url('/admin/category/create') }}" class="btn btn-success" title="افزودن یک دسته جدید">
-                            <i class="fas fa-plus" aria-hidden="true"></i>
-                            افزودن دسته جدید
-                        </a>
-
-                        {!! Form::open(['method' => 'GET', 'url' => '/admin/category', 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
+                    <div class="col-sm-auto p-1">
+                        {!! Form::open(['method' => 'GET', 'url' => '/admin/category', 'class' => 'form-inline', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="جستجو..." value="{{ request('search') }}">
 
@@ -23,60 +21,66 @@
                             </button>
                         </div>
                         {!! Form::close() !!}
-
-                        <br/>
-                        <br/>
-                        <div class="table-responsive">
-                            <table class="table table-borderless">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>عنوان</th>
-                                    <th>نامک</th>
-                                    <th>والد</th>
-                                    <th>عملیات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($category as $item)
-                                    <tr>
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->title }}</td>
-                                        <td>{{ $item->slug }}</td>
-                                        <td>{{ is_null($c = $item->parent()->first()) ? '' : $c->title }}</td>
-                                        <td>
-                                            <a href="{{ url('/admin/category/' . $item->id) }}" title="نمایش دسته بندی">
-                                                <button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button>
-                                            </a>
-                                            <a href="{{ url('/admin/category/' . $item->id . '/edit') }}" title="ویرایش دسته بندی">
-                                                <button class="btn btn-primary btn-sm"><i class="fas fa-pencil-square-o" aria-hidden="true"></i></button>
-                                            </a>
-                                            {!! Form::open([
-                                                'method' => 'DELETE',
-                                                'url' => ['/admin/category', $item->id],
-                                                'style' => 'display:inline'
-                                            ]) !!}
-                                            {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i>', array(
-                                                    'type' => 'submit',
-                                                    'class' => 'btn btn-danger btn-sm',
-                                                    'title' => 'حذف دسته بندی',
-                                                    'onclick'=>'return confirm("مطمعنی که قصد حذف کردن داری؟")'
-                                            )) !!}
-                                            {!! Form::close() !!}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            <div class="pagination-wrapper"></div>
-                        </div>
-
                     </div>
-                    <div class="card-footer ltr">
-                        {!! $category->appends(['search' => Request::get('search')])->render() !!}
+
+                    <div class="col d-flex justify-content-end p-1">
+                        <a href="{{ url('/admin/category/create') }}" class="btn btn-success" title="افزودن یک دسته جدید">
+                            <i class="fas fa-plus" aria-hidden="true"></i>
+                            افزودن دسته جدید
+                        </a>
                     </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>عنوان</th>
+                            <th>نامک</th>
+                            <th>والد</th>
+                            <th>عملیات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($category as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->title }}</td>
+                                <td>{{ $item->slug }}</td>
+                                <td>{{ is_null($c = $item->parent()->first()) ? '' : $c->title }}</td>
+                                <td>
+                                    <a href="{{ url('/admin/category/' . $item->id) }}" title="نمایش دسته بندی">
+                                        <button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button>
+                                    </a>
+                                    <a href="{{ url('/admin/category/' . $item->id . '/edit') }}" title="ویرایش دسته بندی">
+                                        <button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i></button>
+                                    </a>
+                                    {!! Form::open([
+                                        'method' => 'DELETE',
+                                        'url' => ['/admin/category', $item->id],
+                                        'style' => 'display:inline'
+                                    ]) !!}
+                                    {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i>', array(
+                                            'type' => 'submit',
+                                            'class' => 'btn btn-danger btn-sm',
+                                            'title' => 'حذف دسته بندی',
+                                            'onclick'=>'return confirm("مطمعنی که قصد حذف کردن داری؟")'
+                                    )) !!}
+                                    {!! Form::close() !!}
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="card-footer ltr">
+                <div class="pagination-wrapper">
+                    {!! $category->appends(['search' => Request::get('search')])->render() !!}
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

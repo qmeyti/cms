@@ -10,9 +10,10 @@
                 </h4>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-auto">
-                        {!! Form::open(['method' => 'GET', 'url' => '/admin/pages', 'class' => 'form-inline', 'role' => 'search'])  !!}
+
+                <div class="row mb-3">
+                    <div class="col-sm-auto p-1">
+                        {!! Form::open(['method' => 'GET', 'url' => route('pages.index'), 'class' => 'form-inline', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="جستجو..." value="{{ request('search') }}">
                             <button class="btn btn-secondary" type="submit">
@@ -22,18 +23,16 @@
                         {!! Form::close() !!}
                     </div>
 
-                    <div class="col d-flex justify-content-end">
-                        <a href="{{ url('/admin/pages/create') }}" class="btn btn-success" title="ایجاد صفحه جدید">
+                    <div class="col d-flex justify-content-end p-1">
+                        <a href="{{ route('pages.create') }}" class="btn btn-success" title="ایجاد صفحه جدید">
                             <span class="fas fa-plus-circle" aria-hidden="true"></span>
-                            افزودن
+                            افزودن نوشته جدید
                         </a>
                     </div>
                 </div>
 
-                <br/>
-                <br/>
                 <div class="table-responsive">
-                    <table class="table table-borderless">
+                    <table class="table">
                         <thead>
                         <tr>
                             <th>شناسه</th>
@@ -71,11 +70,15 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{ url('/admin/pages/' . $item->id) }}" title="مشاهده صفحه"><button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button></a>
-                                    <a href="{{ url('/admin/pages/' . $item->id . '/edit') }}" title="ویرایش صفحه"><button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i></button></a>
+                                    <a href="{{ route('pages.show',['page' => $item->id]) }}" title="مشاهده صفحه">
+                                        <button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button>
+                                    </a>
+                                    <a href="{{ route('pages.edit',['page' => $item->id]) }}" title="ویرایش صفحه">
+                                        <button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i></button>
+                                    </a>
                                     {!! Form::open([
                                         'method' => 'DELETE',
-                                        'url' => ['/admin/pages', $item->id],
+                                        'url' => route('pages.destroy',['page' => $item->id]),
                                         'style' => 'display:inline'
                                     ]) !!}
                                     {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i>', array(

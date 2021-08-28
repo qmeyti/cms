@@ -16,7 +16,7 @@ class SliderController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage =  __stg('element_per_page',  25);
+        $perPage = __stg('element_per_page', 25);
 
         if (!empty($keyword)) {
             $slider = Slider::where('title', 'LIKE', "%$keyword%")
@@ -25,7 +25,12 @@ class SliderController extends Controller
             $slider = Slider::latest()->paginate($perPage);
         }
 
-        return view('admin.slider.index', compact('slider'));
+        $pageTitle = 'لیست اسلایدرها';
+        $breadcrumb = [];
+        $pageBc = 'لیست اسلایدرها';
+        $pageSubtitle = '';
+
+        return view('admin.slider.index', compact('slider', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -35,7 +40,13 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('admin.slider.create');
+
+        $pageTitle = 'افزودن اسلایدر';
+        $breadcrumb = [];
+        $pageBc = 'افزودن اسلایدر';
+        $pageSubtitle = '';
+
+        return view('admin.slider.create', compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -67,7 +78,12 @@ class SliderController extends Controller
     {
         $slider = Slider::findOrFail($id);
 
-        return view('admin.slider.show', compact('slider'));
+        $pageTitle = 'نمایش اسلایدر';
+        $breadcrumb = [];
+        $pageBc = 'نمایش اسلایدر';
+        $pageSubtitle = '';
+
+        return view('admin.slider.show', compact('slider', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -81,16 +97,18 @@ class SliderController extends Controller
     {
         $slider = Slider::findOrFail($id);
 
-        return view('admin.slider.edit', compact('slider'));
+        $pageTitle = 'ویرایش اسلایدر';
+        $breadcrumb = [];
+        $pageBc = 'ویرایش اسلایدر';
+        $pageSubtitle = '';
+
+        return view('admin.slider.edit', compact('slider', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @param Slider $slider
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, Slider $slider)
     {

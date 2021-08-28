@@ -97,7 +97,7 @@
 </div>
 
 @section('scripts')
-
+    <script src="{{asset('vendor/jquery/jquery-3.6.0.min.js')}}"></script>
     {{--TINY-MCE--}}
     {{--    <script src="https://cdn.tiny.cloud/1/1lx5nhnj3ybljvrcy8qsrtfnc6xl60ugs7neudi6ep07d7h5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.8.1/tinymce.min.js"></script>

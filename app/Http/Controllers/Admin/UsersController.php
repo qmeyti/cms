@@ -25,7 +25,12 @@ class UsersController extends Controller
             $users = User::latest()->paginate($perPage);
         }
 
-        return view('admin.users.index', compact('users'));
+        $pageTitle = 'کاربران';
+        $breadcrumb = [];
+        $pageBc = 'کاربران';
+        $pageSubtitle = '';
+
+        return view('admin.users.index', compact('users', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -37,16 +42,23 @@ class UsersController extends Controller
 
         $roles = $roles->pluck('label', 'name');
 
-        return view('admin.users.create', compact('roles'));
+        $pageTitle = 'ایجاد کاربر جدید';
+        $breadcrumb = [route('users.index') => 'کاربران'];
+        $pageBc = 'کاربر جدید';
+        $pageSubtitle = '';
+
+        return view('admin.users.create',  compact('roles','pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
+        __sanitize('name');
+        __sanitize('family');
+
         $request->validate(
             [
                 'name' => 'required|string|max:100',
@@ -73,7 +85,7 @@ class UsersController extends Controller
             $user->assignRole($role);
         }
 
-        return redirect('admin/users')->with('flash_message', 'User added!');
+        return redirect('admin/users')->with('flash_message', 'کاربر با موفقیت اضافه شد!');
     }
 
     /**
@@ -83,8 +95,13 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $pageTitle = 'نمایش اطلاعات کاربر';
+        $breadcrumb = [route('users.index') => 'کاربران'];
+        $pageBc = 'نمایش کاربر';
 
-        return view('admin.users.show', compact('user'));
+        $pageSubtitle = $user->name .' '. $user->family;
+
+        return view('admin.users.show', compact('user', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -94,31 +111,44 @@ class UsersController extends Controller
     public function edit($id)
     {
         $roles = Role::select('id', 'name', 'label')->get();
+
         $roles = $roles->pluck('label', 'name');
 
         $user = User::with('roles')->findOrFail($id);
+
         $user_roles = [];
+
         foreach ($user->roles as $role) {
             $user_roles[] = $role->name;
         }
 
-        return view('admin.users.edit', compact('user', 'roles', 'user_roles'));
+        $pageTitle = 'ویرایش اطلاعات کاربر';
+
+        $breadcrumb = [route('users.index') => 'کاربران'];
+
+        $pageBc = 'ویرایش کاربر';
+
+        $pageSubtitle = '';
+
+        return view('admin.users.edit', compact('user', 'roles', 'user_roles','pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
      * @param Request $request
-     * @param $id
+     * @param User $user
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, User $user)
     {
+        __sanitize('name');
+        __sanitize('family');
+
         $request->validate(
             [
                 'name' => 'required|string|max:100',
                 'family' => 'required|string|max:100',
-                'email' => 'required|string|max:255|email|unique:users,email,'.$user->id,
-                'password' => 'required|string',
+                'email' => 'required|string|max:255|email|unique:users,email,' . $user->id,
+                'password' => 'sometimes|nullable|string',
                 'roles' => 'required|exists:roles,name',
                 'avatar' => 'sometimes|nullable|url|max:2000|string',
             ], [], [
@@ -133,7 +163,7 @@ class UsersController extends Controller
 
         $data = $request->except('password');
 
-        if ($request->has('password')) {
+        if ($request->has('password') && !empty($data['password'])) {
             $data['password'] = bcrypt($request->password);
         }
 
@@ -144,17 +174,20 @@ class UsersController extends Controller
             $user->assignRole($role);
         }
 
-        return redirect('admin/users')->with('flash_message', 'User updated!');
+        return redirect('admin/users')->with('flash_message', 'اطلاعات کاربر با موفقیت بروزرسانی شد!');
     }
 
     /**
-     * @param $id
+     * @param User $user
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        User::destroy($id);
+        if ($user->id == auth()->id())
+            return redirect('admin/users')->with('flash_error', 'شما نمی توانید حساب کاربری خود را حذف کنید!');
 
-        return redirect('admin/users')->with('flash_message', 'User deleted!');
+        $user->delete();
+
+        return redirect('admin/users')->with('flash_message', 'کاربر با موفقیت حذف شد!');
     }
 }

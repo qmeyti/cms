@@ -1,35 +1,38 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    ایجاد حق دسترسی
+                </h4>
+            </div>
+            <div class="card-body">
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">ایجاد حق دسترسی</div>
-                    <div class="card-body">
-                        <a href="{{ url('/admin/permissions') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        <br />
-                        <br />
-
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-
-                        {!! Form::open(['url' => '/admin/permissions', 'class' => 'form-horizontal']) !!}
-
-                        @include ('admin.permissions.form', ['formMode' => 'create'])
-
-                        {!! Form::close() !!}
-
+                <div class="row mb-3">
+                    <div class="col">
+                        <a href="{{ route('permissions.index') }}" title="بازگشت">
+                            <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
+                        </a>
                     </div>
                 </div>
+
+                @if ($errors->any())
+                    <ul class="alert alert-light-danger color-danger">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+
+                {!! Form::open(['url' => route('permissions.store'), 'class' => 'form-horizontal']) !!}
+
+                @include ('admin.permissions.form', ['formMode' => 'create'])
+
+                {!! Form::close() !!}
+
             </div>
         </div>
-    </div>
+    </section>
 @endsection

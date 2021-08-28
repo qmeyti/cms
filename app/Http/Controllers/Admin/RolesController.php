@@ -26,7 +26,12 @@ class RolesController extends Controller
             $roles = Role::latest()->paginate($perPage);
         }
 
-        return view('admin.roles.index', compact('roles'));
+        $pageTitle = 'نقش های کاربران';
+        $breadcrumb = [];
+        $pageBc = 'نقش کاربر';
+        $pageSubtitle = '';
+
+        return view('admin.roles.index', compact('roles', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -35,8 +40,11 @@ class RolesController extends Controller
     public function create()
     {
         $permissions = Permission::select('id', 'name', 'label')->get()->pluck('label', 'name');
-
-        return view('admin.roles.create', compact('permissions'));
+        $pageTitle = 'ایجاد نقش های کاربری';
+        $breadcrumb = [route('roles.index') => 'لیست نقش ها'];
+        $pageBc = 'افزودن نقش';
+        $pageSubtitle = '';
+        return view('admin.roles.create', compact('permissions', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -54,7 +62,7 @@ class RolesController extends Controller
             'label' => 'required|string|max:100|min:1',
             'permissions' => 'sometimes|array',
             'permissions.*' => 'sometimes|string|max:100|exists:permissions,name',
-        ],[],[
+        ], [], [
             'name' => 'عنوان نقش',
             'label' => 'برچسب',
             'permissions' => 'حقوق دسترسی',
@@ -81,8 +89,11 @@ class RolesController extends Controller
     public function show($id)
     {
         $role = Role::findOrFail($id);
-
-        return view('admin.roles.show', compact('role'));
+        $pageTitle = 'مشاهده نقش';
+        $breadcrumb = [route('roles.index') => 'لیست نقش ها'];
+        $pageBc = 'نقش کاربر';
+        $pageSubtitle = '';
+        return view('admin.roles.show', compact('role', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -93,8 +104,11 @@ class RolesController extends Controller
     {
         $role = Role::findOrFail($id);
         $permissions = Permission::select('id', 'name', 'label')->get()->pluck('label', 'name');
-
-        return view('admin.roles.edit', compact('role', 'permissions'));
+        $pageTitle = 'ویرایش نقش';
+        $breadcrumb = [route('roles.index') => 'لیست نقش ها'];
+        $pageBc = 'ویرایش نقش';
+        $pageSubtitle = '';
+        return view('admin.roles.edit', compact('role', 'permissions', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -109,11 +123,11 @@ class RolesController extends Controller
         __sanitize('label');
 
         $data = $request->validate([
-            'name' => 'required|string|max:100|min:1|regex:!^[a-zA-Z0-9\-_]+$!|unique:roles,name,'.$role->id,
+            'name' => 'required|string|max:100|min:1|regex:!^[a-zA-Z0-9\-_]+$!|unique:roles,name,' . $role->id,
             'label' => 'required|string|max:100|min:1',
             'permissions' => 'sometimes|array',
             'permissions.*' => 'sometimes|string|max:100|exists:permissions,name',
-        ],[],[
+        ], [], [
             'name' => 'عنوان نقش',
             'label' => 'برچسب',
             'permissions' => 'حقوق دسترسی',
@@ -141,6 +155,6 @@ class RolesController extends Controller
     {
         Role::destroy($id);
 
-        return redirect('admin/roles')->with('flash_message', 'نقش کاربر با موفقیت حذف شد!');
+        return redirect('admin/roles')->with('flash_message', 'نقش کاربر حذف شد!');
     }
 }

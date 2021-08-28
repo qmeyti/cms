@@ -35,18 +35,18 @@
 
                 @if (Session::has('flash_message'))
                     <section class="section">
-                        <div class="alert alert-light-success color-success"><i class="bi bi-star"></i>
-                            {{ Session::get('flash_message') }}
+                        <div class="alert alert-light-success color-success">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            {{ Session::get('flash_message') }}
                         </div>
                     </section>
                 @endif
 
                 @if (Session::has('flash_error'))
                     <section class="section">
-                        <div class="alert alert-light-danger color-danger"><i class="bi bi-star"></i>
-                            {{ Session::get('flash_error') }}
+                        <div class="alert alert-light-danger color-danger">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            {{ Session::get('flash_error') }}
                         </div>
                     </section>
                 @endif
@@ -62,7 +62,7 @@
                         <p>کپی رایت {{ date('Y') }} &copy;</p>
                     </div>
                     <div class="float-end">
-                        <p>قدرت گرفته از <span class="text-danger"> <i class="bi bi-heart-fill icon-mid"></i></span> <a href="https://laravel.com"> لاراول</a></p>
+                        <p>قدرت گرفته توسط <span class="text-danger"> <i class="bi bi-heart-fill icon-mid"></i></span> <a href="https://laravel.com"> لاراول</a></p>
                     </div>
                 </div>
             </footer>

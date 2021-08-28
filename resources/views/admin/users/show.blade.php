@@ -1,50 +1,60 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    نمایش اطلاعات کاربر
+                </h4>
+            </div>
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">User</div>
-                    <div class="card-body">
-
-                        <a href="{{ url('/admin/users') }}" title="بازگشت"><button class="btn btn-warning btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        <a href="{{ url('/admin/users/' . $user->id . '/edit') }}" title="Edit User"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button></a>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col">
+                        <a href="{{ route('users.index') }}" title="بازگشت">
+                            <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
+                        </a>
+                        <a href="{{ route('users.edit',['user' => $user->id]) }}" title="ویرایش کاربر">
+                            <button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i> ویرایش</button>
+                        </a>
                         {!! Form::open([
                             'method' => 'DELETE',
-                            'url' => ['/admin/users', $user->id],
+                            'url' => route('users.destroy',['user' => $user->id]),
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i> حذف', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-sm',
-                                    'title' => 'Delete User',
-                                    'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
-                            ))!!}
+                        {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i> حذف', array(
+                                'type' => 'submit',
+                                'class' => 'btn btn-danger btn-sm',
+                                'title' => 'حذف کاربر',
+                                'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
+                        ))!!}
                         {!! Form::close() !!}
-                        <br/>
-                        <br/>
-
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>ID.</th> <th>Name</th><th>Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ $user->id }}</td> <td> {{ $user->name }} </td><td> {{ $user->email }} </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
                     </div>
                 </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>شناسه</th>
+                            <th>نام</th>
+                            <th>نام خانوادگی</th>
+                            <th>ایمیل</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td> {{ $user->name }} </td>
+                            <td> {{ $user->family }} </td>
+                            <td> {{ $user->email }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
-    </div>
+    </section>
 @endsection

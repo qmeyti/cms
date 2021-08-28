@@ -3,17 +3,23 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
+
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">مدیریت تنظیمات</div>
+                    <div class="card-header">
+                                            <h4 class="card-title">
+
+                        مدیریت تنظیمات
+                                            </h4>
+
+                    </div>
                     <div class="card-body">
                         <a href="{{ url('/admin/settings/create') }}" class="btn btn-success" title="افزودن تنظیمات جدید">
                             <i class="fas fa-plus" aria-hidden="true"></i> افزودن
                         </a>
 
-                        {!! Form::open(['method' => 'GET', 'url' => '/admin/settings', 'class' => 'form-inline my-2 my-lg-0 float-left', 'role' => 'search'])  !!}
+                        {!! Form::open(['method' => 'GET', 'url' => '/admin/settings', 'class' => 'form-inline', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="جستجو..." value="{{ request('search') }}">
                             <button class="btn btn-secondary" type="submit">
@@ -25,7 +31,7 @@
                         <br/>
                         <br/>
                         <div class="table-responsive">
-                            <table class="table table-borderless">
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th>کلید</th>
@@ -54,14 +60,14 @@
                                                 <button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button>
                                             </a>
                                             <a href="{{ url('/admin/settings/' . $item->id . '/edit') }}" title="Edit Setting">
-                                                <button class="btn btn-primary btn-sm"><i class="fas fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                <button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i></button>
                                             </a>
                                             {!! Form::open([
                                                 'method' => 'DELETE',
                                                 'url' => ['/admin/settings', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
-                                            {!! Form::button('<i class="fas fa-trash-o" aria-hidden="true"></i>', array(
+                                            {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i>', array(
                                                     'type' => 'submit',
                                                     'class' => 'btn btn-danger btn-sm',
                                                     'title' => 'حذف تنظیم',

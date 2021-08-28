@@ -25,7 +25,12 @@ class PermissionsController extends Controller
             $permissions = Permission::latest()->paginate($perPage);
         }
 
-        return view('admin.permissions.index', compact('permissions'));
+        $pageTitle = 'حقوق دسترسی کاربران';
+        $breadcrumb = [];
+        $pageBc = 'حقوق دسترسی';
+        $pageSubtitle = '';
+
+        return view('admin.permissions.index', compact('permissions', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -33,7 +38,12 @@ class PermissionsController extends Controller
      */
     public function create()
     {
-        return view('admin.permissions.create');
+        $pageTitle = 'ایجاد دسترسی جدید';
+        $breadcrumb = [route('category.index') => 'دسترسی ها'];
+        $pageBc = 'ایجاد دسترسی';
+        $pageSubtitle = '';
+
+        return view('admin.permissions.create', compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -63,8 +73,12 @@ class PermissionsController extends Controller
     public function show($id)
     {
         $permission = Permission::findOrFail($id);
+        $pageTitle = 'نمایش حق دسترسی';
+        $breadcrumb = [route('category.index') => 'دسترسی ها'];
+        $pageBc = 'نمایش حق دسترسی';
+        $pageSubtitle = $permission->name;
 
-        return view('admin.permissions.show', compact('permission'));
+        return view('admin.permissions.show', compact('permission','pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -75,7 +89,12 @@ class PermissionsController extends Controller
     {
         $permission = Permission::findOrFail($id);
 
-        return view('admin.permissions.edit', compact('permission'));
+        $pageTitle = 'ویرایش حق دسترسی';
+        $breadcrumb = [route('category.index') => 'دسترسی ها'];
+        $pageBc = 'ویرایش حق دسترسی';
+        $pageSubtitle = $permission->name;
+
+        return view('admin.permissions.edit', compact('permission','pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
