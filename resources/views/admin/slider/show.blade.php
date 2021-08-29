@@ -14,11 +14,11 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col">
-                        <a href="{{ route('slider.index') }}" title="بازگشت"><button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
-                        <a href="{{ route('slider.edit',['slider' => $slider->id]) }}" title="ویرایش اسلایدر"><button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i> ویرایش</button></a>
+                        <a href="{{ route('sliders.index') }}" title="بازگشت"><button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button></a>
+                        <a href="{{ route('sliders.edit',['slider' => $slider->id]) }}" title="ویرایش اسلایدر"><button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i> ویرایش</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => route('slider.destroy',['slider' => $slider->id]),
+                            'url' => route('sliders.destroy',['slider' => $slider->id]),
                             'style' => 'display:inline'
                         ]) !!}
                         {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i> حذف', array(

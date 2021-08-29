@@ -52,7 +52,7 @@ class SlideController extends Controller
     public function create(Request $request, Slider $slider)
     {
         $pageTitle = 'افزودن اسلاید';
-        $breadcrumb = [];
+        $breadcrumb = [route('slides.index', ['slider' => $slider->id]) => 'لیست اسلایدها'];
         $pageBc = 'افزودن اسلاید';
         $pageSubtitle = $slider->title;
         return view('admin.slide.create', compact('slider', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
@@ -61,7 +61,7 @@ class SlideController extends Controller
     /**
      * @param Request $request
      * @param Slider $slider
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request, Slider $slider)
@@ -108,7 +108,7 @@ class SlideController extends Controller
     public function show(Request $request, Slider $slider, Slide $slide)
     {
         $pageTitle = 'نمایش اسلاید';
-        $breadcrumb = [];
+        $breadcrumb = [route('slides.index', ['slider' => $slider->id]) => 'لیست اسلایدها'];
         $pageBc = 'نمایش اسلاید';
         $pageSubtitle = $slider->title;
 
@@ -124,7 +124,7 @@ class SlideController extends Controller
     public function edit(Request $request, Slider $slider, Slide $slide)
     {
         $pageTitle = 'ویرایش اسلاید';
-        $breadcrumb = [];
+        $breadcrumb = [route('slides.index', ['slider' => $slider->id]) => 'لیست اسلایدها'];
         $pageBc = 'ویرایش اسلاید';
         $pageSubtitle = $slider->title;
         return view('admin.slide.edit', compact('slide', 'slider', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
@@ -134,7 +134,7 @@ class SlideController extends Controller
      * @param Request $request
      * @param Slider $slider
      * @param Slide $slide
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, Slider $slider, Slide $slide)
@@ -176,7 +176,7 @@ class SlideController extends Controller
      * @param Request $request
      * @param Slider $slider
      * @param Slide $slide
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, Slider $slider, Slide $slide)
     {

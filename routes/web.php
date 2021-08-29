@@ -72,7 +72,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
     Route::resource('/settings', 'SettingsController');
 
     //Generator
-    Route::get('/generator', ['uses' => 'ProcessController@getGenerator']);
+    Route::get('/generator', ['uses' => 'ProcessController@getGenerator'])->name('generator');
 
     Route::post('/generator', ['uses' => 'ProcessController@postGenerator']);
 

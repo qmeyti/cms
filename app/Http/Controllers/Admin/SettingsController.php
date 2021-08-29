@@ -44,7 +44,7 @@ class SettingsController extends Controller
     public function create()
     {
         $pageTitle = 'ایجاد تنظیم تنظیمات';
-        $breadcrumb = [];
+        $breadcrumb = [route('settings.index') => 'لیست تنظیمات'];
         $pageBc = 'ایجاد تنظیم';
         $pageSubtitle = '';
         return view('admin.settings.create', compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
@@ -122,7 +122,7 @@ class SettingsController extends Controller
 
         Setting::create($data);
 
-        return redirect('admin/settings')->with('flash_message', 'تنظیم با موفقیت ایجاد شد!');
+        return redirect()->route('settings.index')->with('flash_message', 'تنظیم با موفقیت ایجاد شد!');
     }
 
     /**
@@ -136,7 +136,7 @@ class SettingsController extends Controller
     {
         $setting = Setting::findOrFail($id);
         $pageTitle = 'نمایش جزییات تنظیم';
-        $breadcrumb = [];
+        $breadcrumb = [route('settings.index') => 'لیست تنظیمات'];
         $pageBc = 'جزییات تنظیم';
         $pageSubtitle = '';
         return view('admin.settings.show', compact('setting', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
@@ -149,7 +149,7 @@ class SettingsController extends Controller
     public function edit(Setting $setting)
     {
         $pageTitle = 'ویرایش تنظیم';
-        $breadcrumb = [];
+        $breadcrumb = [route('settings.index') => 'لیست تنظیمات'];
         $pageBc = 'ویرایش تنظیم';
         $pageSubtitle = '';
         return view('admin.settings.edit', compact('setting', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
@@ -227,7 +227,7 @@ class SettingsController extends Controller
 
         $setting->update($data);
 
-        return redirect('admin/settings')->with('flash_message', 'ویرایش تنظیم انجام شد!');
+        return redirect()->route('settings.index')->with('flash_message', 'ویرایش تنظیم انجام شد!');
     }
 
     /**
@@ -241,6 +241,6 @@ class SettingsController extends Controller
     {
         Setting::destroy($id);
 
-        return redirect('admin/settings')->with('flash_message', 'تنظیم حذف شد!');
+        return redirect()->route('settings.index')->with('flash_message', 'تنظیم حذف شد!');
     }
 }

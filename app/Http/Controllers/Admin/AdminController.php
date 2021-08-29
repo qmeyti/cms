@@ -7,12 +7,15 @@ use App\Http\Controllers\Controller;
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $pageTitle = 'داشبورد مدیریت';
+        $breadcrumb = [];
+        $pageBc = 'داشبورد';
+        $pageSubtitle = '';
+
+        return view('admin.dashboard',compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 }

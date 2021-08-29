@@ -107,7 +107,6 @@ if (!function_exists('__add_stg')) {
 }
 
 
-
 if (!function_exists('__route')) {
 
     /**
@@ -125,18 +124,72 @@ if (!function_exists('__route')) {
 if (!function_exists('__active_links')) {
 
     /**
-     * Get an array of routes and return `active` if current route equal to it
+     * Get an array of routes and return true if current route was equaled to it
      *
-     * @param array $route_names
+     * @param array $routeNames
+     * @param string $routeNameSplit
      * @return string
      */
-    function __active_links(array $route_names): string
+    function __active_links(array $routeNames, $routeNameSplit = '.'): string
     {
-        if (in_array(__route(), $route_names))
-            return 'active';
-        else
-            return '';
+        $route = __route();
+
+        foreach ($routeNames as $routeKey => $routeName) {
+
+            /**
+             * Check string type route without params
+             */
+            if (is_numeric($routeKey) && is_string($routeName)) {
+                /**
+                 * Recognize simple routes
+                 */
+                if ($routeName === $route)
+                    return true;
+
+                /**
+                 * Recognize with regex
+                 */
+                elseif (count($routePartsArray = explode($routeNameSplit, $routeName)) == 2) {
+
+                    $currentRouteNamePartsArray = explode($routeNameSplit, $route);
+
+                    if ($currentRouteNamePartsArray[0] === $routePartsArray[0] && $routePartsArray[1] === '*') {
+                        return true;
+                    }
+
+                }
+
+            } /**
+             *
+             * Check by route params
+             */ elseif (is_string($routeKey) && is_array($routeName) && __is_linear($routeName) && $routeKey === $route) {
+
+                $rp = request()->route()->parameters();
+
+                foreach ($routeName as $routeNameKey => $routeNameValue) {
+
+                    if (!(isset($rp[$routeNameKey]) && $rp[$routeNameKey] === $routeNameValue)) {
+                        return false;
+                    }
+
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
 
+/**
+ * Check array is linear
+ *
+ * @param array $array
+ * @return bool
+ */
+function __is_linear(array $array)
+{
+    return (count($array) == count($array, COUNT_RECURSIVE));
+}

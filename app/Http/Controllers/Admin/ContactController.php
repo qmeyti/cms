@@ -70,7 +70,7 @@ class ContactController extends Controller
 
         $contact->save();
         $pageTitle = 'نمایش تماس ها';
-        $breadcrumb = [];
+        $breadcrumb = [route('contacts.index') => 'لیست تماس ها'];
         $pageBc = 'نمایش تماس ها';
         $pageSubtitle = '';
 

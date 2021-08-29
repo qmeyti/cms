@@ -42,7 +42,7 @@ class SliderController extends Controller
     {
 
         $pageTitle = 'افزودن اسلایدر';
-        $breadcrumb = [];
+        $breadcrumb = [route('sliders.index') => 'لیست اسلایدرها'];
         $pageBc = 'افزودن اسلایدر';
         $pageSubtitle = '';
 
@@ -50,11 +50,8 @@ class SliderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -64,7 +61,7 @@ class SliderController extends Controller
 
         Slider::create($data);
 
-        return redirect('admin/slider')->with('flash_message', 'اسلایدر جدید با موفقیت ایجاد شد!');
+        return redirect()->route('sliders.index')->with('flash_message', 'اسلایدر جدید با موفقیت ایجاد شد!');
     }
 
     /**
@@ -79,7 +76,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
 
         $pageTitle = 'نمایش اسلایدر';
-        $breadcrumb = [];
+        $breadcrumb = [route('sliders.index') => 'لیست اسلایدرها'];
         $pageBc = 'نمایش اسلایدر';
         $pageSubtitle = '';
 
@@ -98,7 +95,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
 
         $pageTitle = 'ویرایش اسلایدر';
-        $breadcrumb = [];
+        $breadcrumb = [route('sliders.index') => 'لیست اسلایدرها'];
         $pageBc = 'ویرایش اسلایدر';
         $pageSubtitle = '';
 
@@ -108,7 +105,7 @@ class SliderController extends Controller
     /**
      * @param Request $request
      * @param Slider $slider
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Slider $slider)
     {
@@ -118,20 +115,17 @@ class SliderController extends Controller
 
         $slider->update($data);
 
-        return redirect('admin/slider')->with('flash_message', 'Slider updated!');
+        return redirect()->route('sliders.index')->with('flash_message', 'Slider updated!');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         Slider::destroy($id);
 
-        return redirect('admin/slider')->with('flash_message', 'Slider deleted!');
+        return redirect()->route('sliders.index')->with('flash_message', 'Slider deleted!');
     }
 }

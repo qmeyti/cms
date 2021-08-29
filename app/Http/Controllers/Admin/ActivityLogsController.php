@@ -44,7 +44,7 @@ class ActivityLogsController extends Controller
         $activitylog = Activity::findOrFail($id);
 
         $pageTitle = 'جزییات لاگ';
-        $breadcrumb = [];
+        $breadcrumb = [route('activitylogs.index') => 'لاگ تغییرات'];
         $pageBc = 'جزییات لاگ';
         $pageSubtitle = '';
         return view('admin.activitylogs.show', compact('activitylog','pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
@@ -61,6 +61,6 @@ class ActivityLogsController extends Controller
     {
         Activity::destroy($id);
 
-        return redirect('admin/activitylogs')->with('flash_message', 'Activity deleted!');
+        return redirect()->route('activitylogs.index')->with('flash_message', 'فعالیت با موفقیت حذف شد!');
     }
 }

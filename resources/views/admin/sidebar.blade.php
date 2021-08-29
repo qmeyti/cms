@@ -19,14 +19,14 @@
 
                     @foreach($sections['parts'] as $part)
 
-                        <li class="sidebar-item {{$part['class']}} @if(!empty($part['items'])) has-sub @endif">
+                        <li class="sidebar-item {{__active_links($part['active'])?'active':''}} {{$part['class']}} @if(!empty($part['items'])) has-sub @endif">
                             <a href="@if(empty($part['items'])) {{$part['url']}} @else # @endif" class='sidebar-link'>
                                 <i class="{{$part['icon']}}"></i>
                                 <span>{{$part['title']}}</span>
                             </a>
-                            <ul class="submenu">
+                            <ul class="submenu {{__active_links($part['active'])?'active':''}}">
                                 @foreach($part['items'] as $item)
-                                    <li class="submenu-item">
+                                    <li class="submenu-item {{__active_links($item['active'])?'active':''}}">
                                         <a href="{{$item['url']}}">{{$item['title']}}</a>
                                     </li>
                                 @endforeach

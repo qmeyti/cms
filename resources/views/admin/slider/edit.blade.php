@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col">
-                        <a href="{{ route('slider.index') }}" title="بازگشت">
+                        <a href="{{ route('sliders.index') }}" title="بازگشت">
                             <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                     </div>
@@ -28,7 +28,7 @@
 
                 {!! Form::model($slider, [
                     'method' => 'PATCH',
-                    'url' => route('slider.update',['slider' => $slider->id]),
+                    'url' => route('sliders.update',['slider' => $slider->id]),
                     'class' => 'form-horizontal',
                     'files' => true
                 ]) !!}

@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col">
-                        <a href="{{ route('slider.index') }}" title="بازگشت">
+                        <a href="{{ route('sliders.index') }}" title="بازگشت">
                             <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                     </div>
@@ -25,7 +25,7 @@
                     </ul>
                 @endif
 
-                {!! Form::open(['url' => route('slider.store'), 'class' => 'form-horizontal', 'files' => true]) !!}
+                {!! Form::open(['url' => route('sliders.store'), 'class' => 'form-horizontal', 'files' => true]) !!}
 
                 @include ('admin.slider.form', ['formMode' => 'create'])
 
