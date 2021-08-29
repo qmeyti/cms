@@ -10,7 +10,7 @@
                     </div>
                     <div class="footer-cta-text">
                         <span>تلفن</span>
-                        <h3>021-1234567</h3>
+                        <h3>{{__stg('__footer_phone')}}</h3>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="footer-cta-text">
                         <span>آدرس</span>
-                        <h3>تهران , خیابان آزادی , ساختمان</h3>
+                        <h3>{{__stg('__footer_location')}}</h3>
                     </div>
                 </div>
             </div>

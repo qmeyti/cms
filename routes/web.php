@@ -13,11 +13,6 @@
 |
 */
 
-//
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth'])->name('dashboard');
-
 require __DIR__ . '/auth.php';
 
 Route::name('front.')->namespace('App\Http\Controllers\Front')->middleware(['fs_init'])->group(function () {
@@ -26,8 +21,11 @@ Route::name('front.')->namespace('App\Http\Controllers\Front')->middleware(['fs_
 
     Route::get('/page/{page}', 'HomeController@index')->name('page.show');
 
-});
+    Route::post('/contact', 'HomeController@contact')->name('contact.store');
 
+    Route::post('/newsletter', 'HomeController@newsletter')->name('newsletter.store');
+
+});
 
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin', 'as_init']], function () {
 

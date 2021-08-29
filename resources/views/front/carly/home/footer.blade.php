@@ -1,4 +1,6 @@
-
+@php
+    require_once base_path('resources/views/front/carly/setting/functions.php');
+@endphp
 <!-- footer-area-start -->
 <footer>
     <div class="footer-top-area black-bg pt-150">
@@ -6,18 +8,19 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-3 col-md-4">
                     <div class="footer-logo mb-30">
-                        <a href="index.html"><img src="{{asset('front/carly/assets/img/logo/white-logo.png')}}" alt=""></a>
+                        @if(!empty($fl = __stg('__footer_logo')))
+                            <a href="{{url('/')}}"><img src="{{$fl}}" alt=""></a>
+                        @endif
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-9  col-md-8 mb-30">
                     <div class="footer-top-wrapper">
                         <ul class="footer-top-link f-left">
-                            <li><a href="#">طرح بندی </a></li>
-                            <li><a href="#"> صفحات</a></li>
-                            <li><a href="#">کار</a></li>
-                            <li><a href="#">وبلاگ </a></li>
-                            <li><a href="#">فروشگاه</a></li>
-                            <li><a href="#">تماس</a></li>
+                            @if(!empty($fMenu=__stg('__footer_menu')) && !is_null($footerMenu=\App\Models\Menu::with('items')->where('id',$fMenu)->first()))
+                                @foreach($footerMenu->items as $mItem)
+                                    <li><a href="{{getMenuLink($mItem->toArray())}}">{{$mItem->label}}</a></li>
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -28,13 +31,31 @@
                         <div class="footer-wrapper mb-30">
                             <h3 class="footer-title">درباره ما</h3>
                             <div class="footer-text">
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است </p>
+                                @php
+                                    $aboutPage = \App\Models\Page::find(__stg('__about_page'));
+                                @endphp
+                                @if(!is_null($aboutPage))
+                                    <p>
+                                        {{\Illuminate\Support\Str::limit($aboutPage->excerpt)}}
+                                    </p>
+                                @endif
                             </div>
                             <div class="footer-icon">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                @if(!empty($sc=__stg('__footer_facebook')))
+                                    <a href="{{$sc}}"><i class="fab fa-facebook-f"></i></a>
+                                @endif
+                                @if(!empty($sc=__stg('__footer_twitter')))
+                                    <a href="{{$sc}}"><i class="fab fa-twitter"></i></a>
+                                @endif
+                                @if(!empty($sc=__stg('__footer_telegram')))
+                                    <a href="{{$sc}}"><i class="fab fa-instagram"></i></a>
+                                @endif
+                                @if(!empty($sc=__stg('__footer_whatsapp')))
+                                    <a href="{{$sc}}"><i class="fab fa-whatsapp"></i></a>
+                                @endif
+                                @if(!empty($sc=__stg('__footer_instagram')))
+                                    <a href="{{$sc}}"><i class="fab fa-telegram"></i></a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -43,25 +64,26 @@
                             <h3 class="footer-title">خدمات</h3>
                             <div class="footer-link">
                                 <ul>
-                                    <li><a href="#">شرایط</a></li>
-                                    <li><a href="#">شرایط استفاده</a></li>
-                                    <li><a href="#">خدمات ما</a></li>
-                                    <li><a href="#">لیست جدید مهمانان</a></li>
-                                    <li><a href="#">لیست تیم</a></li>
+                                    @if(!empty($fMenu=__stg('__footer_menu_services')) && !is_null($footerMenu=\App\Models\Menu::with('items')->where('id',$fMenu)->first()))
+                                        @foreach($footerMenu->items as $mItem)
+                                            <li><a href="{{getMenuLink($mItem->toArray())}}">{{$mItem->label}}</a></li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </div>
-                            <div></div></div>
+                            <div></div>
+                        </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-6">
                         <div class="footer-wrapper mb-30">
                             <h3 class="footer-title">لینک های مفید</h3>
                             <div class="footer-link">
                                 <ul>
-                                    <li><a href="#">شرایط</a></li>
-                                    <li><a href="#">شرایط استفاده</a></li>
-                                    <li><a href="#">خدمات ما</a></li>
-                                    <li><a href="#">لیست جدید مهمانان</a></li>
-                                    <li><a href="#">لیست تیم</a></li>
+                                    @if(!empty($fMenu=__stg('__footer_menu_suitable')) && !is_null($footerMenu=\App\Models\Menu::with('items')->where('id',$fMenu)->first()))
+                                        @foreach($footerMenu->items as $mItem)
+                                            <li><a href="{{getMenuLink($mItem->toArray())}}">{{$mItem->label}}</a></li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -70,9 +92,10 @@
                         <div class="footer-wrapper mb-30">
                             <h3 class="footer-title">اشتراک</h3>
                             <div class="subscribes-form">
-                                <form action="#">
-                                    <input placeholder="ایمیل را وارد کنید " type="email">
-                                    <button class="c-btn">اشتراک</button>
+                                <form method="POST" action="{{route('front.newsletter.store')}}">
+                                    @csrf
+                                    <input name="identifier" placeholder="ایمیل را وارد کنید " type="email">
+                                    <button type="submit" class="c-btn">اشتراک</button>
                                 </form>
                             </div>
                             <div class="footer-info">
@@ -86,16 +109,17 @@
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6">
                         <div class="copyright">
-                            <p>کپی رایت <i class="far fa-copyright"></i> 2020 <a href="#">Carly</a>. کلیه حقوق محفوظ است</p>
+                            <p>کپی رایت <i class="far fa-copyright"></i> 2020 <a href="haavir.com">هاویر</a>. کلیه حقوق محفوظ است</p>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6">
                         <div class="footer-bottom-link f-left">
                             <ul>
-                                <li><a href="#">حریم خصوصی </a></li>
-                                <li><a href="#"> مقررات</a></li>
-                                <li><a href="#">نقشه سایت</a></li>
-                                <li><a href="#">پشتیبانی </a></li>
+                                @if(!empty($fMenu=__stg('__footer_menu_last')) && !is_null($footerMenu=\App\Models\Menu::with('items')->where('id',$fMenu)->first()))
+                                    @foreach($footerMenu->items as $mItem)
+                                        <li><a href="{{getMenuLink($mItem->toArray())}}">{{$mItem->label}}</a></li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>

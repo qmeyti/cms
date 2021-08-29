@@ -69,3 +69,28 @@ function get_main_menu()
     return getMenuItemsRecursive(1, $menuItemsArray);
 
 }
+
+/**
+ * @param \App\Models\Page $page
+ * @param string $model
+ * @return string
+ */
+function __page_url(\App\Models\Page $page, string $model = '')
+{
+
+    $url = route('front.page.show',['page' => $page->id]);
+
+    return $url;
+}
+
+/**
+ * @param \App\Models\Page $page
+ * @param string|null $default
+ * @return mixed|string
+ */
+function __feature_photo(\App\Models\Page $page,string $default = null){
+    if (!empty($page->feature_photo))
+        return $page->feature_photo;
+
+    return $default ?? asset('front/carly/assets/img/noimage370x250.png');
+}

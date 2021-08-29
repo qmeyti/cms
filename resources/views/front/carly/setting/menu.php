@@ -47,6 +47,24 @@ return [
                         'active' => ['template.create' => ['module' => 'case']],
                         'url' => route('template.create', ['module' => 'case']),
                     ],
+                    [
+                        'icon' => '',
+                        'title' => 'تماس با ما',
+                        'active' => ['template.create' => ['module' => 'contact']],
+                        'url' => route('template.create', ['module' => 'contact']),
+                    ],
+                    [
+                        'icon' => '',
+                        'title' => 'وبلاگ',
+                        'active' => ['template.create' => ['module' => 'blog']],
+                        'url' => route('template.create', ['module' => 'blog']),
+                    ],
+                    [
+                        'icon' => '',
+                        'title' => 'پاصفحه',
+                        'active' => ['template.create' => ['module' => 'footer']],
+                        'url' => route('template.create', ['module' => 'footer']),
+                    ],
                 ],
             ]
         ]

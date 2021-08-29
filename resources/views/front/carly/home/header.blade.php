@@ -18,45 +18,6 @@
                                 echo get_main_menu();
                             @endphp
 
-                        {{--    <ul>
-                                <li class="active"><a href="index.html">خانه <i class="far fa-plus"></i></a>
-                                    <ul class="sub-menu text-left">
-                                        <li><a href="index.html">خانه 1</a></li>
-                                        <li><a href="index-2.html">خانه 2</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="about.html">درباره ما </a></li>
-                                <li><a href="#">صفحات <i class="far fa-plus"></i></a>
-                                    <ul class="sub-menu text-right">
-                                        <li><a href="about.html">درباره ما </a>
-                                        <li><a href="portfolio.html">نمونه کارها</a>
-                                        <li><a href="portfolio-details.html">جزئیات نمونه کارها</a>
-                                        <li><a href="team.html">تیم</a>
-                                        <li><a href="team-details.html">جزئیات تیم</a>
-                                        <li><a href="faq.html">سؤالات متداول</a>
-                                        <li><a href="services.html">خدمات</a>
-                                        <li><a href="services-details.html">جزئیات خدمات</a>
-                                        <li><a href="contact.html">تماس با ما</a>
-                                    </ul>
-                                </li>
-                                <li><a href="services.html">خدمات <i class="far fa-plus"></i></a>
-                                    <ul class="sub-menu text-right">
-                                        <li><a href="services.html">خدمات</a></li>
-                                        <li><a href="services-details.html">جزئیات خدمات</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="blog-grid.html">وبلاگ<i class="far fa-plus"></i></a>
-                                    <ul class="sub-menu text-right">
-                                        <li><a href="blog-grid.html">وبلاگ شبکه ای</a></li>
-                                        <li><a href="blog-standard.html">وبلاگ استاندارد</a></li>
-                                        <li><a href="blog-left-sidebar.html">وبلاگ نوار کناری چپ</a></li>
-                                        <li><a href="blog-details.html">جزئیات وبلاگ</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">تماس با ما</a></li>
-                            </ul>
-
---}}
                         </nav>
                     </div>
                 </div>
