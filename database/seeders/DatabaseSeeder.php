@@ -40,6 +40,20 @@ class DatabaseSeeder extends Seeder
                 'type'    => 'int',
                 'part'    => 'home',
             ],
+            [
+                'key'     => '__blog_elements_per_page',
+                'value'   => 10,
+                'user_id' => 1,
+                'type'    => 'int',
+                'part'    => 'home',
+            ],
+            [
+                'key'     => '__blog_tags_limit',
+                'value'   => 24,
+                'user_id' => 1,
+                'type'    => 'int',
+                'part'    => 'home',
+            ],
 
         ];
 

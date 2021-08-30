@@ -15,18 +15,6 @@
 
 require __DIR__ . '/auth.php';
 
-Route::name('front.')->namespace('App\Http\Controllers\Front')->middleware(['fs_init'])->group(function () {
-
-    Route::get('/', 'HomeController@index');
-
-    Route::get('/page/{page}', 'HomeController@index')->name('page.show');
-
-    Route::post('/contact', 'HomeController@contact')->name('contact.store');
-
-    Route::post('/newsletter', 'HomeController@newsletter')->name('newsletter.store');
-
-});
-
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin', 'as_init']], function () {
 
     Route::get('/', 'AdminController@index')->name('dashboard');
@@ -76,3 +64,28 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 
 });
 
+Route::name('front.')->namespace('App\Http\Controllers\Front')->middleware(['fs_init'])->group(function () {
+
+
+    Route::get('/page/{page}', 'HomeController@index')->name('page.show');
+
+    Route::post('/contact', 'HomeController@contact')->name('contact.store');
+
+    Route::post('/newsletter', 'HomeController@newsletter')->name('newsletter.store');
+
+    //Add new comment
+    Route::post('/comment/store', 'CommentController@store')->name('user.comment.store');
+    //Blog
+    Route::get('/blog/{category?}', 'BlogController@blog')->name('blog');
+
+    Route::get('/favorite/posts', 'BlogController@favorite_posts')->name('favorite.posts');
+    Route::get('/tag/{tag}', 'BlogController@tag_posts')->name('tag.posts');
+    Route::get('/like/{post}', 'LikeController@like')->name('post.like');
+    Route::get('/dislike/{post}', 'LikeController@dislike')->name('post.dislike');
+    Route::post('/favorite/{post}', 'FavoriteController@favorite')->name('post.favorite');
+    Route::get('/post/{id}', 'BlogController@post_id')->name('post.view.id');
+
+    Route::get('/', 'HomeController@index');
+    Route::get('/{slug}', 'BlogController@post_slug')->name('post.view.slug');
+
+});

@@ -13,6 +13,11 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown ms-3">
+                        <a class="nav-link" title="مشاهده صفحه اصلی" target="_blank" href="{{url('/')}}" aria-expanded="false">
+                            <i class='far fa-eye bi-sub fs-4 text-gray-600'></i>
+                        </a>
+                    </li>
                     <li class="nav-item dropdown ms-1">
                         <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
                            aria-expanded="false">
@@ -37,6 +42,7 @@
                             <li><a class="dropdown-item"></a></li>
                         </ul>
                     </li>
+
                 </ul>
                 <div class="dropdown">
                     <a href="#" data-bs-toggle="dropdown" aria-expanded="false">

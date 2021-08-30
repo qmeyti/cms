@@ -65,6 +65,12 @@ return [
                         'active' => ['template.create' => ['module' => 'footer']],
                         'url' => route('template.create', ['module' => 'footer']),
                     ],
+                    [
+                        'icon' => '',
+                        'title' => 'سرصفحه صفحات داخلی',
+                        'active' => ['template.create' => ['module' => 'inner_header']],
+                        'url' => route('template.create', ['module' => 'inner_header']),
+                    ],
                 ],
             ]
         ]

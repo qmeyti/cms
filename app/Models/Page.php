@@ -140,7 +140,6 @@ class Page extends Model
         return \App\Models\Page::where('status', 'published')->whereNotIn('id', $notInIds)->where('type', 'page')->get();
     }
 
-
     /**
      * @return mixed
      */
@@ -148,4 +147,13 @@ class Page extends Model
     {
         return \App\Models\Page::where('status', 'published')->get(['id', 'title', 'type']);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

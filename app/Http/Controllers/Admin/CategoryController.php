@@ -64,7 +64,7 @@ class CategoryController extends Controller
 
         $data = $this->validate($request, [
             'title' => 'required|string|max:100',
-            'slug' => 'required|string|regex:!^[a-zA-Z0-9\-_\s]+$!|max:100|unique:categories,id',
+            'slug' => 'required|string|regex:!^[a-zA-Z]{1}[a-zA-Z0-9\-_\s]+$!|max:100|unique:categories,id',
             'parent' => 'sometimes|nullable|integer|exists:categories,id',
         ]);
 
@@ -119,7 +119,7 @@ class CategoryController extends Controller
 
         $data = $this->validate($request, [
             'title' => 'required|string|max:100',
-            'slug' => 'required|string|regex:!^[a-zA-Z0-9\-_\s]+$!|max:100|unique:categories,id,' . $id,
+            'slug' => 'required|string|regex:!^[a-zA-Z]{1}[a-zA-Z0-9\-_\s]+$!|max:100|unique:categories,id,' . $id,
             'parent' => 'sometimes|nullable|integer|exists:categories,id',
         ]);
 

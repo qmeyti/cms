@@ -39,7 +39,8 @@ class TemplateController extends Controller
             /**
              * Template module controller name
              */
-            $controller = ucfirst(strtolower($module)) . 'Controller';
+            $controller = str_replace(' ', '', ucwords(str_replace('_', ' ', $module))) . 'Controller';
+
 
             /**
              * Find template module controller
@@ -87,7 +88,7 @@ class TemplateController extends Controller
             /**
              * Template module controller name
              */
-            $controller = ucfirst(strtolower($module)) . 'Controller';
+            $controller = str_replace(' ', '', ucwords(str_replace('_', ' ', $module))) . 'Controller';
 
             /**
              * Find template module controller

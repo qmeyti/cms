@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Tag extends Model
@@ -81,5 +82,48 @@ class Tag extends Model
             $newIds = Tag::whereIn('name', $all)->pluck('id')->toArray();
 
         return $newIds;
+    }
+
+    /**
+     * Get posts list tags
+     *
+     * @param $posts
+     * @param int $count
+     * @return array
+     */
+    public static function postsGetRandomTags($posts, $count = 20)
+    {
+        $tags = [];
+        foreach ($posts as $post) {
+            $tagsObj = $post->tags;
+            foreach ($tagsObj as $tag)
+                $tags[] = ['tag' => $tag->tag, 'id' => $tag->id];
+        }
+
+        if (empty($tags))
+            return [];
+
+        shuffle($tags);
+
+        $tags = array_slice($tags, 0, $count);
+
+        $ids = array_column($tags, 'id');
+
+        $counts = DB::table('page_tag')
+            ->whereIn('tag_id', $ids)
+            ->groupBy('tag_id')
+            ->select('tag_id', DB::raw('count(page_id) as count'))
+            ->get();
+
+        foreach ($tags as $key => $i1) {
+
+            foreach ($counts as $i2) {
+                if ($i1['id'] == $i2->tag_id)
+                    $tags[$key]['count'] = $i2->count;
+            }
+
+        }
+
+        return $tags;
     }
 }
