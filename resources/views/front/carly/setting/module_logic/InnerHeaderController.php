@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Menu;
 use Illuminate\Support\Facades\DB;
 
 class InnerHeaderController implements \App\Libraries\Template\TemplateControllerInterface
@@ -12,21 +11,42 @@ class InnerHeaderController implements \App\Libraries\Template\TemplateControlle
     public function store(\Illuminate\Http\Request $request)
     {
 
-        __sanitize('__header_phone');
+        __sanitize('__inner_header_phone');
+        __sanitize('__inner_header_email');
+        __sanitize('__inner_header_location');
+        __sanitize('__inner_header_social_icon_1');
+        __sanitize('__inner_header_social_icon_2');
+        __sanitize('__inner_header_social_icon_3');
 
         $data = $request->validate([
 
-            '__logo' => 'required|string|url|max:2000',
+            '__inner_header_social_url_1' => 'sometimes|nullable|string|url|max:2000',
+            '__inner_header_social_url_2' => 'sometimes|nullable|string|url|max:2000',
+            '__inner_header_social_url_3' => 'sometimes|nullable|string|url|max:2000',
+            '__inner_header_social_icon_1' => 'sometimes|nullable|string|min:3|max:255',
+            '__inner_header_social_icon_2' => 'sometimes|nullable|string|min:3|max:255',
+            '__inner_header_social_icon_3' => 'sometimes|nullable|string|min:3|max:255',
 
-            '__header_phone' => 'required|string|min:3|max:255',
+            '__inner_header_phone' => 'sometimes|nullable|string|min:3|max:30',
+            '__inner_header_email' => 'sometimes|nullable|string|min:3|max:255',
+            '__inner_header_location' => 'sometimes|nullable|string|min:3|max:1000',
+            '__inner_header_contact_page' => 'sometimes|nullable|integer|exists:pages,id',
+
         ]);
 
         DB::beginTransaction();
         try {
 
-            __add_stg('__header_phone', $data['__header_phone'], 'string', 'home');
-
-            __add_stg('__logo', $data['__logo'], 'text', 'home');
+            __add_stg('__inner_header_social_url_1', $data['__inner_header_social_url_1'], 'string', 'home');
+            __add_stg('__inner_header_social_url_2', $data['__inner_header_social_url_2'], 'string', 'home');
+            __add_stg('__inner_header_social_url_3', $data['__inner_header_social_url_3'], 'string', 'home');
+            __add_stg('__inner_header_phone', $data['__inner_header_phone'], 'string', 'home');
+            __add_stg('__inner_header_email', $data['__inner_header_email'], 'string', 'home');
+            __add_stg('__inner_header_location', $data['__inner_header_location'], 'text', 'home');
+            __add_stg('__inner_header_social_icon_1', $data['__inner_header_social_icon_1'], 'string', 'home');
+            __add_stg('__inner_header_social_icon_2', $data['__inner_header_social_icon_2'], 'string', 'home');
+            __add_stg('__inner_header_social_icon_3', $data['__inner_header_social_icon_3'], 'string', 'home');
+            __add_stg('__inner_header_contact_page', $data['__inner_header_contact_page'], 'int', 'home');
 
             DB::commit();
 

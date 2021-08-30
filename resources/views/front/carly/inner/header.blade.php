@@ -7,38 +7,46 @@
                     <div class="col-xl-6 col-lg-6 col-12">
                         <div class="header-top-wrapper">
                             <div class="header-top-info">
-                                        <span class="mail-header-icon"><i class="far fa-envelope-open"></i>
-                                            <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c55525a537c4b595e4f554859125f5351">info@website.com</a>
-                                        </span>
+                                <span class="mail-header-icon"><i class="far fa-envelope-open"></i>
+                                    <a href="mailto:{{__stg('__inner_header_email')}}" class="__cf_email__">{{__stg('__inner_header_email')}}</a>
+                                </span>
                                 <br>
-                                <span><i class="far fa-map-marker-alt"></i>تهران , خیابان آزادی , ساختمان مهر</span>
-                                <span> <i class="far fa-phone"></i> 021-1234567</span>
+                                <span><i class="far fa-map-marker-alt"></i>{{__stg('__inner_header_location')}}</span>
+                                <span> <i class="far fa-phone"></i> {{__stg('__inner_header_phone')}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-12">
                         <div class="header-02-right">
                             <div class="header-02-icon f-right">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                            </div>
-{{--
-                            <div class="header-lang f-left pos-rel">
-                                <div class="lang-icon">
-                                    <img src="{{asset('/front/carly/assets/img/icon/map.png')}}" alt="">
-                                    <a href="#">فارسی <i class="far fa-angle-down"></i></a>
-                                </div>
+                                @if(!empty($soc = __stg('__inner_header_social_icon_1')))
+                                    <a href="{{__stg('__inner_header_social_url_1')}}"><i class="{{$soc}}"></i></a>
+                                @endif
 
-                                <ul class="header-lang-list">
-                                    <li><a href="#">FA</a></li>
-                                    <li><a href="#">EN</a></li>
-                                    <li><a href="#">CA</a></li>
-                                    <li><a href="#">AU</a></li>
-                                </ul>
+                                @if(!empty($soc = __stg('__inner_header_social_icon_2')))
+                                    <a href="{{__stg('__inner_header_social_url_2')}}"><i class="{{$soc}}"></i></a>
+                                @endif
 
+                                @if(!empty($soc = __stg('__inner_header_social_icon_3')))
+                                    <a href="{{__stg('__inner_header_social_url_3')}}"><i class="{{$soc}}"></i></a>
+                                @endif
                             </div>
---}}
+                            {{--
+                                                        <div class="header-lang f-left pos-rel">
+                                                            <div class="lang-icon">
+                                                                <img src="{{asset('/front/carly/assets/img/icon/map.png')}}" alt="">
+                                                                <a href="#">فارسی <i class="far fa-angle-down"></i></a>
+                                                            </div>
+
+                                                            <ul class="header-lang-list">
+                                                                <li><a href="#">FA</a></li>
+                                                                <li><a href="#">EN</a></li>
+                                                                <li><a href="#">CA</a></li>
+                                                                <li><a href="#">AU</a></li>
+                                                            </ul>
+
+                                                        </div>
+                            --}}
                         </div>
                     </div>
                 </div>
@@ -46,7 +54,7 @@
             <div class="row align-items-center">
                 <div class="col-xl-2 col-lg-2">
                     <div class="logo">
-                        <a href="index.html"><img src="assets/img/logo/logo.png" alt="" /></a>
+                        <a href="{{url('/')}}"><img src="{{__stg('__logo')}}" alt=""/></a>
                     </div>
                 </div>
                 <div class="col-xl-8 col-lg-7 d-none d-lg-block">
@@ -55,20 +63,29 @@
                             <div class="col-xl-6 col-lg-6">
                                 <div class="header-top-wrapper">
                                     <div class="header-top-info">
-                                                <span class="mail-header-icon"><i class="far fa-envelope-open"></i>
-                                                    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b1d8dfd7def1c6d4d3c2d8c5d49fd2dedc">info@website.com</a></span>
-                                        <span> <i class="far fa-map-marker-alt"></i> تهران , خیابان آزادی , ساختمان مهر</span>
+                                        <span class="mail-header-icon"><i class="far fa-envelope-open"></i>
+                                            <a href="mailto:{{__stg('__inner_header_email')}}" class="__cf_email__">{{__stg('__inner_header_email')}}</a>
+                                        </span>
+                                        <span> <i class="far fa-map-marker-alt"></i>{{__stg('__inner_header_location')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6">
                                 <div class="header-02-right">
                                     <div class="header-02-icon f-left">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                        <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                        @if(!empty($soc = __stg('__inner_header_social_icon_1')))
+                                            <a href="{{__stg('__inner_header_social_url_1')}}"><i class="{{$soc}}"></i></a>
+                                        @endif
+
+                                        @if(!empty($soc = __stg('__inner_header_social_icon_2')))
+                                            <a href="{{__stg('__inner_header_social_url_2')}}"><i class="{{$soc}}"></i></a>
+                                        @endif
+
+                                        @if(!empty($soc = __stg('__inner_header_social_icon_3')))
+                                            <a href="{{__stg('__inner_header_social_url_3')}}"><i class="{{$soc}}"></i></a>
+                                        @endif
                                     </div>
-                                    <div class="header-lang f-left pos-rel">
+                                    {{--<div class="header-lang f-left pos-rel">
                                         <div class="lang-icon">
                                             <img src="assets/img/icon/map.png" alt="">
                                             <a href="#">فارسی <i class="far fa-angle-down"></i></a>
@@ -79,7 +96,7 @@
                                             <li><a href="#">CA</a></li>
                                             <li><a href="#">AU</a></li>
                                         </ul>
-                                    </div>
+                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -96,7 +113,9 @@
                                     </nav>
                                 </div>
                                 <div class="header-button">
-                                    <a class="c-btn" href="contact.html">تماس با ما</a>
+                                    @if(!empty($cp =__stg('__inner_header_contact_page')) && !is_null($cpa=\App\Models\Page::find($cp)))
+                                        <a class="c-btn" href="{{__page_url($cpa)}}">تماس با ما</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -109,7 +128,7 @@
                         </div>
                         <div class="header-info">
                             <span>تلفن</span>
-                            <h5>021-1234567</h5>
+                            <h5>{{__stg('__inner_header_phone')}}</h5>
                         </div>
                     </div>
                 </div>
