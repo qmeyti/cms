@@ -31,6 +31,7 @@ class InnerHeaderController implements \App\Libraries\Template\TemplateControlle
             '__inner_header_email' => 'sometimes|nullable|string|min:3|max:255',
             '__inner_header_location' => 'sometimes|nullable|string|min:3|max:1000',
             '__inner_header_contact_page' => 'sometimes|nullable|integer|exists:pages,id',
+            '__inner_header_breadcrumb_image' => 'required|string|url|min:3|max:2000',
 
         ]);
 
@@ -43,6 +44,7 @@ class InnerHeaderController implements \App\Libraries\Template\TemplateControlle
             __add_stg('__inner_header_phone', $data['__inner_header_phone'], 'string', 'home');
             __add_stg('__inner_header_email', $data['__inner_header_email'], 'string', 'home');
             __add_stg('__inner_header_location', $data['__inner_header_location'], 'text', 'home');
+            __add_stg('__inner_header_breadcrumb_image', $data['__inner_header_breadcrumb_image'], 'text', 'home');
             __add_stg('__inner_header_social_icon_1', $data['__inner_header_social_icon_1'], 'string', 'home');
             __add_stg('__inner_header_social_icon_2', $data['__inner_header_social_icon_2'], 'string', 'home');
             __add_stg('__inner_header_social_icon_3', $data['__inner_header_social_icon_3'], 'string', 'home');

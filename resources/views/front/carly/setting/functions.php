@@ -70,27 +70,48 @@ function get_main_menu()
 
 }
 
+
 /**
- * @param \App\Models\Page $page
- * @param string $model
+ * Get sidebar categories list
+ *
  * @return string
  */
-function __page_url(\App\Models\Page $page, string $model = '')
+function get_sidebar_categories()
 {
+    $cats = \App\Models\Category::all(['title', 'slug', \Illuminate\Support\Facades\DB::raw('IFNULL(`parent`,0) AS `parent`'), 'id'])->toArray();
 
-    $url = route('front.page.show',['page' => $page->id]);
+    $category = [];
+    if ($cats) {
+        foreach ($cats as $cat) {
+            $category['categories'][$cat['id']] = $cat;
+            $category['parent_cats'][$cat['parent']][] = $cat['id'];
+        }
+    }
 
-    return $url;
+    $i = 0;
+    function get_recursive_categories($parent, $category)
+    {
+        global $i;
+        $i++;
+        $html = "";
+        if (isset($category['parent_cats'][$parent])) {
+            $html .= '<ul class="'.($i === 1?'service-list':'').'">' . PHP_EOL;
+            foreach ($category['parent_cats'][$parent] as $cat_id) {
+                if (!isset($category['parent_cats'][$cat_id])) {
+                    $html .= '<li><a href="' . route('front.blog', ['category' => $category['categories'][$cat_id]['slug']]) . '">' . $category['categories'][$cat_id]['title'] . '</a></li>' . PHP_EOL;
+                }
+
+                if (isset($category['parent_cats'][$cat_id])) {
+                    $html .= '<li><a href="' . route('front.blog', ['category' => $category['categories'][$cat_id]['slug']]) . '">' . $category['categories'][$cat_id]['title'] . '</a>' . PHP_EOL;
+                    $html .= get_recursive_categories($cat_id, $category);
+                    $html .= "</li> " . PHP_EOL;
+                }
+            }
+            $html .= "</ul> " . PHP_EOL;
+        }
+        return $html;
+    }
+
+    return get_recursive_categories(0, $category);
 }
 
-/**
- * @param \App\Models\Page $page
- * @param string|null $default
- * @return mixed|string
- */
-function __feature_photo(\App\Models\Page $page,string $default = null){
-    if (!empty($page->feature_photo))
-        return $page->feature_photo;
-
-    return $default ?? asset('front/carly/assets/img/noimage370x250.png');
-}

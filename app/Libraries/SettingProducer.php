@@ -138,7 +138,7 @@ class SettingProducer
      */
     private function setTypeBool($value)
     {
-        return $value == 0;
+        return intval($value) === 1;
     }
 
     /**

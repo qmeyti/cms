@@ -23,15 +23,24 @@ class Sanitize
         if (!is_string($content))
             throw new \Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException($content, 'string');
 
+        return $request->merge([$field => self::sanitizeString($content)]);
+    }
+
+    /**
+     * Sanitize string
+     *
+     * @param string $content
+     * @return string
+     */
+    public static function sanitizeString(string $content)
+    {
         $content = strip_tags($content);
 
         $content = htmlentities($content);
 
         $content = preg_replace('/\s+/', ' ', $content);
 
-        $content = trim($content);
-
-        return $request->merge([$field => $content]);
+        return trim($content);
     }
 
     /**

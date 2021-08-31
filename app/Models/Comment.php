@@ -15,18 +15,14 @@ class Comment extends Model
     protected $fillable = ['body', 'page_id', 'user_id', 'parent_id', 'depth', 'status', 'mobile', 'email', 'name'];
 
     /**
-     * One to Many relation
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id','id');
     }
 
     /**
-     * One to Many relation
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function page()
@@ -40,7 +36,7 @@ class Comment extends Model
      * @param User $user
      * @return int
      */
-    public static function commentsCount(User $user)
+    public static function userCommentsCount(User $user)
     {
         return $user->comments()->count();
     }

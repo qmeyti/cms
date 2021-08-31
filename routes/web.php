@@ -74,18 +74,23 @@ Route::name('front.')->namespace('App\Http\Controllers\Front')->middleware(['fs_
     Route::post('/newsletter', 'HomeController@newsletter')->name('newsletter.store');
 
     //Add new comment
-    Route::post('/comment/store', 'CommentController@store')->name('user.comment.store');
-    //Blog
+    Route::resource('/comments', 'CommentController');
+
+    //Blog posts show
     Route::get('/blog/{category?}', 'BlogController@blog')->name('blog');
+    Route::get('/favored/posts', 'BlogController@favoredPosts')->name('favored.posts');
+    Route::get('/liked/posts', 'BlogController@likedPosts')->name('liked.posts');
+    Route::get('/tag/{tag}', 'BlogController@tagPosts')->name('tag.posts');
+    Route::get('/author/{id}', 'BlogController@authorPosts')->name('author.posts');
 
-    Route::get('/favorite/posts', 'BlogController@favorite_posts')->name('favorite.posts');
-    Route::get('/tag/{tag}', 'BlogController@tag_posts')->name('tag.posts');
-    Route::get('/like/{post}', 'LikeController@like')->name('post.like');
-    Route::get('/dislike/{post}', 'LikeController@dislike')->name('post.dislike');
-    Route::post('/favorite/{post}', 'FavoriteController@favorite')->name('post.favorite');
-    Route::get('/post/{id}', 'BlogController@post_id')->name('post.view.id');
+    //Like & favorite actions
+    Route::post('/favorite/{post}', 'FavoriteController@favorite')->name('favorite.post');
+    Route::post('/like/{post}', 'LikeController@like')->name('like.posts');
+    Route::post('/dislike/{post}', 'LikeController@dislike')->name('dislike.post');
 
-    Route::get('/', 'HomeController@index');
-    Route::get('/{slug}', 'BlogController@post_slug')->name('post.view.slug');
+    Route::get('/', 'HomeController@index')->name('home');
+
+    Route::get('/post/{id}', 'BlogController@postId')->name('single.id');
+    Route::get('/{slug}', 'BlogController@postSlug')->name('single.slug');
 
 });

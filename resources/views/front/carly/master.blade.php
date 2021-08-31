@@ -28,6 +28,7 @@
             padding-right: 0px;
         }
     </style>
+    @yield('head')
 </head>
 <body>
 
@@ -54,5 +55,6 @@
 <script src="{{asset('front/carly/assets/js/jquery.magnific-popup.min.js')}}"></script>
 <script src="{{asset('front/carly/assets/js/plugins.js')}}"></script>
 <script src="{{asset('front/carly/assets/js/main.js')}}"></script>
+@yield('scripts')
 </body>
 </html>

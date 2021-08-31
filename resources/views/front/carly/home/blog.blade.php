@@ -54,14 +54,14 @@
                         <div class="col-xl-6 col-lg-6 col-md-6">
                             <div class="blog-wrapper mb-40">
                                 <div class="blog-img">
-                                    <a href="{{__page_url($blog)}}"><img src="{{__feature_photo($blog)}}" alt=""></a>
+                                    <a href="{{__page_url($blog)}}"><img src="{{__feature_photo($blog,asset('front/carly/assets/img/noimage370x250.png'))}}" alt=""></a>
                                     <div class="blog-date">
                                         <a href="{{__page_url($blog)}}">اخبار</a>
                                     </div>
                                     <div class="blog-text">
                                         <div class="blog-meta">
-                                            <span><a href="{{__page_url($blog)}}"> <i class="far fa-calendar-alt"></i>{{jdate($post->creatd_at ?? now())->format('d F , Y')}}</a></span>
-                                            <span> <a href="{{__page_url($blog)}}"> <i class="far fa-user-alt"></i>توسط {{$blog->writer->name}} {{$blog->writer->family}}</a></span>
+                                            <span><a href="{{__page_url($blog)}}"> <i class="far fa-calendar-alt"></i>{{__page_date($blog)}}</a></span>
+                                            <span> <a href="{{__page_url($blog)}}"> <i class="far fa-user-alt"></i>توسط {{__author($blog)}}</a></span>
                                         </div>
                                         <h4><a href="{{__page_url($blog)}}">مشاوران عملی</a></h4>
                                     </div>

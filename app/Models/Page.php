@@ -153,7 +153,53 @@ class Page extends Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'page_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'page_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class, 'page_id', 'id');
+
+    }
+
+    /**
+     * @param int $limit
+     * @return mixed
+     */
+    public static function getPopulars(int $limit = 6)
+    {
+        $posts = \App\Models\Page::withCount('likes')
+            ->orderBy('likes_count', 'DESC')
+            ->limit($limit)
+            ->get();
+
+        return $posts;
+    }
+
+    /**
+     * Get the near page
+     *
+     * @param Page $page
+     * @param bool $next
+     * @return mixed
+     */
+    public static function theNearPage(Page $page, bool $next = true)
+    {
+        return Page::where('id', ($next ? '>' : '<'), $page->id)
+            ->orderBy('id', ($next ? 'ASC' : 'DESC'))
+            ->where('is_translation', 0)
+            ->where('status', 'published')
+            ->first();
+    }
 }

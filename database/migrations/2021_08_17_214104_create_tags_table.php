@@ -16,7 +16,8 @@ class CreateTagsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name')->nullable();
-            });
+            $table->unsignedBigInteger('view')->default(0);
+        });
     }
 
     /**

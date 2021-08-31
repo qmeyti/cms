@@ -19,10 +19,10 @@ class Tag extends Model
     protected $table = 'tags';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -30,7 +30,7 @@ class Tag extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'view'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -85,19 +85,60 @@ class Tag extends Model
     }
 
     /**
-     * Get posts list tags
+     * Get shuffle for a page
+     *
+     *
+     * @param $pageTags
+     * @param int|null $count
+     * @return array
+     */
+    public static function getShuffleForPage($pageTags, int $count = null)
+    {
+        $tags = [];
+        foreach ($pageTags as $tag)
+            $tags[] = ['tag' => $tag->name, 'id' => $tag->id];
+
+        if (empty($tags))
+            return [];
+
+        shuffle($tags);
+
+        if (!is_null($count) && $count > 0)
+            $tags = array_slice($tags, 0, $count);
+
+        $ids = array_column($tags, 'id');
+        $counts = DB::table('page_tag')
+            ->whereIn('tag_id', $ids)
+            ->groupBy('tag_id')
+            ->select('tag_id', DB::raw('count(page_id) as count'))
+            ->get();
+
+        foreach ($tags as $key => $i1) {
+
+            foreach ($counts as $i2) {
+                if ($i1['id'] == $i2->tag_id)
+                    $tags[$key]['count'] = $i2->count;
+            }
+
+        }
+
+        return $tags;
+    }
+
+    /**
+     * Get posts list random tags
      *
      * @param $posts
      * @param int $count
      * @return array
      */
-    public static function postsGetRandomTags($posts, $count = 20)
+    public static function getRandomForPages($posts, $count = 20)
     {
         $tags = [];
         foreach ($posts as $post) {
             $tagsObj = $post->tags;
             foreach ($tagsObj as $tag)
-                $tags[] = ['tag' => $tag->tag, 'id' => $tag->id];
+                $tags[] = ['tag' => $tag->name, 'id' => $tag->id, 'view' => $tag->view];
         }
 
         if (empty($tags))
@@ -106,6 +147,87 @@ class Tag extends Model
         shuffle($tags);
 
         $tags = array_slice($tags, 0, $count);
+
+        $ids = array_column($tags, 'id');
+
+        $counts = DB::table('page_tag')
+            ->whereIn('tag_id', $ids)
+            ->groupBy('tag_id')
+            ->select('tag_id', DB::raw('count(page_id) as count'))
+            ->get();
+
+        foreach ($tags as $key => $i1) {
+
+            foreach ($counts as $i2) {
+                if ($i1['id'] == $i2->tag_id)
+                    $tags[$key]['count'] = $i2->count;
+            }
+
+        }
+
+        return $tags;
+    }
+
+
+    /**
+     * Get the posts list popular tags list
+     *
+     * @param $posts
+     * @param int $count
+     * @return array
+     */
+    public static function getPopularForPage($posts, $count = 20)
+    {
+        $tags = [];
+        foreach ($posts as $post) {
+            $tagsObj = $post->tags;
+            foreach ($tagsObj as $tag)
+                $tags[] = ['tag' => $tag->name, 'id' => $tag->id, 'view' => $tag->view];
+        }
+
+        if (empty($tags))
+            return [];
+
+        $tags = collect($tags)->sortBy('view',SORT_REGULAR,true)->values()->all();
+
+        $tags = array_slice($tags, 0, $count);
+
+        $ids = array_column($tags, 'id');
+
+        /**
+         * Usage count
+         */
+        $counts = DB::table('page_tag')
+            ->whereIn('tag_id', $ids)
+            ->groupBy('tag_id')
+            ->select('tag_id', DB::raw('count(page_id) as count'))
+            ->get();
+
+        foreach ($tags as $key => $i1) {
+
+            foreach ($counts as $i2) {
+                if ($i1['id'] == $i2->tag_id)
+                    $tags[$key]['count'] = $i2->count;
+            }
+
+        }
+
+        return $tags;
+    }
+
+    /**
+     * Get most popular tags in all over site
+     *
+     * @param int $count
+     * @return array
+     */
+    public static function getMostPopularAllOver(int $count = 24)
+    {
+        foreach (Tag::orderBy('view','DESC')->limit($count)->get() as $tag)
+            $tags[] = ['tag' => $tag->name, 'id' => $tag->id,'view'=>$tag->view];
+
+        if (empty($tags))
+            return [];
 
         $ids = array_column($tags, 'id');
 

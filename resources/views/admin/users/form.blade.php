@@ -12,8 +12,20 @@
 
 <div class="form-group{{ $errors->has('email') ? ' has-error' : ''}} mb-3">
     {!! Form::label('email', 'ایمیل: ', ['class' => 'control-label mb-3']) !!}
-    {!! Form::email('email', null, ['class' => 'form-control', 'required' => 'required']) !!}
+    {!! Form::email('email', null, ['class' => 'form-control ltr', 'required' => 'required']) !!}
     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+</div>
+
+<div class="form-group{{ $errors->has('username') ? ' has-error' : ''}} mb-3">
+    {!! Form::label('username', 'نام کاربری: ', ['class' => 'control-label mb-3']) !!}
+    {!! Form::text('username', null, ['class' => 'form-control ltr', 'required' => 'required']) !!}
+    {!! $errors->first('username', '<p class="help-block">:message</p>') !!}
+</div>
+
+<div class="form-group{{ $errors->has('nickname') ? ' has-error' : ''}} mb-3">
+    {!! Form::label('nickname', 'نام نمایشی: ', ['class' => 'control-label mb-3']) !!}
+    {!! Form::text('nickname', null, ['class' => 'form-control']) !!}
+    {!! $errors->first('nickname', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group{{ $errors->has('password') ? ' has-error' : ''}} mb-3">
@@ -38,6 +50,13 @@
 @endphp
 
 @include('admin.component.image_uploader',['fieldTitle' => 'انتخاب تصویر کاربر','fieldName' => 'avatar','old' => $fmOld])
+
+
+<div class="form-group{{ $errors->has('about') ? ' has-error' : ''}} mb-3">
+    {!! Form::label('about', 'درباره کاربر: ', ['class' => 'control-label mb-3']) !!}
+    {!! Form::textarea('about', null, ['class' => 'form-control']) !!}
+    {!! $errors->first('about', '<p class="help-block">:message</p>') !!}
+</div>
 
 <div class="form-group">
     <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> {{$formMode === 'edit' ? 'ویرایش اطلاعات' : 'ذخیره کاربر جدید'}} </button>

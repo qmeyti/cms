@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Page;
+use App\Models\Statistic;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -16,7 +18,6 @@ class BlogController extends Controller
      * @param Request $request
      * @param string|null $category
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function blog(Request $request, string $category = null)
     {
@@ -35,21 +36,32 @@ class BlogController extends Controller
              */
             if (preg_match('#^[0-9]+$#', $category)) {
 
-                $posts = $posts->whereHas('categories', function ($q) use ($category) {
-                    $q->whereId(intval($category));
-                });
-
                 $category = Category::find(intval($category));
 
-            } else {
-
-                $category = htmlspecialchars_decode($category);
+                if (is_null($category))
+                    abort(404);
 
                 $posts = $posts->whereHas('categories', function ($q) use ($category) {
-                    $q->where('slug', $category);
+                    $q->where('categories.id', $category->id);
                 });
 
+            } /**
+             * Get category slug and find posts
+             */ else {
+                /**
+                 * Convert category slug in url to normal text
+                 */
+                $category = __sanitize_str(utf8_decode(urldecode($category)));
+
                 $category = Category::where('slug', $category)->first();
+
+                if (is_null($category))
+                    abort(404);
+
+                $posts = $posts->whereHas('categories', function ($q) use ($category) {
+                    $q->where('categories.slug', $category->slug);
+                });
+
             }
 
         }
@@ -61,25 +73,27 @@ class BlogController extends Controller
          */
         if ($request->has('q')) {
 
-            $this->validate($request, ['q' => 'required|string|min:3|max:100']);
+            __sanitize('q');
 
-            $search = entity_strip($request->input('q'));
+            $question = ($request->validate(['q' => 'nullable|string|max:255']))['q'];
 
-            $request = $request->merge(['search_text' => $search]);
+            if (!empty($question)) {
 
-            $posts = Page::discover($request, $posts, 'post');
+                $posts = $posts->where('title', 'LIKE', "%$question%")
+                    ->orWhere('slug', 'LIKE', "%$question%")
+                    ->orWhere('content', 'LIKE', "%$question%");
 
-            $posts = $posts->paginate(__stg('__blog_elements_per_page',10));
+                $posts = $posts->paginate(__stg('blog_elements_per_page', 10));
+            }
 
-            $posts->appends(['q' => $search]);
+            $posts->appends(['q' => $question]);
 
         } /**
          * Load all posts
          */
         else {
 
-
-            $posts = $posts->paginate(__stg('__blog_elements_per_page',10));
+            $posts = $posts->paginate(__stg('blog_elements_per_page', 10));
 
         }
 
@@ -88,21 +102,25 @@ class BlogController extends Controller
          */
         $posts->appends($request->except('page'));
 
-        /*Tags*/
-        $tags = Tag::postsGetRandomTags($posts, __stg('__blog_tags_limit', 20));
+        /**
+         * Get archive Tags
+         */
+        $tags = Tag::getPopularForPage($posts, __stg('__blog_tags_limit', 20));
 
         return view('front.' . __stg('template') . '.inner.pages.blog',
             [
+                'breadcrumb' => [
+                    'خانه' => route('front.home'),
+                    'بلاگ' => '',
+                ],
                 'categories' => true,
                 'posts' => $posts,
                 'tags' => $tags,
-                'page_title' => is_null($category) ? null : $category->title,
-                'page_keywords' => implode(',', array_column($tags, 'tag')),
-                'page_descriptions' => is_null($category) ? null : $category->description,
+                'pageTitle' => is_null($category) ? 'بلاگ' : $category->title,
+                'pageKeywords' => implode(',', array_column($tags, 'tag')),
+                'pageDescriptions' => is_null($category) ? null : $category->description,
             ]);
     }
-
-
 
     /**
      * Get a post by id
@@ -111,7 +129,7 @@ class BlogController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function post_id(Request $request, $id)
+    public function postId(Request $request, $id)
     {
         $post = Page::with([
             'tags',
@@ -153,51 +171,52 @@ class BlogController extends Controller
     }
 
     /**
-     * Get a tag posts
-     *
      * @param Request $request
-     * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param string $slug
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
-    public function post_slug(Request $request, $slug)
+    public function postSlug(Request $request, string $slug)
     {
-        if (!is_string($slug))
-            abort(404);
 
-        $slug = entity_strip(urldecode($slug));
+        $slug = __sanitize_str(__urldecode($slug));
 
-        $post = Page::with(['tags', 'categories', 'user', 'user_comments.user', 'user_comments' => function ($q) {
+        $post = Page::with(['tags', 'categories', 'writer', 'comments', 'comments' => function ($q) {
             $q->where('status', 'publish');
         }])
             ->withCount('comments')
-            ->where('seo_title', $slug)
+            ->where('slug', $slug)
+            ->where('is_translation', 0)
+            ->where('status', 'published')
             ->first();
 
         if ($post == null)
             abort(404);
 
-        if ((auth()->check() && Page::userCanAccess(auth()->user(), $post, 'read')) || (!auth()->check() && $post->status === 'publish' && Permit::groupHasPermission(6, ['read']))) {
+        if ($post->type === 'post')
+            Statistic::viewPost($post->id);
+        elseif ($post->type === 'page')
+            Statistic::viewPage($post->id);
 
-            if ($post->type === 'post')
-                Statistic::viewPost($post->id);
-            elseif ($post->type === 'page')
-                Statistic::viewPage($post->id);
+        $tags = Tag::getShuffleForPage($post->tags);
 
-            $tags = Tag::postGetRandomTags($post->tags);
 
-            return view('front_end.' . get_option('front_template_name') . '.pages.blog.single',
-                [
-                    'categories' => '',
-                    'views' => Statistic::postViewCount($post->id),
-                    'post' => $post,
-                    'tags' => $tags,
-                    'page_title' => $post->title,
-                    'page_keywords' => $post->meta_keywords,
-                    'page_descriptions' => $post->meta_description,
-                ]);
-        }
+        return view('front.' . __stg('template') . '.inner.pages.single', [
+            'next' => Page::theNearPage($post),
+            'prev' => Page::theNearPage($post, false),
+            'pageTitle' => $post->title,
+            'breadcrumb' => [
+                'خانه' => route('front.home'),
+                'بلاگ' => route('front.blog'),
+                Str::limit($post->title, 50) => '',
+            ],
+            'categories' => '',
+            'views' => Statistic::postViewCount($post->id),
+            'post' => $post,
+            'tags' => $tags,
+            'pageKeywords' => $post->meta_keywords,
+            'pageDescriptions' => $post->meta_description,
+        ]);
 
-        abort(404);
     }
 
     /**

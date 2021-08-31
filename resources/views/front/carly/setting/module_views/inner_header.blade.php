@@ -75,6 +75,8 @@
                     {!! $errors->first('__inner_header_contact_page', '<p class="help-block">:message</p>') !!}
                 </div>
 
+                @include('admin.component.image_uploader',['fieldTitle' => 'پس زمینه breadcrumb','fieldName' => '__inner_header_breadcrumb_image', 'old' => old( '__inner_header_breadcrumb_image', __stg_straight('__inner_header_breadcrumb_image'))])
+
                 <div class="form-group">
                     <button class="btn btn-secondary" type="submit"><i class="fa fa-save"></i> ذخیره تغییرات</button>
                 </div>
@@ -88,7 +90,13 @@
 @endsection
 
 @section('scripts')
-
+    <script src="{{asset('vendor/jquery/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{asset('assets/js/component/imageUploader.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            imageUploader('__inner_header_breadcrumb_image');
+        });
+    </script>
 @endsection
 
 

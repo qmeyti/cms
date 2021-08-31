@@ -58,6 +58,9 @@ class UsersController extends Controller
     {
         __sanitize('name');
         __sanitize('family');
+        __sanitize('nickname');
+        __sanitize('username');
+        __sanitize('about');
 
         $request->validate(
             [
@@ -65,6 +68,9 @@ class UsersController extends Controller
                 'family' => 'required|string|max:100',
                 'email' => 'required|string|max:255|email|unique:users',
                 'password' => 'required|string',
+                'nickname' => 'nullable|string|max:255',
+                'about' => 'nullable|string|max:1000',
+                'username' => 'required|string|min:2|max:50|regex:!^[a-z]{1}[a-zA-Z0-9\-_]{1,49}$!|unique:users,username',
                 'roles' => 'required|exists:roles,name',
                 'avatar' => 'sometimes|nullable|url|max:2000|string',
             ], [], [
@@ -74,11 +80,18 @@ class UsersController extends Controller
                 'password' => 'رمز عبور',
                 'roles' => 'نقش های کاربری',
                 'avatar' => 'تصویر آواتار',
+                'nickname' => 'نام نمایشی',
+                'about' => 'درباره کاربر',
+                'username' => 'نام کاربری',
             ]
         );
 
         $data = $request->except('password');
+
         $data['password'] = bcrypt($request->password);
+
+        $data['username'] = strtolower($data['username']);
+
         $user = User::create($data);
 
         foreach ($request->roles as $role) {
@@ -142,6 +155,9 @@ class UsersController extends Controller
     {
         __sanitize('name');
         __sanitize('family');
+        __sanitize('nickname');
+        __sanitize('username');
+        __sanitize('about');
 
         $request->validate(
             [
@@ -149,6 +165,9 @@ class UsersController extends Controller
                 'family' => 'required|string|max:100',
                 'email' => 'required|string|max:255|email|unique:users,email,' . $user->id,
                 'password' => 'sometimes|nullable|string',
+                'nickname' => 'nullable|string|max:255',
+                'about' => 'nullable|string|max:1000',
+                'username' => 'required|string|min:2|max:50|regex:!^[a-z]{1}[a-zA-Z0-9\-_]{1,49}$!|unique:users,username,'.$user->id,
                 'roles' => 'required|exists:roles,name',
                 'avatar' => 'sometimes|nullable|url|max:2000|string',
             ], [], [
@@ -158,10 +177,15 @@ class UsersController extends Controller
                 'password' => 'رمز عبور',
                 'roles' => 'نقش های کاربری',
                 'avatar' => 'تصویر آواتار',
+                'nickname' => 'نام نمایشی',
+                'about' => 'درباره کاربر',
+                'username' => 'نام کاربری',
             ]
         );
 
         $data = $request->except('password');
+
+        $data['username'] = strtolower($data['username']);
 
         if ($request->has('password') && !empty($data['password'])) {
             $data['password'] = bcrypt($request->password);
