@@ -202,4 +202,84 @@ class Page extends Model
             ->where('status', 'published')
             ->first();
     }
+
+    /**
+     * @param string $tag
+     * @param int $limit
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public static function getByTag(string $tag, int $limit = 10)
+    {
+        return Page::postsPublicConditions()
+            ->whereHas('tags', function ($q) use ($tag) {
+                $q->where('name', $tag);
+            })->paginate($limit);
+    }
+
+    /**
+     * @param string $field
+     * @param string $value
+     * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
+     */
+    public static function findBy(string $field, string $value)
+    {
+        return Page::with(['tags', 'categories', 'writer', 'comments', 'comments' => function ($q) {
+            $q->where('status', 'publish');
+        }])
+            ->withCount('comments')
+            ->where($field, $value)
+            ->where('is_translation', 0)
+            ->where('status', 'published')
+            ->first();
+    }
+
+    /**
+     * @param int|null $limit
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function getFavored(int $limit = null)
+    {
+        $pages = Page::postsPublicConditions()
+            ->whereIn('pages.id', Favorite::where('user_id', auth()->id())->pluck('page_id')->toArray());
+
+        if (!is_null($limit))
+            return $pages->paginate($limit);
+
+        return $pages->get();
+
+    }
+
+    /**
+     * @param int|null $limit
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function getLiked(int $limit = null)
+    {
+        $pages = Page::postsPublicConditions()
+            ->whereIn('pages.id', Like::where('user_id', auth()->id())
+                ->where('type', 'like')
+                ->pluck('page_id')
+                ->toArray());
+
+        if (!is_null($limit))
+            return $pages->paginate($limit);
+
+        return $pages->get();
+
+    }
+
+    /**
+     * @param string $status
+     * @param array|string[] $order
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function postsPublicConditions($status = 'published', array $order = ['pages.id', 'DESC'])
+    {
+        return Page::with('tags', 'categories', 'writer')
+            ->withCount('comments')
+            ->where('type', 'post')
+            ->where('is_translation', 0)
+            ->where('status', 'published')
+            ->orderBy($order[0], $order[1]);
+    }
 }

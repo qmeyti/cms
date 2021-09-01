@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Favorite;
 use App\Models\Page;
 use App\Models\Statistic;
 use App\Models\Tag;
@@ -21,11 +22,7 @@ class BlogController extends Controller
      */
     public function blog(Request $request, string $category = null)
     {
-        $posts = Page::with('tags', 'categories', 'writer')
-            ->withCount('comments')
-            ->where('type', 'post')
-            ->where('is_translation', 0)
-            ->where('status', 'published');
+        $posts = Page::postsPublicConditions();
 
         /**
          * Find by category
@@ -65,8 +62,6 @@ class BlogController extends Controller
             }
 
         }
-
-        $posts = $posts->orderBy('pages.id', 'DESC');
 
         /**
          * Search in blog
@@ -123,54 +118,6 @@ class BlogController extends Controller
     }
 
     /**
-     * Get a post by id
-     *
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function postId(Request $request, $id)
-    {
-        $post = Page::with([
-            'tags',
-            'categories',
-            'user',
-            'user_comments.user',
-            'user_comments' => function ($q) {
-                $q->where('status', 'publish');
-            }])
-            ->withCount('comments')
-            ->where('id', intval($id))
-            ->first();
-
-        if ($post == null)
-            abort(404);
-
-        if ((auth()->check() && Page::userCanAccess(auth()->user(), $post, 'read')) || (!auth()->check() && $post->status === 'publish' && Permit::groupHasPermission(6, ['read']))) {
-
-            if ($post->type === 'post')
-                Statistic::viewPost($post->id);
-            elseif ($post->type === 'page')
-                Statistic::viewPage($post->id);
-
-            $tags = Tag::postGetRandomTags($post->tags);
-
-            return view('front_end.' . get_option('front_template_name') . '.pages.blog.single',
-                [
-                    'categories' => '',
-                    'views' => Statistic::postViewCount($post->id),
-                    'post' => $post,
-                    'tags' => $tags,
-                    'page_title' => $post->title,
-                    'page_keywords' => $post->meta_keywords,
-                    'page_descriptions' => $post->meta_description,
-                ]);
-        }
-
-        abort(404);
-    }
-
-    /**
      * @param Request $request
      * @param string $slug
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
@@ -180,16 +127,7 @@ class BlogController extends Controller
 
         $slug = __sanitize_str(__urldecode($slug));
 
-        $post = Page::with(['tags', 'categories', 'writer', 'comments', 'comments' => function ($q) {
-            $q->where('status', 'publish');
-        }])
-            ->withCount('comments')
-            ->where('slug', $slug)
-            ->where('is_translation', 0)
-            ->where('status', 'published')
-            ->first();
-
-        if ($post == null)
+        if (is_null($post = Page::findBy('slug', $slug)))
             abort(404);
 
         if ($post->type === 'post')
@@ -198,7 +136,6 @@ class BlogController extends Controller
             Statistic::viewPage($post->id);
 
         $tags = Tag::getShuffleForPage($post->tags);
-
 
         return view('front.' . __stg('template') . '.inner.pages.single', [
             'next' => Page::theNearPage($post),
@@ -221,48 +158,70 @@ class BlogController extends Controller
 
     /**
      * @param Request $request
-     * @param string $tag
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Validation\ValidationException
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function tag_posts(Request $request, string $tag)
+    public function postId(Request $request, int $id)
     {
-        $tag = urldecode($tag);
+        if (is_null($post = Page::findBy('id', $id)))
+            abort(404);
 
-        $v = Validator::make(['tag' => $tag], [
-            'tag' => 'required|string|max:60|min:1'
+        if ($post->type === 'post')
+            Statistic::viewPost($post->id);
+        elseif ($post->type === 'page')
+            Statistic::viewPage($post->id);
+
+        $tags = Tag::getShuffleForPage($post->tags);
+
+        return view('front.' . __stg('template') . '.inner.pages.single', [
+            'next' => Page::theNearPage($post),
+            'prev' => Page::theNearPage($post, false),
+            'pageTitle' => $post->title,
+            'breadcrumb' => [
+                'خانه' => route('front.home'),
+                'بلاگ' => route('front.blog'),
+                Str::limit($post->title, 50) => '',
+            ],
+            'categories' => '',
+            'views' => Statistic::postViewCount($post->id),
+            'post' => $post,
+            'tags' => $tags,
+            'pageKeywords' => $post->meta_keywords,
+            'pageDescriptions' => $post->meta_description,
         ]);
 
-        if ($v->fails()) {
+
+    }
+
+    /**
+     * @param Request $request
+     * @param string $tag
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function tagPosts(Request $request, string $tag)
+    {
+        $tag = __sanitize_str(__urldecode($tag));
+
+        if (empty($tag))
             abort(404);
-        }
 
-        $posts = Page::with('tags', 'categories', 'user')
-            ->withCount('comments')
-            ->whereHas('tags', function ($q) use ($tag) {
-                $q->where('tag', entity_strip($tag));
-            })->where('type', 'post');
-
-        $privateRead = ['read_private_posts', 'delete_private_pages', 'edit_private_pages'];
-
-        if ((auth()->check() && only($privateRead)) || (Permit::groupHasPermission('6', $privateRead))) {
-            $posts = $posts->whereIn('posts.status', ['publish', 'private']);
-        } else {
-            $posts = $posts->where('posts.status', 'publish');
-        }
-
-        $posts = $posts->orderBy('posts.id', 'DESC')
-            ->paginate(get_option('elements_per_page'));
+        $posts = Page::getByTag($tag, __stg('blog_elements_per_page', 10));
 
         /*Tags*/
-        $tags = $this->postsGetRandomTags($posts, get_option('tags_limit', 20));
+        $tags = Tag::getRandomForPages($posts, __stg('__blog_tags_limit', 20));
 
-        return view('front_end.' . get_option('front_template_name') . '.pages.blog.archive', [
+        return view('front.' . __stg('template') . '.inner.pages.blog', [
             'posts' => $posts,
             'tags' => $tags,
-            'page_title' => $tag,
-            'page_keywords' => implode(',', array_column($tags, 'tag')),
-            'page_descriptions' => $tag,
+            'pageTitle' => $tag,
+            'pageKeywords' => implode(',', array_column($tags, 'tag')),
+            'pageDescriptions' => $tag,
+            'breadcrumb' => [
+                'خانه' => route('front.home'),
+                'بلاگ' => route('front.blog'),
+                $tag => route('front.tag.posts', ['tag' => __urlencode($tag)]),
+            ],
+            'categories' => true,
         ]);
 
     }
@@ -272,39 +231,62 @@ class BlogController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
-    public function favorite_posts(Request $request)
+    public function favoredPosts(Request $request)
     {
         if (auth()->check()) {
 
-            $posts = Page::with('tags', 'categories', 'user')
-                ->withCount('comments')
-                ->where('type', 'post');
-
-            $privateRead = ['read_private_posts', 'delete_private_pages', 'edit_private_pages'];
-            if ((auth()->check() && only($privateRead)) || (Permit::groupHasPermission('6', $privateRead))) {
-                $posts = $posts->whereIn('posts.status', ['publish', 'private']);
-            } else {
-                $posts = $posts->where('posts.status', 'publish');
-            }
-
-            $posts = $posts->whereIn('posts.id', Favorite::where('user_id', auth()->id())
-                ->pluck('post_id'))
-                ->orderBy('posts.id', 'DESC')
-                ->paginate(get_option('elements_per_page'));
+            $posts = Page::getFavored(__stg('blog_elements_per_page', 10));
 
             /*Tags*/
-            $tags = $this->postsGetRandomTags($posts, get_option('tags_limit', 20));
+            $tags = Tag::getRandomForPages($posts, __stg('__blog_tags_limit', 20));
 
-            return view('front_end.' . get_option('front_template_name') . '.pages.blog.archive',
-                [
-                    'posts' => $posts,
-                    'tags' => $tags,
-                    'page_title' => __('lang.favorites'),
-                    'page_keywords' => implode(',', array_column($tags, 'tag')),
-                    'page_descriptions' => __('lang.favorites'),
-                ]);
+            return view('front.' . __stg('template') . '.inner.pages.blog', [
+                'posts' => $posts,
+                'tags' => $tags,
+                'pageTitle' => 'نوشته های دنبال شده',
+                'pageKeywords' => implode(',', array_column($tags, 'tag')),
+                'pageDescriptions' => 'نوشته های دنبال شده',
+                'breadcrumb' => [
+                    'خانه' => route('front.home'),
+                    'نوشته های دنبال شده' => route('front.favored.posts'),
+                ],
+                'categories' => true,
+            ]);
         }
+
         abort(404);
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
+     */
+    public function likedPosts(Request $request)
+    {
+        if (auth()->check()) {
+
+            $posts = Page::getLiked(__stg('blog_elements_per_page', 10));
+
+            /*Tags*/
+            $tags = Tag::getRandomForPages($posts, __stg('__blog_tags_limit', 20));
+
+            return view('front.' . __stg('template') . '.inner.pages.blog', [
+                'posts' => $posts,
+                'tags' => $tags,
+                'pageTitle' => 'لایک شده',
+                'pageKeywords' => implode(',', array_column($tags, 'tag')),
+                'pageDescriptions' => 'لایک شده',
+                'breadcrumb' => [
+                    'خانه' => route('front.home'),
+                    'لایک شده' => route('front.favored.posts'),
+                ],
+                'categories' => true,
+            ]);
+        }
+
+        abort(404);
+
     }
 
 
