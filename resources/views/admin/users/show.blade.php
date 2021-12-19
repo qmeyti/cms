@@ -41,6 +41,7 @@
                             <th>نام</th>
                             <th>نام خانوادگی</th>
                             <th>ایمیل</th>
+                            <th>نقش ها</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,6 +50,12 @@
                             <td> {{ $user->name }} </td>
                             <td> {{ $user->family }} </td>
                             <td> {{ $user->email }} </td>
+                            <td>
+
+                                @foreach($user->roles as $role)
+                                    <span class="btn btn-info">{{$role->label}}</span>
+                                @endforeach
+                            </td>
                         </tr>
                         </tbody>
                     </table>

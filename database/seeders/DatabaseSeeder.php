@@ -14,6 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        $this->call(AclSeeder::class);
+
+        $this->call(UserSeeder::class);
+
         $settings = [
             [
                 'key' => 'template',

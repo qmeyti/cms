@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
-use App\Models\Permission;
+use App\Models\ACL\Permission;
+use App\Models\ACL\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -67,6 +67,8 @@ class RolesController extends Controller
             'label' => 'برچسب',
             'permissions' => 'حقوق دسترسی',
         ]);
+
+        $data['guard_name'] = 'web';
 
         $role = Role::create($data);
 

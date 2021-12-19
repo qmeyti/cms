@@ -50,6 +50,11 @@
                         </tbody>
                     </table>
                 </div>
+                <div>
+                    @foreach($role->permissions as $permission)
+                        <p>{{$permission->name}} - {{$permission->label}} </p>
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>

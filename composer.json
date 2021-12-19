@@ -8,14 +8,15 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^7.4|^8.0",
+        "php": "^7.4|^8.0",
         "alexusmai/laravel-file-manager": "^2.5",
         "appzcoder/laravel-admin": "^3.3",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.54",
         "laravel/tinker": "^2.5",
-        "morilog/jalali": "^3.2"
+        "morilog/jalali": "^3.2",
+        "spatie/laravel-permission": "^5.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
