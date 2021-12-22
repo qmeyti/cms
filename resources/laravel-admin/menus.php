@@ -68,6 +68,12 @@ return [
                         'url' => route('permissions.index'),
                         'active' => ['permissions.*'],
                     ],
+                    [
+                        'icon' => '',
+                        'title' => 'ماژول',
+                        'url' => route('modules.index'),
+                        'active' => ['modules.*'],
+                    ],
                 ],
             ],
             [

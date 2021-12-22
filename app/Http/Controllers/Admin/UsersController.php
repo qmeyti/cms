@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:show-users')->only(['index']);
+        $this->middleware('can:create-users')->only(['create' , 'store']);
+        $this->middleware('can:edit-users')->only(['edit' , 'update']);
+        $this->middleware('can:delete-users')->only(['destroy']);
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
