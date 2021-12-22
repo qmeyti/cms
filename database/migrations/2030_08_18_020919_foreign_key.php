@@ -13,6 +13,21 @@ class ForeignKey extends Migration
      */
     public function up()
     {
+
+        Schema::table('module_permission', function (Blueprint $table) {
+
+            $table->foreign('module_id')
+                ->references('id')
+                ->on('modules')
+                ->onDelete('cascade');
+
+            $table->foreign('permission_id')
+                ->references('id')
+                ->on('permissions')
+                ->onDelete('cascade');
+
+        });
+
         Schema::table('pages', function (Blueprint $table) {
 
             $table->foreign('parent')

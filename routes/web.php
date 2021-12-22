@@ -23,11 +23,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 
     Route::resource('/permissions', 'PermissionsController');
 
-    //////
-    
     Route::resource('/modules', 'ModuleController');
-
-    //////
 
     Route::resource('/users', 'UsersController');
 
@@ -70,33 +66,32 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 
 });
 
-// Route::name('front.')->namespace('App\Http\Controllers\Front')->middleware(['fs_init'])->group(function () {
+Route::name('front.')->namespace('App\Http\Controllers\Front')->middleware(['fs_init'])->group(function () {
 
+    Route::get('/page/{page}', 'HomeController@index')->name('page.show');
 
-//     Route::get('/page/{page}', 'HomeController@index')->name('page.show');
+    Route::post('/contact', 'HomeController@contact')->name('contact.store');
 
-//     Route::post('/contact', 'HomeController@contact')->name('contact.store');
+    Route::post('/newsletter', 'HomeController@newsletter')->name('newsletter.store');
 
-//     Route::post('/newsletter', 'HomeController@newsletter')->name('newsletter.store');
+    //Add new comment
+    Route::resource('/comments', 'CommentController');
 
-//     //Add new comment
-//     Route::resource('/comments', 'CommentController');
+    //Blog posts show
+    Route::get('/blog/{category?}', 'BlogController@blog')->name('blog');
+    Route::get('/favored/posts', 'BlogController@favoredPosts')->name('favored.posts');
+    Route::get('/liked/posts', 'BlogController@likedPosts')->name('liked.posts');
+    Route::get('/tag/{tag}', 'BlogController@tagPosts')->name('tag.posts');
+    Route::get('/author/{id}', 'BlogController@authorPosts')->name('author.posts');
 
-//     //Blog posts show
-//     Route::get('/blog/{category?}', 'BlogController@blog')->name('blog');
-//     Route::get('/favored/posts', 'BlogController@favoredPosts')->name('favored.posts');
-//     Route::get('/liked/posts', 'BlogController@likedPosts')->name('liked.posts');
-//     Route::get('/tag/{tag}', 'BlogController@tagPosts')->name('tag.posts');
-//     Route::get('/author/{id}', 'BlogController@authorPosts')->name('author.posts');
+    //Like & favorite actions
+    Route::post('/favorite/{post}', 'FavoriteController@favorite')->name('favorite.post');
+    Route::post('/like/{post}', 'LikeController@like')->name('like.posts');
+    Route::post('/dislike/{post}', 'LikeController@dislike')->name('dislike.post');
 
-//     //Like & favorite actions
-//     Route::post('/favorite/{post}', 'FavoriteController@favorite')->name('favorite.post');
-//     Route::post('/like/{post}', 'LikeController@like')->name('like.posts');
-//     Route::post('/dislike/{post}', 'LikeController@dislike')->name('dislike.post');
+    Route::get('/', 'HomeController@index')->name('home');
 
-//     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/post/{id}', 'BlogController@postId')->name('single.id');
+    Route::get('/{slug}', 'BlogController@postSlug')->name('single.slug');
 
-//     Route::get('/post/{id}', 'BlogController@postId')->name('single.id');
-//     Route::get('/{slug}', 'BlogController@postSlug')->name('single.slug');
-
-// });
+});

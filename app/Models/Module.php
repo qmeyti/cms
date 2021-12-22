@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Module extends Model
 {
     use HasFactory;
+
     protected $table = 'modules';
 
     protected $fillable = [
-     'name',
-     'label',
-     'status',
+        'name',
+        'label',
+        'status',
     ];
 
     public function permissions()
@@ -23,8 +24,4 @@ class Module extends Model
         return $this->belongsToMany(Permission::class);
     }
 
-    // public function givePermissionTo(Permission $permission)
-    // {
-    //     return $this->permissions()->save($permission);
-    // }
 }
