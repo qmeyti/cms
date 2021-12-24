@@ -13,7 +13,7 @@
 
 <div class="form-group{{ $errors->has('label') ? ' has-error' : ''}} mb-3">
     {!! Form::label('label', 'انتخاب پرمیشن های ماژول: ', ['class' => 'control-label mb-3']) !!}
-    {!! Form::select('permissions[]', $permissions, isset($module) ? $module->permissions->pluck('name') : [], ['class' => 'form-control', 'multiple' => true]) !!}
+    {!! Form::select('permissions[]', $permissions, isset($module) ? $module->permissions->pluck('id') : [], ['class' => 'form-control', 'multiple' => true]) !!}
     {!! $errors->first('label', '<p class="help-block">:message</p>') !!}
 </div>
 

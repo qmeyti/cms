@@ -107,7 +107,12 @@ class ModuleController extends Controller
      */
     public function show($id)
     {
-        //
+        $module = Module::findOrFail($id);
+        $pageTitle = 'مشاهده ماژول';
+        $breadcrumb = [route('modules.index') => 'لیست نقش ها'];
+        $pageBc = 'ماژول';
+        $pageSubtitle = '';
+        return view('admin.modules.show', compact('module', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -118,7 +123,13 @@ class ModuleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $module = module::findOrFail($id);
+        $permissions = Permission::select('id', 'name', 'label')->get()->pluck('label', 'id');
+        $pageTitle = 'ویرایش ماژول';
+        $breadcrumb = [route('modules.index') => 'لیست ماژول ها'];
+        $pageBc = 'ویرایش ماژول';
+        $pageSubtitle = '';
+        return view('admin.modules.edit', compact('module', 'permissions', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
     /**
@@ -128,9 +139,30 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Module $module)
     {
-        //
+        $request->merge(['name' => Str::slug((string)$request->input('name'))]);
+
+        __sanitize('label');
+
+        $data = $request->validate([
+            'name' => 'required|string|max:100|min:1|regex:!^[a-zA-Z0-9\-_]+$!|unique:roles,name,' . $module->id,
+            'label' => 'required|string|max:100|min:1',
+            'permissions' => 'sometimes|array',
+            'permissions.*' => 'sometimes|numeric|exists:permissions,id',
+        ], [], [
+            'name' => 'عنوان ماژول',
+            'label' => 'برچسب',
+            'permissions' => 'حقوق دسترسی',
+        ]);
+
+        $module->update($data);
+
+        $module->permissions()->sync($request->permissions);
+
+
+
+        return redirect('admin/modules')->with('flash_message', 'ماژول با موفقیت ویرایش شد!');
     }
 
     /**
@@ -141,6 +173,8 @@ class ModuleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Module::destroy($id);
+
+        return redirect('admin/modules')->with('flash_message', 'ماژول حذف شد!');
     }
 }

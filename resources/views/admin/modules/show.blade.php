@@ -5,28 +5,28 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">
-                    نمایش حق دسترسی
+                    نمایش ماژول
                 </h4>
             </div>
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col">
-                        <a href="{{ route('permissions.index') }}" title="بازگشت">
+                        <a href="{{ route('modules.index') }}" title="بازگشت">
                             <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
-                        <a href="{{ route('permissions.edit',['permission' =>$permission->id ]) }}" title="ویرایش حق دسترسی">
+                        <a href="{{ route('modules.edit',['module' =>$module->id ]) }}" title="ویرایش ماژول">
                             <button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i> ویرایش</button>
                         </a>
                         {!! Form::open([
                             'method' => 'DELETE',
-                            'url' => route('permissions.destroy',['permission' =>$permission->id ]),
+                            'url' => route('modules.destroy',['module' =>$module->id ]),
                             'style' => 'display:inline'
                         ]) !!}
                         {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i> حذف', array(
                                 'type' => 'submit',
                                 'class' => 'btn btn-danger btn-sm',
-                                'title' => 'حذف حق دسترسی',
-                                'onclick'=>'return confirm("آیا از حذف کردن این گزینه مطعن هستید؟")'
+                                'title' => 'حذف ماژول',
+                                'onclick'=>'return confirm("آیا از حذف کردن این ماژول مطمعن هستید؟")'
                         ))!!}
                         {!! Form::close() !!}
                     </div>
@@ -37,18 +37,28 @@
                         <thead>
                         <tr>
                             <th>شناسه</th>
-                            <th>عنوان</th>
+                            <th>نام نام ماژول</th>
                             <th>برچسب</th>
+                            <th>وضعیت</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{ $permission->id }}</td>
-                            <td> {{ $permission->name }} </td>
-                            <td> {{ $permission->label }} </td>
+                            <td>{{ $module->id }}</td>
+                            <td> {{ $module->name }} </td>
+                            <td> {{ $module->label }} </td>
+                            <td>@if($module->status==1) فعال @else غیر فعال@endif
+                            </td>
+
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div>
+                    @foreach($module->permissions as $permission)
+                        <p>{{$permission->name}} - {{$permission->label}} </p>
+                    @endforeach
                 </div>
 
             </div>

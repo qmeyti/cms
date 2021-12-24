@@ -5,14 +5,13 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">
-
-                    ویرایش حق دسترسی
+                    ویرایش ماژول ها
                 </h4>
             </div>
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col">
-                        <a href="{{ route('permissions.index') }}" title="بازگشت">
+                        <a href="{{ route('modules.index') }}" title="بازگشت">
                             <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                     </div>
@@ -26,13 +25,13 @@
                     </ul>
                 @endif
 
-                {!! Form::model($permission, [
+                {!! Form::model($module, [
                     'method' => 'PATCH',
-                    'url' => route('permissions.update',['permission' => $permission->id]),
+                    'url' => route('modules.update',['module' => $module->id]),
                     'class' => 'form-horizontal'
                 ]) !!}
 
-                @include ('admin.permissions.form', ['formMode' => 'edit'])
+                @include ('admin.modules.form', ['formMode' => 'edit'])
 
                 {!! Form::close() !!}
 
