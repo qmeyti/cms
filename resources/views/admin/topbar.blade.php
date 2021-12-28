@@ -18,6 +18,23 @@
                             <i class='far fa-eye bi-sub fs-4 text-gray-600'></i>
                         </a>
                     </li>
+
+                    <li class="nav-item dropdown ms-1">
+                        <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class='fa fa-language bi-sub fs-4 text-gray-600'></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <h6 class="dropdown-header"></h6>
+                            </li>
+                            @foreach($languages as $language)
+                            <li><a class="dropdown-item" href='{{ route('locale',[$language->code]) }}'>{{ $language->language_name }}</a></li>
+
+                            @endforeach
+                        </ul>
+                    </li>
+
                     <li class="nav-item dropdown ms-1">
                         <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
                            aria-expanded="false">

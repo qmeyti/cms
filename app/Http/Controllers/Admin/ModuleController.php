@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin; 
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Module;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 
 class ModuleController extends Controller
@@ -32,9 +33,6 @@ class ModuleController extends Controller
         $breadcrumb = [];
         $pageBc = 'ماژول ها';
         $pageSubtitle = '';
-
-        // $per = Module::with('permissions')->find('17');
-        // dd($per);
         return view('admin.modules.index', compact('modules', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
@@ -45,15 +43,11 @@ class ModuleController extends Controller
      */
     public function create()
     {
-
         $permissions = Permission::select('id', 'name', 'label')->get()->pluck('label', 'id');
         $pageTitle = 'ایجاد ماژول جدید';
-        // $breadcrumb = [route('category.index') => 'دسترسی ها'];
         $pageBc = 'ایجاد ماژول';
         $pageSubtitle = '';
-
         return view('admin.modules.create',compact('permissions','pageTitle', 'pageBc', 'pageSubtitle'));
-    
     }
 
     /**
@@ -64,9 +58,6 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // dd($request->permissions());
-
         $request->merge(['name' => Str::slug((string)$request->input('name'))]);
 
         __sanitize('label');
@@ -82,17 +73,8 @@ class ModuleController extends Controller
         ]);
 
 
-        // $data->pemissions();
 
-        // dd($data);
        $module = Module::create($data);
-
-        // dd($data);
-
-    //    dd($module->permissions());
-    //    dd($request->permissions);
-    //    dd($data->permissions);
-
        $module->permissions()->sync($request->permissions);
 
         return redirect('admin/modules')->with('flash_message', 'ماژول جدید ایجاد شد');

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -19,8 +20,10 @@ class Kernel extends HttpKernel
         \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+        \Illuminate\Session\Middleware\StartSession::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
     ];
 
     /**
@@ -65,6 +68,8 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\CheckRole::class,
         'fs_init' => \App\Http\Middleware\FrontSideMiddleware::class,
         'as_init' => \App\Http\Middleware\AdminSideMiddleware::class,
+        'locale' =>   \App\Http\Middleware\LocaleMiddleware::class,
+        'sharelanguages' =>   \App\Http\Middleware\ShareLanguages::class,
 
     ];
 }

@@ -139,6 +139,12 @@ return [
                         'url' => '/admin/generator',
                         'active' => ['generator'],
                     ],
+                    [
+                        'icon' => '',
+                        'title' => 'چند زبان',
+                        'url' => route('languages.index'),
+                        'active' => ['languages.*'],
+                    ],
 
                 ],
             ],

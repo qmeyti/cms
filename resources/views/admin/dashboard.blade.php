@@ -5,11 +5,11 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">
-                    داشبورد
+                {{ __('messages.dashboard.title.second') }}
                 </h4>
             </div>
             <div class="card-body">
-                داشبورد اپلیکیشن شما
+            {{ __('messages.dashboard.title.third') }}
             </div>
         </div>
     </section>
