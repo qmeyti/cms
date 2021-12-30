@@ -1,5 +1,6 @@
 <?php
 
+
 if (!function_exists('__sanitize')) {
 
     /**
@@ -360,4 +361,12 @@ function __feature_photo(\App\Models\Page $page, string $default = null)
 function __page_date(\App\Models\Page $page, string $format = 'd F , Y', string $type = 'jalali')
 {
     return \App\Libraries\PageInterpreter::getDate($page, $format, $type);
+}
+
+function __lng(){
+    return \App\Libraries\Language\Language::getLanguage();
+}
+
+function __dir(){
+    return \App\Libraries\Language\Language::getDir();
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-
+use App\Libraries\Language\Language;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -19,13 +19,22 @@ class LocaleMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Session::has('locale')){
-        App::setLocale(Session::get('locale'));
-        return $next($request);
+
+
+        if(Session::has('locale') ){
+         Language::setLanguage(Session::get('locale'));
+        App::setLocale(Language::getLanguage());
+         
         }
-        Session::put('locale','fa');
-        Session::save();    
-        App::setLocale(Session::get('locale'));
+        else{
+         Language::setLanguage(config('app.locale'));
+        }
+        if(Session::has('dir')){
+            Language::setDir(Session::get('dir'));
+        }
+        else{
+         Language::setDir(config('cms.direction'));
+        }
 
         return $next($request);
     }

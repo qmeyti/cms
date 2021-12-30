@@ -19,12 +19,16 @@ class LanguageSeeder extends Seeder
             'id' => 1,
             'code' => 'fa',
             'language_name' => 'فارسی',
+            'dir' => 'rtl',
+
             ],
 
             [
                 'id' => 2,
                 'code' => 'en',
                 'language_name' => 'english',
+                'dir' => 'ltr',
+
             ]
 
         ],

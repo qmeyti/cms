@@ -140,16 +140,14 @@ class LanguageController extends Controller
     public function switch($lang)
     {
         $langeuge = DB::table('languages')->where('code', $lang)->first();
-       
+  
         if($langeuge){
-
+            $dir = $langeuge->dir;
             Session::put('locale',$lang);
+            Session::put('dir',$dir);
             Session::save();
             return redirect()->back();
-
         }
-        Session::put('locale',config('app.locale'));
-        Session::save();
         return redirect()->back();
         
     }
