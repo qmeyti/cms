@@ -11,6 +11,7 @@
         "php": "^7.4|^8.0",
         "alexusmai/laravel-file-manager": "^2.5",
         "appzcoder/laravel-admin": "^3.3",
+        "doctrine/dbal": "^3.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.54",
