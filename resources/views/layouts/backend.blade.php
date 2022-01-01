@@ -11,10 +11,11 @@
     <link rel="stylesheet" href="{{asset('admins/mazer/assets/vendors/perfect-scrollbar/perfect-scrollbar.css')}}">
 
     @if(__dir()==='rtl')
-    <link rel="stylesheet" href="{{asset('admins/mazer/assets/css/app.rtl.css')}}">
+        <link rel="stylesheet" href="{{asset('admins/mazer/assets/css/app.rtl.css')}}">
     @else
-    <link rel="stylesheet" href="{{asset('admins/mazer/assets/css/app.css')}}">
+        <link rel="stylesheet" href="{{asset('admins/mazer/assets/css/app.css')}}">
     @endif
+
     <link rel="stylesheet" href={{ asset('assets/style/main.css') }}>
     {{--Todo change icon--}}
     {{--    <link rel="shortcut icon" href="{{asset('admins/mazer/assets/images/favicon.svg')}}" type="image/x-icon">--}}

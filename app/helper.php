@@ -356,17 +356,29 @@ function __feature_photo(\App\Models\Page $page, string $default = null)
  * @param \App\Models\Page $page
  * @param string $format
  * @param string $type
- * @return string|void
+ * @return string
  */
 function __page_date(\App\Models\Page $page, string $format = 'd F , Y', string $type = 'jalali')
 {
     return \App\Libraries\PageInterpreter::getDate($page, $format, $type);
 }
 
-function __lng(){
-    return \App\Libraries\Language\Language::getLanguage();
+/**
+ * Get current local
+ *
+ * @return string
+ */
+function __lng()
+{
+    return \Illuminate\Support\Facades\App::getLocale();
 }
 
-function __dir(){
+/**
+ * Get current page direction
+ *
+ * @return string
+ */
+function __dir()
+{
     return \App\Libraries\Language\Language::getDir();
 }

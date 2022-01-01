@@ -1,26 +1,28 @@
 <?php
 
 namespace App\Libraries\Language;
-use App\Models\Language as ModelLanguage;
 
-class Language{
+class Language
+{
+    /**
+     * @var string
+     */
+    private static string $dir = 'rtl';
 
-    private static string $language='fa';
-    private static string $dir='rtl';
-    
-    
-    public static function setLanguage(string $language){
-        self::$language = $language;
-    }
-    public static function setDir(string $dir){
+    /**
+     * @param string $dir
+     * @return void
+     */
+    public static function setDir(string $dir): void
+    {
         self::$dir = $dir;
     }
-    public static function getLanguage():string{
-        return self::$language;
-    }
-    public static function getDir():string{
+
+    /**
+     * @return string
+     */
+    public static function getDir(): string
+    {
         return self::$dir;
     }
-
-
 }

@@ -14,27 +14,26 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
-        $module = Module::insert([ 
+        $module = Module::insert([
             [
-            'id' => 1,
-            'name' => 'post',
-            'label' => 'پست ماژول',
-            'status' => 1,
+                'id' => 1,
+                'name' => 'post',
+                'label' => 'پست ماژول',
+                'status' => 1,
             ],
-
             [
                 'id' => 2,
                 'name' => 'setting',
                 'label' => 'تنظیمات ماژول',
                 'status' => 1,
             ]
-
         ],
-    
-    );
+
+        );
 
     }
-  
 
-    
-};
+
+}
+
+;

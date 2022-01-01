@@ -14,25 +14,28 @@ class LanguageSeeder extends Seeder
      */
     public function run()
     {
-        $module = Language::insert([ 
+
+        $languages = [
             [
-            'id' => 1,
-            'code' => 'fa',
-            'language_name' => 'فارسی',
-            'dir' => 'rtl',
-
+                'id' => 1,
+                'code' => 'fa',
+                'language_name' => 'فارسی',
+                'dir' => 'rtl',
             ],
-
             [
                 'id' => 2,
                 'code' => 'en',
                 'language_name' => 'english',
                 'dir' => 'ltr',
-
+            ],
+            [
+                'id' => 3,
+                'code' => 'ar',
+                'language_name' => 'العربی',
+                'dir' => 'rtl',
             ]
+        ];
 
-        ],
-    
-    );
+        Language::insert($languages);
     }
 }

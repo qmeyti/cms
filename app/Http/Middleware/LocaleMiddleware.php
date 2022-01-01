@@ -13,27 +13,27 @@ class LocaleMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
     {
 
+        if (Session::has('locale')) {
 
-        if(Session::has('locale') ){
-         Language::setLanguage(Session::get('locale'));
-        App::setLocale(Language::getLanguage());
-         
+            App::setLocale(Session::get('locale'));
+
         }
-        else{
-         Language::setLanguage(config('app.locale'));
-        }
-        if(Session::has('dir')){
+
+        if (Session::has('dir')) {
+
             Language::setDir(Session::get('dir'));
-        }
-        else{
-         Language::setDir(config('cms.direction'));
+
+        } else {
+
+            Language::setDir(config('cms.direction'));
+
         }
 
         return $next($request);

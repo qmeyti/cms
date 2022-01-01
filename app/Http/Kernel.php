@@ -69,7 +69,5 @@ class Kernel extends HttpKernel
         'fs_init' => \App\Http\Middleware\FrontSideMiddleware::class,
         'as_init' => \App\Http\Middleware\AdminSideMiddleware::class,
         'locale' =>   \App\Http\Middleware\LocaleMiddleware::class,
-        'sharelanguages' =>   \App\Http\Middleware\ShareLanguages::class,
-
     ];
 }

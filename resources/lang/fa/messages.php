@@ -1,10 +1,8 @@
 <?php
 
-// resources/lang/fa/messages.php
-
 return [
     'dashboard' =>[
-     
+
         'title'=>[
 
             'first'=>'داشبورد مدیریت',
@@ -12,5 +10,5 @@ return [
             'third'=>'داشبورد اپلیکیشن شما'
         ],
 
-        
+
     ]];

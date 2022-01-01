@@ -29,9 +29,12 @@
                             <li>
                                 <h6 class="dropdown-header"></h6>
                             </li>
-                            @foreach($languages as $language)
-                            <li><a class="dropdown-item" href='{{ route('locale',[$language->code]) }}'>{{ $language->language_name }}</a></li>
-
+                            @foreach(\App\Models\Language::all() as $language)
+                                <li>
+                                    <a class="dropdown-item" href='{{ route('locale',[$language->code]) }}'>
+                                        {{ $language->language_name }}
+                                    </a>
+                                </li>
                             @endforeach
                         </ul>
                     </li>
