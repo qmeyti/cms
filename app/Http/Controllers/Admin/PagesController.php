@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PageRequest as PageRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Language;
 use App\Models\Page;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -20,11 +21,15 @@ class PagesController extends Controller
     {
         $keyword = $request->get('search');
 
-        $perPage = __stg('element_per_page', 25);
+        $perPage = 25;
 
-        $pages = Page::with('categories')
+        $pages = Page::with('categories','translations')
             ->whereIn('status', ['published', 'pending', 'trash'])
-            ->where('is_translation', false);
+            ->where('parent',null)
+            ->where('is_translation',false);
+
+
+
 
         if (!empty($keyword)) {
 
@@ -39,12 +44,13 @@ class PagesController extends Controller
 
         }
 
+        $languages = Language::all();
         $pageTitle = 'لیست نوشته ها';
         $breadcrumb = [];
         $pageBc = 'نوشته ها';
         $pageSubtitle = 'در این قسمت لیست همه مقالات و اخبار سایت را مشاهده میکنید.';
 
-        return view('admin.pages.index', compact('pages', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
+        return view('admin.pages.index', compact('pages', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle','languages'));
     }
 
     /**
@@ -185,8 +191,8 @@ class PagesController extends Controller
                 /**
                  * Parent page set null
                  */
-                $data['parent'] = null;
 
+                unset($data['parent']);
                 /**
                  * Insert categories
                  */
@@ -292,7 +298,7 @@ class PagesController extends Controller
                 /**
                  * Parent page set null
                  */
-                $data['parent'] = null;
+                unset($data['parent']);
 
                 /**
                  * Insert categories

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function PHPUnit\Framework\isNull;
 
 class Page extends Model
 {
@@ -48,6 +49,7 @@ class Page extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+
     public function writer()
     {
         return $this->belongsTo(User::class, 'author', 'id');
@@ -89,6 +91,7 @@ class Page extends Model
     public function parent()
     {
         return $this->belongsTo(Page::class, 'parent', 'id');
+
     }
 
     /**
@@ -100,6 +103,17 @@ class Page extends Model
     {
         return $this->hasMany(Page::class, 'parent', 'id');
     }
+    /**
+     * Get children pages
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+     public function translations()
+     {
+         return $this->hasMany(Page::class, 'parent', 'id')->where('is_translation',1);
+     }
+
 
     /**
      * Delete all old Auto-draft posts
@@ -121,15 +135,24 @@ class Page extends Model
      * @param string $language
      * @return mixed
      */
-    public static function makeAutoDraft(string $postType = 'post', User $user = null, string $language = 'fa')
+    public static function makeAutoDraft(string $postType = 'post', User $user = null)
     {
         return Page::create([
             'status' => 'auto-draft',
             'author' => ($user ?? auth()->user())->id,
             'type' => $postType,
-            'language' => $language,
+            'language' =>isset($_GET['language']) ? $_GET['language'] : __lng(),
+
+             'parent' => isset($_GET['parent'])? $_GET['parent'] : null,
+
+             'is_translation' => isset($_GET['parent'])?1:0,
+
         ]);
     }
+
+
+
+
 
     /**
      * @param array $notInIds

@@ -42,6 +42,7 @@ class LanguageController extends Controller
      */
     public function create()
     {
+
         $pageTitle = 'ایجاد زبان جدید';
         $pageBc = 'ایجاد زبان';
         $pageSubtitle = '';
@@ -147,7 +148,7 @@ class LanguageController extends Controller
      */
     public function switch(Request $request, string $lang)
     {
-        $language = Language::where('code', $lang)->first();
+        $language = \App\Libraries\Repository\Locale\LocaleRepository::find($lang);
 
         if (!is_null($language)) {
 

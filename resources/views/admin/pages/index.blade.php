@@ -41,7 +41,10 @@
                             <th>وضعیت</th>
                             <th>نویسنده</th>
                             <th>دسته بندی | والد</th>
+                            <th>زبان</th>
                             <th>عملیات</th>
+                            <th>افزودن زبان</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -68,6 +71,7 @@
                                         @endif
                                     @endif
                                 </td>
+                                <td>{{ $item->language=='fa' ? 'فارسی' : 'English'}}</td>
 
                                 <td>
                                     <a href="{{ route('pages.show',['page' => $item->id]) }}" title="مشاهده صفحه">
@@ -88,6 +92,30 @@
                                             'onclick'=>'return confirm("آیا مطمعنی که میخواهی این صفحه را حذف کنی؟")'
                                     )) !!}
                                     {!! Form::close() !!}
+                                </td>
+
+                                <td>
+                                    @foreach($languages as $language )
+
+                                        @php
+                                           if($item->language===$language->code)
+                                            continue;
+                                           $hastranslation = $item->translations->where('language',$language->code)->first();
+                                        @endphp
+                                    @if($hastranslation)
+
+                                        <a href=" {{  route( 'pages.edit',['page' => $hastranslation->id]  )  }}" title="{{ $language->language_name }} "   class="btn btn-success btn-sm">
+                                           {{ $language->code }}
+                                        </a>
+
+                                        @else
+                                        <a href='{{ route('pages.create',['parent'=>$item->id,'language'=>$language->code]) }}'  title="{{ $language->language_name }}"  class="btn btn-danger btn-sm">
+                                            {{ $language->code }}
+                                        </a>
+
+                                    @endif
+
+                                    @endforeach
                                 </td>
                             </tr>
                         @endforeach

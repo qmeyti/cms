@@ -20,6 +20,7 @@
                         </a>
                     </li>
 
+
                     <li class="nav-item dropdown ms-1">
                         <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
                            aria-expanded="false">
@@ -31,7 +32,7 @@
                             </li>
                             @foreach(\App\Models\Language::all() as $language)
                                 <li>
-                                    <a class="dropdown-item" href='{{ route('locale',[$language->code]) }}'>
+                                    <a class="dropdown-item {{ __lng()==$language->code ?  'active' : ''  }} " href='{{ route('locale',[$language->code]) }}'>
                                         {{ $language->language_name }}
                                     </a>
                                 </li>
