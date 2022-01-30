@@ -15,28 +15,39 @@
 
                 @foreach($laravelAdminMenus as $sections)
 
-                    <li class="sidebar-title">{{$sections['title']}}</li>
+                    @canany($sections['permissions'])
 
-                    @foreach($sections['parts'] as $part)
+                        <li class="sidebar-title">{{$sections['title']}}</li>
 
-                        <li class="sidebar-item {{__active_links($part['active'])?'active':''}} {{$part['class']}} @if(!empty($part['items'])) has-sub @endif">
-                            <a href="@if(empty($part['items'])) {{$part['url']}} @else # @endif" class='sidebar-link'>
-                                <i class="{{$part['icon']}}"></i>
-                                <span>{{$part['title']}}</span>
-                            </a>
-                            <ul class="submenu {{__active_links($part['active'])?'active':''}}">
-                                @foreach($part['items'] as $item)
-                                    <li class="submenu-item {{__active_links($item['active'])?'active':''}}">
-                                        <a href="{{$item['url']}}">{{$item['title']}}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
+                        @foreach($sections['parts'] as $part)
 
-                    @endforeach
+                            @canany($part['permissions'])
+
+                                <li class="sidebar-item {{__active_links($part['active'])?'active':''}} {{$part['class']}} @if(!empty($part['items'])) has-sub @endif">
+                                    <a href="@if(empty($part['items'])) {{$part['url']}} @else # @endif" class='sidebar-link'>
+                                        <i class="{{$part['icon']}}"></i>
+                                        <span>{{$part['title']}}</span>
+                                    </a>
+                                    <ul class="submenu {{__active_links($part['active'])?'active':''}}">
+                                        @foreach($part['items'] as $item)
+
+                                            @canany($item['permissions'])
+                                                <li class="submenu-item {{__active_links($item['active'])?'active':''}}">
+                                                    <a href="{{$item['url']}}"><i class="{{$item['icon']}}"></i> {{$item['title']}}</a>
+                                                </li>
+                                            @endcanany
+
+                                        @endforeach
+                                    </ul>
+                                </li>
+
+                            @endcanany
+
+                        @endforeach
+
+                    @endcanany
 
                 @endforeach
-
             </ul>
         </div>
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

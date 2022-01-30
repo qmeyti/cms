@@ -36,7 +36,7 @@
 
     @php
         $cs = [];
-        foreach (\App\Models\Category::all() as $item){
+        foreach (\App\Models\Category::all()->where('language','fa') as $item){
             $cs[$item->id] = $item->title;
         }
     @endphp

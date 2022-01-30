@@ -45,6 +45,7 @@ class AdminSideMiddleware
 
         view()->share('laravelAdminMenus', $sidebar);
 
+        \App\Libraries\Translation\Translation::callTranslation('back');
         return $next($request);
     }
 }

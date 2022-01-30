@@ -21,6 +21,11 @@ class MenuItem extends Model
         'depth'
     ];
 
+    public function items()
+    {
+        return $this->hasMany(MenuItem::class,'parent','id');
+    }
+
     /**
      * @return mixed
      */

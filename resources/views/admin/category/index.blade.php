@@ -40,6 +40,8 @@
                             <th>نامک</th>
                             <th>والد</th>
                             <th>عملیات</th>
+                            <th>افزودن زبان</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -69,6 +71,41 @@
                                     )) !!}
                                     {!! Form::close() !!}
                                 </td>
+
+                                <td>
+                                    @foreach($languages as $language )
+
+
+                                        @php
+
+                                           if($item->language===$language->code)
+                                            continue;
+
+                                            $haveTranslition  = $item->haveTranslition->where('language',$language->code)->first()
+                                            // dd($item->haveTranslition->where('language',$language->code)->first()->id);
+                                        @endphp
+
+                                        {{-- @foreach($item->haveTranslition as $Translition) --}}
+{{--                                        <a href="{{ route('category.create',['parent_translition'=>$item->id,'language'=>$language->code,'parent'=>$item->parent]) }}" title="{{ $language->language_name }} "   class="btn btn-danger btn-sm">--}}
+{{--                                            {{ $language->code }}--}}
+{{--                                        </a>--}}
+
+                                        @if(  null !== $haveTranslition)
+                                        <a href="{{  url('/admin/category/' . $haveTranslition->id . '/edit')}}" title="{{ $language->language_name }}"  class="btn btn-success btn-sm">
+                                           {{ $language->code }}
+                                        </a>
+                                        @else
+                                            <a href="{{ route('category.create',['parent_translition'=>$item->id,'language'=>$language->code,'parent'=>$item->parent]) }}" title="{{ $language->language_name }} "   class="btn btn-danger btn-sm">
+                                                {{ $language->code }}
+                                            </a>
+                                        @endif
+
+                                        {{-- @endforeach --}}
+
+                                    @endforeach
+                                </td>
+
+
                             </tr>
                         @endforeach
                         </tbody>

@@ -49,6 +49,7 @@ function get_main_menu()
         global $i;
         $i++;
         $html = "";
+        dd($allItems);
         if (isset($allItems['parents'][$parent])) {
             $html .= '<ul class="' . ($i > 1 ? 'sub-menu text-right' : '') . '">' . PHP_EOL;
             foreach ($allItems['parents'][$parent] as $cat_id) {

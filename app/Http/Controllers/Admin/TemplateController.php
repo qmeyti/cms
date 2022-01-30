@@ -83,7 +83,7 @@ class TemplateController extends Controller
 
         $template = __stg('template');
 
-        if (!empty($template)) {
+            if (!empty($template)) {
 
             /**
              * Template module controller name

@@ -1,0 +1,809 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: "sahel", sans-serif;
+}
+.faq-title .title-text ul li::before {
+  right: auto;
+  left: -15px;
+}
+.faq-title .title-text ul {
+  padding-left: auto;
+  padding-right: 0;
+}
+.blog-details-area .blog-description .article-image .blog-date {
+  left: auto;
+  right: 25px;
+}
+
+
+
+
+
+.text-end {
+  text-align: left !important;
+}
+
+/* Home One CSS Start */
+.header-area .header-right.text-right {
+  text-align: left !important;
+}
+
+.header-area .header-right .header-social ul {
+  padding-right: 0;
+}
+
+.header-area .header-right .header-social ul li {
+  margin-left: 0;
+  margin-right: 5px;
+}
+
+.header-area .header-left-text ul {
+  padding-right: 0;
+}
+
+.header-area .header-left-text ul li {
+  margin-right: 0;
+  margin-left: 20px;
+}
+
+.navbar-area .main-nav .navbar .navbar-brand {
+  margin-right: 0;
+}
+
+.navbar-area .main-nav .navbar .navbar-nav .nav-item .dropdown-menu {
+  text-align: right;
+}
+
+.navbar-area .main-nav .navbar .navbar-nav .nav-item .dropdown-menu .nav-item .nav-link:hover {
+  padding-left: 0;
+  padding-right: 25px;
+}
+
+.navbar-area .main-nav .navbar .other-option .sidebar-toggle .navbar-toggle {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.navbar-area .main-nav .navbar .other-option .search-bar .search-form {
+  left: 0;
+  right: inherit;
+}
+
+.navbar-area .main-nav .navbar .other-option .search-bar .search-form .search-input {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.navbar-area .main-nav .navbar .other-option .search-bar .search-form button {
+  right: inherit;
+  left: 25px;
+}
+
+.navbar-area .main-nav .navbar .navbar-nav .nav-item .dropdown-menu .nav-item .dropdown-menu {
+  right: -100%;
+  left: auto;
+}
+
+.navbar-area .main-nav .navbar .navbar-nav .nav-item .dropdown-menu .nav-item .nav-link > i {
+  float: left;
+}
+
+.right-modal .modal {
+
+}
+
+.right-modal .modal.fade {
+
+}
+
+.right-modal .modal.show {
+
+}
+
+.right-modal .modal-header .close {
+
+}
+
+.right-modal .modal-header img {
+
+}
+
+.main-banner .banner-text .theme-button .default-btn {
+  margin-right: 0;
+  margin-left: 30px;
+}
+
+.main-banner .banner-text .theme-button .video-btn {
+  top: 0;
+}
+
+.main-banner .banner-text .theme-button .video-btn i {
+  margin-right: 0;
+  margin-left: 10px;
+  top: 5px;
+}
+
+.video-section .video-text p {
+  left: inherit;
+  right: 150px;
+}
+
+.theory-section .theory-area .theory-img {
+  right: inherit;
+  left: 0;
+}
+
+.about-section .offset-lg-1 {
+
+}
+
+.about-section .about-text .about-us i {
+
+}
+
+.about-section .offset-lg-5 {
+
+}
+
+.about-style-two .about-image {
+
+}
+
+.service-section .service-text ul {
+  padding-right: 0;
+}
+
+.service-section .service-text ul li {
+  padding: 15px  90px 15px 15px;
+}
+
+.service-section .service-text ul li i {
+  left: inherit;
+  right: 0;
+}
+
+.service-section .service-img {
+  right: 0;
+  left: inherit;
+  z-index: -1;
+}
+
+.service-section .offset-md-5 {
+  margin-right: 41.666667%;
+  margin-left: 0;
+}
+
+.team-section .team-card .team-text .team-social ul {
+  padding-right: 0;
+}
+
+.progress-section .progress-image {
+  left: inherit;
+  right: 0;
+  z-index: -1;
+}
+
+.progress-section .progress-text .progress-inner span {
+  right: inherit;
+  left: 0;
+}
+
+.progress-section .offset-md-6 {
+  margin-right: 50%;
+  margin-left: 0;
+}
+
+.testimonial-section .offset-lg-1 {
+  margin-right: 8.333333%;
+  margin-left: 0;
+}
+
+.blog-section .blog-card .blog-img .blog-date {
+  right: 25px;
+  left: inherit;
+}
+
+.blog-section .blog-card .blog-text .post-info .blog-btn {
+  right: inherit;
+  left: 0;
+}
+
+.blog-section .blog-card .blog-text .post-info a p {
+  left: inherit;
+  right: 50px;
+}
+
+.blog-section .blog-card:hover .blog-img .blog-date {
+  right: 0;
+  left: auto;
+}
+
+.contact-section .contact-form .contact-shape {
+  right: inherit;
+  left: 0;
+}
+
+.contact-section .contact-form .form-group .message-field {
+  padding-right: 10px;
+}
+
+.contact-section .contact-form .form-group .list-unstyled {
+  padding-right: 0;
+}
+
+.newsletter-section .newsletter-area .newsletter-form .form-control {
+  text-align: right;
+  padding: 20px 20px 20px 20px;
+}
+
+.newsletter-section .newsletter-area .newsletter-form .default-btn {
+  right: inherit;
+  left: -1px;
+}
+
+.newsletter-section .newsletter-area .offset-lg-3 {
+  margin-right: 25%;
+  margin-left: 0;
+}
+
+.newsletter-section .newsletter-area .subscribe-shape {
+  right: inherit;
+  left: 50px;
+}
+
+.footer-area .footer-widget ul {
+
+}
+
+.footer-area .footer-widget ul li a i {
+
+}
+
+.footer-area .footer-widget ul li i {
+
+}
+
+.footer-area .footer-widget.pl-75 {
+
+}
+
+.footer-area .copyright-area p {
+
+}
+
+.footer-area .copyright-area .text-left {
+  text-align: right !important;
+}
+
+.footer-area .copyright-area .text-right {
+  text-align: left !important;
+}
+
+.footer-area .copyright-area ul li {
+
+}
+
+.footer-area .copyright-area ul li::before {
+
+}
+
+/* Home One CSS End */
+/* Home Two CSS Start */
+.about-style-two .about-text .section-title {
+
+}
+
+.service-style-two .offset-md-6 {
+  margin-right: 50%;
+  margin-left: inherit;
+}
+
+.progress-style-two .progress-image {
+  right: inherit;
+  left: 0;
+}
+
+.pricing-section .pricing-card::before {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 65%) !important;
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 65%) !important;
+}
+
+.pricing-section .pricing-card .pricing-feature ul {
+  padding-right: 0;
+}
+
+.pricing-section .pricing-card .pricing-feature ul li i {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+.pricing-section .price-card-two::before {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 70%, 0 70%) !important;
+          clip-path: polygon(0 0, 100% 0, 100% 70%, 0 70%) !important;
+}
+
+.pricing-section .price-card-three::before {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 65%, 0% 100%) !important;
+          clip-path: polygon(0 0, 100% 0, 100% 65%, 0% 100%) !important;
+}
+
+/* Home Two CSS End */
+/* About CSS Start */
+.about-title .title-text ul {
+
+}
+
+.about-title .title-text ul li::before {
+
+}
+
+/* About CSS End */
+/* Service CSS Start */
+.service-title .title-text ul {
+  padding-right: 0;
+}
+
+.service-title .title-text ul li::before {
+  right: inherit;
+  left: -15px;
+}
+
+/* Service CSS End */
+/* Service Details CSS Start */
+.service-style-four .blog-search form button {
+  right: inherit;
+  left: 0;
+}
+
+.service-style-four .service-category ul {
+  padding-right: 0;
+}
+
+.service-style-four .service-category ul li a {
+  border-right: 2px solid #ff7209;
+  border-left: 0;
+}
+
+/* Service Details CSS End */
+/* Portfolio CSS Start */
+.portfolio-title .title-text ul {
+  padding-right: 0;
+}
+
+.portfolio-title .title-text ul li::before {
+  right: inherit;
+  left: -15px;
+}
+
+.portfolio-style-two .portfolio-menu ul {
+  padding-right: 0;
+}
+
+/* Portfolio CSS End */
+/* Pricing CSS Start */
+.pricing-title .title-text ul {
+  padding-right: 0;
+}
+
+.pricing-title .title-text ul li::before {
+  right: inherit;
+  left: -15px;
+}
+
+/* Pricing CSS End */
+/* Error CSS Start */
+.error-title .title-text ul {
+  padding-right: 0;
+}
+
+.error-title .title-text ul li::before {
+  right: inherit;
+  left: -15px;
+}
+
+.error-section .offset-md-2 {
+  margin-right: 16.666667%;
+  margin-left: 0;
+}
+
+/* Error CSS End */
+/* team CSS Start */
+.team-title .title-text ul {
+  padding-right: 0;
+}
+
+.team-title .title-text ul li::before {
+  right: inherit;
+  left: -15px;
+}
+
+/* Team CSS End */
+/* Privacy CSS Start */
+.privacy-title .title-text ul {
+  padding-right: 0;
+}
+
+.privacy-title .title-text ul li::before {
+  right: inherit;
+  left: -15px;
+}
+
+/* Privacy CSS End */
+/* Blog CSS Start */
+.blog-title .title-text ul {
+  padding-right: 0;
+}
+
+.blog-title .title-text ul li::before {
+  right: inherit;
+  left: -15px;
+}
+
+.blog-section.blog-details-area .blog-search form button {
+  right: inherit;
+  left: 0;
+}
+
+.blog-section.blog-details-area .recent-blog .recent-post img {
+  left: inherit;
+  right: 0;
+}
+
+.blog-section.blog-details-area .recent-blog .recent-post h3 a {
+  padding-right: 110px;
+  padding-left: 0;
+}
+
+.blog-section.blog-details-area .recent-blog .recent-post ul {
+  padding-right: 110px;
+  padding-left: 0;
+}
+
+.blog-section.blog-details-area .blog-category ul {
+  padding-right: 0;
+}
+
+.blog-section.blog-details-area .blog-category ul li a {
+  border-right: 2px solid #ff7209;
+  border-left: 0;
+}
+
+/* Blog CSS End */
+/* Blog Details CSS Start */
+.blog-details-area .blog-search form button {
+  right: inherit;
+  left: 0;
+}
+
+.blog-details-area .recent-blog .recent-post img {
+  left: inherit;
+  right: 0;
+}
+
+.blog-details-area .recent-blog .recent-post h3 a {
+  padding-right: 110px;
+  padding-left: 0;
+}
+
+.blog-details-area .recent-blog .recent-post ul {
+  padding-right: 110px;
+  padding-left: 0;
+}
+
+.blog-details-area .recent-blog .recent-post ul li {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.blog-details-area .blog-category ul {
+  padding-right: 0;
+}
+
+.blog-details-area .blog-category ul li a {
+  border-right: 2px solid #ff7209;
+  border-left: 0;
+}
+
+.blog-details-area .blog-description .blog-nav .next-btn.text-right {
+  text-align: left !important;
+}
+
+.blog-details-area .blog-description .blog-comment .message-field {
+  padding-left: 0;
+  padding-right: 20px;
+}
+
+.blog-details-area .blog-description .article-info ul {
+  padding-right: 0;
+}
+
+.blog-details-area .photo-gallery h3 {
+  padding-right: 20px;
+  padding-left: 0;
+}
+
+.blog-details-area .photo-gallery a img {
+  padding-right: 20px;
+  padding-left: 0;
+}
+
+/* Blog Details CSS End */
+/* Contact CSS Start */
+.contact-title .title-text ul {
+  padding-right: 0;
+}
+
+.contact-title .title-text ul li::before {
+  right: inherit;
+  left: -15px;
+}
+
+.contact-area .contact-box .contact-card i {
+  right: 25px;
+  left: inherit !important;
+}
+
+.contact-area .contact-box .contact-card h3 {
+  padding-right: 80px;
+  padding-left: 0;
+}
+
+.contact-area .contact-box .contact-card ul {
+  padding-right: 80px;
+  padding-left: 0;
+}
+
+.faq-area .question {
+  padding-right: 26px;
+}
+
+/* Contact CSS End */
+/*
+------ Responsive CSS ------- */
+@media (max-width: 767px) {
+  /* Home One CSS Start */
+  .mean-container .mean-nav ul li a {
+    text-align: right;
+  }
+  .mean-container .mean-nav ul li a.mean-expand {
+    text-align: left;
+    left: 0;
+    right: inherit;
+  }
+  .mean-container a.meanmenu-reveal {
+    left: 15px !important;
+    right: auto !important;
+  }
+  .navbar-area .mobile-nav .logo {
+    right: 15px !important;
+    left: auto !important;
+  }
+  .main-banner .banner-text .theme-button .default-btn {
+    margin-right: 0 !important;
+    margin-left: 10px;
+  }
+  .main-banner .banner-text .theme-button .video-btn i {
+    top: 0;
+  }
+  .about-section .offset-lg-1 {
+
+  }
+  .service-section .service-text ul li {
+    padding: 10px 65px 10px 10px !important;
+  }
+  .service-section .offset-md-5 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .progress-section .offset-md-6 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .newsletter-section .newsletter-area .offset-lg-3 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .footer-area .footer-widget.pl-75 {
+
+  }
+  .footer-area .copyright-area ul {
+
+  }
+  /* Home One CSS End */
+  /* Home Two CSS Start */
+  .service-style-two .offset-md-6 {
+    margin-right: 0;
+    margin-left: inherit;
+  }
+  .pricing-section .pricing-card::before {
+    height: 250px !important;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 70%, 0 70%) !important;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0 70%) !important;
+  }
+  .pricing-section .offset-sm-3 {
+    margin-right: 25%;
+    margin-left: 0;
+  }
+  /* Home Two CSS End */
+  /* Pricing CSS Start */
+  .pricing-section .offset-sm-3 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  /* Pricing CSS End */
+  /* Error CSS Start */
+  .error-section .offset-md-2 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  /* Error CSS End */
+  /* Blog Details CSS Start */
+  .blog-details-area .recent-blog .recent-post h3 a {
+    padding-right: 100px;
+    padding-left: 0;
+  }
+  .blog-details-area .recent-blog .recent-post ul {
+    padding-right: 100px;
+  }
+  .blog-details-area .recent-blog .recent-post ul li {
+    margin-left: 5px;
+  }
+  .blog-details-area .photo-gallery a img {
+    padding-right: 0;
+  }
+  /* Blog Details CSS End */
+  .testimonial-section .offset-lg-1 {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  .about-section .offset-lg-5 {
+
+  }
+  .video-section .video-text p {
+    right: 0;
+  }
+  .footer-area .copyright-area .text-left {
+    text-align: center !important;
+  }
+  .text-end {
+    text-align: center !important;
+  }
+
+
+.footer-area .copyright-area .text-right {
+text-align: center !important;
+}
+
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Home One CSS Start */
+  .mean-container .mean-nav ul li a {
+    text-align: right;
+  }
+  .mean-container .mean-nav ul li a.mean-expand {
+    text-align: left;
+    left: 0;
+    right: inherit;
+  }
+  .mean-container a.meanmenu-reveal {
+    left: 15px !important;
+    right: auto !important;
+  }
+  .navbar-area .mobile-nav .logo {
+    right: 15px !important;
+    left: auto !important;
+  }
+  .main-banner .banner-text .theme-button .video-btn i {
+    top: 0;
+  }
+  .about-section .about-text .section-title {
+
+  }
+  .about-section .about-text .about-us i {
+
+  }
+  .about-section .offset-lg-1 {
+
+  }
+  .newsletter-section .newsletter-area .offset-lg-3 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .blog-section .offset-md-3 {
+    margin-left: 0;
+    margin-right: 25%;
+  }
+  .footer-area .footer-widget.pl-75 {
+
+  }
+  .footer-area .copyright-area ul {
+
+  }
+  /* Home One CSS End */
+  /* Home Two CSS Start */
+  .service-section .service-text ul li {
+    font-size: 16px;
+  }
+  .pricing-section .pricing-card::before {
+    height: 260px !important;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 70%, 0 70%) !important;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0 70%) !important;
+  }
+  .pricing-section .offset-sm-3 {
+    margin-right: 25%;
+    margin-left: 0;
+  }
+  /* Home Two CSS End */
+  /* About Page CSS Start */
+  .contact-section .contact-img {
+    height: 450px;
+  }
+  /* Aboout Page CSS End */
+  /* Error CSS Start */
+  .error-section .offset-md-2 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  /* Error CSS End */
+  /* Contact Area CSS Start */
+  .contact-area .offset-md-3 {
+    margin-left: 0;
+    margin-right: 25%;
+  }
+  /* Contact Area CSS End */
+  .testimonial-section .offset-lg-1 {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  .about-section .offset-lg-5 {
+
+  }
+  .video-section .video-text p {
+    right: 0;
+  }
+  .contact-section .contact-form {
+    padding: 25px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* Home One CSS Start */
+  .right-modal .modal.fade.show {
+
+  }
+  .about-section .about-text .about-us i {
+
+  }
+  .contact-section .contact-form {
+    padding: 65px;
+  }
+  .footer-area .footer-widget.pl-75 {
+
+  }
+  /* Home One CSS End */
+  /* Blog Details CSS Start */
+  .blog-details-area .recent-blog .recent-post h3 a {
+    padding-right: 100px;
+  }
+  .blog-details-area .recent-blog .recent-post ul {
+    padding-right: 100px;
+  }
+  .blog-details-area .recent-blog .recent-post ul li {
+    margin-right: 0;
+    margin-left: 5px;
+  }
+  .blog-details-area .photo-gallery a img {
+    padding-right: 8px;
+    padding-left: 0;
+  }
+  /* Blog Details CSS End */
+}
+
+@media (min-width: 1799px) {
+  .right-modal .modal.fade.show {
+
+  }
+}
+/*# sourceMappingURL=rtl.css.map */

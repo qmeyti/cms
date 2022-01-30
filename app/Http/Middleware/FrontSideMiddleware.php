@@ -21,6 +21,7 @@ class FrontSideMiddleware
          * Load settings
          */
         new SettingProducer('home');
+        \App\Libraries\Translation\Translation::callTranslation('front');
 
         return $next($request);
     }

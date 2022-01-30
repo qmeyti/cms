@@ -382,3 +382,8 @@ function __dir()
 {
     return \App\Libraries\Language\Language::getDir();
 }
+
+function __tr($key)
+{
+    return \App\Libraries\Translation\Translation::find($key);
+}

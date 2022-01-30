@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('nickname')->nullable();
             $table->string('username',50)->unique()->nullable();
             $table->text('about')->nullable();
+            $table->enum('language', ['fa', 'en'])->default('fa');
             $table->rememberToken();
             $table->timestamps();
         });

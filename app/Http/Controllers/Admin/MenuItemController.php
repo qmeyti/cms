@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Menu;
-use App\Models\MenuItem;
 use App\Models\Page;
+use App\Models\MenuItem;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
 
 class MenuItemController extends Controller
 {
@@ -53,8 +54,12 @@ class MenuItemController extends Controller
 
         }
         if ($data['type'] === 'route') {
-
+            // dd('hi');
+            dd(Route::get($data['link']));
+            // $route = app('router')->getRoutes()->match(app('request')->create($data['link']));
+            // dd($route);
             $data['link'] = $request->validate(['link' => 'required|url|string|max:2000'])['link'];
+            dd($data['link']);
 
         } /**
          * If is page

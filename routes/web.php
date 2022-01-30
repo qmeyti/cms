@@ -35,8 +35,14 @@ Route::group(['middleware' => ['locale']], function () {
         Route::resource('/languages', 'LanguageController');
 
         Route::resource('/users', 'UsersController');
+        //
+        Route::resource('/translationkey', 'TranslationKeyController');
+        Route::resource('/translations', 'TranslationController');
+
+        //
 
         Route::resource('/pages', 'PagesController');
+        // Route::get('/pages/create/{id}', 'PagesController@create')->name('pages.create');
 
         Route::resource('/slider', 'SliderController');
 
@@ -87,7 +93,7 @@ Route::group(['middleware' => ['locale']], function () {
         Route::resource('/comments', 'CommentController');
 
         //Blog posts show
-        Route::get('/blog/{category?}', 'BlogController@blog')->name('blog');
+//        Route::get('/blog/{category?}', 'BlogController@blog')->name('blog');
         Route::get('/favored/posts', 'BlogController@favoredPosts')->name('favored.posts');
         Route::get('/liked/posts', 'BlogController@likedPosts')->name('liked.posts');
         Route::get('/tag/{tag}', 'BlogController@tagPosts')->name('tag.posts');
@@ -98,7 +104,15 @@ Route::group(['middleware' => ['locale']], function () {
         Route::post('/like/{post}', 'LikeController@like')->name('like.posts');
         Route::post('/dislike/{post}', 'LikeController@dislike')->name('dislike.post');
 
+        //
         Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/about-us', 'AboutUsController@index')->name('about-us');
+        Route::get('/service', 'ServiceController@index')->name('service');
+        Route::get('/portfolio', 'PortfolioController@index')->name('portfolio');
+        Route::get('/contact', 'ContactController@index')->name('contact');
+        Route::get('/blog', 'BlogController@index')->name('blog');
+
+        ///
 
         Route::get('/post/{id}', 'BlogController@postId')->name('single.id');
         Route::get('/{slug}', 'BlogController@postSlug')->name('single.slug');

@@ -20,6 +20,14 @@ class BlogController extends Controller
      * @param string|null $category
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+
+    public function index()
+    {
+//        dd('hi');
+        return view('front.' . __stg('template') . '.blog');
+
+    }
+
     public function blog(Request $request, string $category = null)
     {
         $posts = Page::postsPublicConditions();

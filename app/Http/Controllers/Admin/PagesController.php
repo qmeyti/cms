@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\PageRequest as PageRequest;
-use App\Http\Controllers\Controller;
-use App\Models\Page;
 use App\Models\Tag;
+use App\Models\Page;
+use App\Models\Category;
+use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\PageRequest as PageRequest;
 
 class PagesController extends Controller
 {
@@ -20,11 +22,15 @@ class PagesController extends Controller
     {
         $keyword = $request->get('search');
 
-        $perPage = __stg('element_per_page', 25);
+        $perPage = 25;
 
-        $pages = Page::with('categories')
+        $pages = Page::with('categories','translations')
             ->whereIn('status', ['published', 'pending', 'trash'])
-            ->where('is_translation', false);
+            ->where('parent',null)
+            ->where('is_translation',false);
+
+
+
 
         if (!empty($keyword)) {
 
@@ -35,16 +41,22 @@ class PagesController extends Controller
 
         } else {
 
+
             $pages = $pages->latest()->paginate($perPage);
+
 
         }
 
+        $languages = Language::all();
+
+
+//        dd($pages->all());
         $pageTitle = 'لیست نوشته ها';
         $breadcrumb = [];
         $pageBc = 'نوشته ها';
         $pageSubtitle = 'در این قسمت لیست همه مقالات و اخبار سایت را مشاهده میکنید.';
 
-        return view('admin.pages.index', compact('pages', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
+        return view('admin.pages.index', compact('pages', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle','languages'));
     }
 
     /**
@@ -67,9 +79,26 @@ class PagesController extends Controller
      */
     public function create()
     {
+
+        // dd(Category::all()->where('language','fa'));
+//        dd($_GET);
+
+
+        // if($id){
+
+
+
+        // }
+
+        // else{
+
+
         /**
          * Delete all old Auto-draft posts
+         *
+         *
          */
+
         $page = null;
 
         DB::beginTransaction();
@@ -78,12 +107,14 @@ class PagesController extends Controller
 
             Page::deleteAutoDrafts();
 
+
             $page = Page::makeAutoDraft();
 
             DB::commit();
 
         } catch (\Exception $exception) {
 
+            dd($exception->getMessage());
             DB::rollBack();
 
             return redirect('admin/pages')->with('flash_error', 'خطایی در هنگام ایجاد فرم رخ داد!');
@@ -104,7 +135,11 @@ class PagesController extends Controller
             'parents' => $this->parentablePages([$page->id]),
             'multipleCategorySelection' => true,
         ]);
+
+    // }
+
     }
+
 
     /**
      * @param $tagsString
@@ -158,6 +193,8 @@ class PagesController extends Controller
      */
     public function store(PageRequest $request)
     {
+
+
         $request->validate(["slug" => ['unique:pages,slug']]);
 
         $data = $request->validated();
@@ -185,8 +222,10 @@ class PagesController extends Controller
                 /**
                  * Parent page set null
                  */
-                $data['parent'] = null;
 
+//                if ()
+
+                unset($data['parent']);
                 /**
                  * Insert categories
                  */
@@ -208,6 +247,7 @@ class PagesController extends Controller
 
         } catch (\Exception $exception) {
 
+            dd($exception->getMessage());
             DB::rollBack();
 
             return back()->with('flash_error', 'خطایی در هنگام ذخیره سازی رخ داده است!');
@@ -292,7 +332,7 @@ class PagesController extends Controller
                 /**
                  * Parent page set null
                  */
-                $data['parent'] = null;
+                unset($data['parent']);
 
                 /**
                  * Insert categories
@@ -335,6 +375,11 @@ class PagesController extends Controller
      */
     public function destroy($id)
     {
+        $post = Page::find($id);
+        if(is_null($post->parent)){
+             $post->children()->delete();
+        }
+
         Page::destroy($id);
 
         return redirect('admin/pages')->with('flash_message', 'نوشته با موفقیت حذف شد!');

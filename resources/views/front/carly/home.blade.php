@@ -1,35 +1,35 @@
-@extends('front.carly.master')
+@extends('front.everb.master')
 
 @section('content')
 
-    @include('front.carly.home.header')
+    @include('front.everb.home.header')
 
     <main>
 
-        @include('front.carly.home.slider')
+        @include('front.everb.home.slider')
 
-        @include('front.carly.home.about_us')
+        @include('front.everb.home.about_us')
 
-        @include('front.carly.home.brands')
+        @include('front.everb.home.brands')
 
-        @include('front.carly.home.video')
+        @include('front.everb.home.video')
 
-        @include('front.carly.home.services')
+        @include('front.everb.home.services')
 
-        @include('front.carly.home.case')
+        @include('front.everb.home.case')
 
-        @include('front.carly.home.team')
+        @include('front.everb.home.team')
 
-        @include('front.carly.home.skill')
+        @include('front.everb.home.skill')
 
-        @include('front.carly.home.contact_us')
+        @include('front.everb.home.contact_us')
 
-        @include('front.carly.home.blog')
+        @include('front.everb.home.blog')
 
-        @include('front.carly.home.footer_cta')
+        @include('front.everb.home.footer_cta')
 
     </main>
 
-    @include('front.carly.home.footer')
+    @include('front.everb.home.footer')
 
 @endsection

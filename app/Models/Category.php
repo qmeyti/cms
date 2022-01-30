@@ -28,7 +28,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'parent'];
+    protected $fillable = ['title', 'slug', 'parent','language','parent_translition'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -44,6 +44,23 @@ class Category extends Model
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent', 'id');
+    }
+
+
+    public function parentTranslition()
+    {
+        return $this->hasOne(Category::class, 'parent_translition', 'id');
+    }
+
+
+    // public function haveTranslition()
+    // {
+    //     return $this->hasOne(Category::class, 'parent_translition', 'id');
+    // }
+
+    public function haveTranslition()
+    {
+        return $this->hasMany(Category::class, 'parent_translition', 'id');
     }
 
     /**

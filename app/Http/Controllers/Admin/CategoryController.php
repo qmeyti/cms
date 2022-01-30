@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
@@ -17,23 +19,26 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = __stg('element_per_page', 25);
+        // $perPage = __stg('element_per_page', 25);
+        $perPage =25 ;
+
 
         if (!empty($keyword)) {
             $category = Category::where('title', 'LIKE', "%$keyword%")
+                ->where('language','fa')
                 ->orWhere('slug', 'LIKE', "%$keyword%")
                 ->orWhere('parent', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $category = Category::latest()->paginate($perPage);
+            $category = Category::latest()->where('language','fa')->paginate($perPage);
         }
-
+        $languages = Language::all();
         $pageTitle = 'دسته بندی ها';
         $breadcrumb = [];
         $pageBc = 'لیست دسته بندی ها';
         $pageSubtitle = '';
 
-        return view('admin.category.index', compact('category', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
+        return view('admin.category.index', compact('category', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle','languages'));
     }
 
     /**
@@ -48,6 +53,9 @@ class CategoryController extends Controller
         $pageBc = 'دسته بندی جدید';
         $pageSubtitle = 'برای ایجاد دسته جدید، یک عنوان دلخواه و نامک یکتا انتخاب کنید.';
 
+        // dd($_REQUEST['language']);
+        // Session::flash('language',$_REQUEST['language']);
+        // Session::flash('parent',$_REQUEST['parent']);
         return view('admin.category.create', compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
@@ -62,9 +70,22 @@ class CategoryController extends Controller
 
         __sanitize('title');
 
+        if($request->parent_translition){
+          $myCategory = Category::find($request->parent_translition);
+//            $myCategory2 = Category::find($myCategory->parent);
+            $request['slug']=null;
+            //  $request['parent']=$myCategory2->parentTranslition->id??null;
+            $request['parent']=null;
+        }
+
+//        $request['language']=__lng();
+//         dd($request->all());
+        // dd(Session::get('language'));
         $data = $this->validate($request, [
             'title' => 'required|string|max:100',
-            'slug' => 'required|string|regex:!^[a-zA-Z]{1}[a-zA-Z0-9\-_\s]+$!|max:100|unique:categories,id',
+            'slug' => 'sometimes|nullable|regex:!^[a-zA-Z]{1}[a-zA-Z0-9\-_\s]+$!|max:100|unique:categories,id',
+            'language' => 'string',
+            'parent_translition' => 'sometimes|nullable|integer|exists:categories,id',
             'parent' => 'sometimes|nullable|integer|exists:categories,id',
         ]);
 
@@ -112,6 +133,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+//
+//        dd($request->all());
+//        dd();
 
         $request->merge(['slug' => Str::slug((string)$request->input('slug'))]);
 
@@ -119,7 +143,7 @@ class CategoryController extends Controller
 
         $data = $this->validate($request, [
             'title' => 'required|string|max:100',
-            'slug' => 'required|string|regex:!^[a-zA-Z]{1}[a-zA-Z0-9\-_\s]+$!|max:100|unique:categories,id,' . $id,
+            'slug' => 'sometimes|nullable|regex:!^[a-zA-Z]{1}[a-zA-Z0-9\-_\s]+$!|max:100|unique:categories,id,' . $id,
             'parent' => 'sometimes|nullable|integer|exists:categories,id',
         ]);
 

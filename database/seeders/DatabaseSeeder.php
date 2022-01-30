@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $settings = [
             [
                 'key' => 'template',
-                'value' => 'carly',
+                'value' => 'everb',
                 'user_id' => 1,
                 'type' => 'string',
                 'part' => null,

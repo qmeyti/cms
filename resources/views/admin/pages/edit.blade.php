@@ -11,11 +11,49 @@
             <div class="card-body">
 
                 <div class="row mb-3">
-                    <div class="col">
+
+                    <div class="d-flex justify-content-between">
+
+
+                    <div>
                         <a href="{{ route('pages.index') }}" title="بازگشت">
                             <button class="btn btn-dark btn-sm"><i class="fas fa-arrow-right" aria-hidden="true"></i> بازگشت</button>
                         </a>
                     </div>
+
+
+{{--                    <div>--}}
+{{--                        <form method="POST" action="{{ route('pages.destroy',['page'=>$page->id]) }}">--}}
+{{--                            {{ csrf_field() }}--}}
+{{--                            {{ method_field('DELETE') }}--}}
+{{--                            <div class="form-group">--}}
+{{--                                <i class="fas fa-arrow-right" aria-hidden="true"></i>--}}
+{{--                                <input type="submit" class="btn btn-danger delete-user" value="حذف پست">--}}
+{{--                            </div>--}}
+{{--                        </form>--}}
+
+{{--                    </div>--}}
+
+
+                        <div>
+
+                            {!! Form::open([
+                                  'method' => 'DELETE',
+                                  'url' => route('pages.destroy',['page' => $page->id]),
+                                  'style' => 'btn btn-danger'
+                             ]) !!}
+                            {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i>', array(
+                                    'type' => 'submit',
+                                    'class' => 'btn btn-danger btn-sm',
+                                    'title' => 'ویرایش صفحه',
+                                    'onclick'=>'return confirm("آیا مطمعنی که میخواهی این صفحه را حذف کنی؟")'
+                            )) !!}
+                            {!! Form::close() !!}
+
+                        </div>
+
+                    </div>
+
                 </div>
 
                 @if ($errors->any())
@@ -41,3 +79,5 @@
         </div>
     </section>
 @endsection
+
+

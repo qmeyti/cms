@@ -83,6 +83,18 @@ class ForeignKey extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
+                $table->foreign('language')
+                ->references('code')
+                ->on('languages')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+                $table->foreign('parent_translition')
+                ->references('id')
+                ->on('categories')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
         });
 
         Schema::table('slides', function (Blueprint $table) {
@@ -116,6 +128,15 @@ class ForeignKey extends Migration
             $table->foreign('parent')
                 ->references('id')
                 ->on('menu_items')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+        });
+
+        Schema::table('translations', function (Blueprint $table) {
+
+            $table->foreign('key_id')
+                ->references('id')
+                ->on('translation_key')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
         });

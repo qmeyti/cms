@@ -16,8 +16,11 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title', 100)->nullable();
-            $table->string('slug', 100)->index()->unique();
-            $table->unsignedBigInteger('parent')->default(1)->nullable();
+            $table->string('slug', 100)->nullable()->index();
+            $table->string('language',3)->default('fa')->index();
+            $table->enum('transable_id', [0, 1])->default(0);
+            $table->unsignedBigInteger('parent')->nullable();  //defult = 1
+            $table->unsignedBigInteger('parent_translition')->nullable();
         });
     }
 
