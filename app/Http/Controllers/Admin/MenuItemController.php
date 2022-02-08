@@ -50,16 +50,30 @@ class MenuItemController extends Controller
         if ($data['type'] === 'url') {
 
             //todo check or sanitize link
+            
             $data['link'] = $request->validate(['link' => 'nullable|string|max:2000'])['link'];
+
+            // dd(trim($data['link'] , '/'));
+            // dd($data['link']);
+            $data['link'] = trim($data['link'] , '/');
 
         }
         if ($data['type'] === 'route') {
-            // dd('hi');
-            dd(Route::get($data['link']));
-            // $route = app('router')->getRoutes()->match(app('request')->create($data['link']));
-            // dd($route);
+            // $data['link']  = app('router')->getRoutes()->match(app('request')->create($data['link']))->action['as'];
+
+            // dd($data['link']);
+
             $data['link'] = $request->validate(['link' => 'required|url|string|max:2000'])['link'];
-            dd($data['link']);
+            $data['link']  = app('router')->getRoutes()->match(app('request')->create($data['link']))->action['as'];
+
+            // dd('hi');
+            // dd(Route::get($data['link']));
+            // $route = app('router')->getRoutes()->match(app('request')->create($data['link']))->action['as'];
+            // dd($route);
+            // $data['link'] = $request->validate(['link' => 'required|url|string|max:2000'])['link'];
+            //  dd(Route::get($data['link']));
+
+            // dd($data['link']);
 
         } /**
          * If is page

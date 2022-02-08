@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use App\Models\NewsletterMember;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,7 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('front.' . __stg('template') . '.home');
+        $posts = Page::where('type','post')->where('status','published')->latest()->take(3)->get();
+
+        return view('front.' . __stg('template') . '.home',compact('posts'));
     }
 
     /**

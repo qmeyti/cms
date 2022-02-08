@@ -52,6 +52,7 @@ class Page extends Model
 
     public function writer()
     {
+        // dd('hi2');
         return $this->belongsTo(User::class, 'author', 'id');
     }
 

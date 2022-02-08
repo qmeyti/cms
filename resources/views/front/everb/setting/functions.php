@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MenuItem;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -16,6 +17,8 @@ function get_main_menu()
 
     if ($menuItems->count() == 0)
         return '';
+
+        // dd($menuItems->toArray());
 
     $menuItems = $menuItems->toArray();
 
@@ -44,34 +47,86 @@ function get_main_menu()
 
     }
 
+
     /**
      * @param $parent
      * @param $allItems
      * @return string
      */
-    $i = 0;
+
+
+    function isActive($key , $activeClassName = 'active') {
+        // dd(array_values($key));
+
+        if(is_array($key)) {
+            // dd($key);
+            return in_array(Route::currentRouteName() , $key) || in_array(request()->path()  , $key) ? $activeClassName : '';
+        }
+        return Route::currentRouteName() == $key || request()->path()== $key ? $activeClassName :  '';
+    }
+
+
+    function child($items,$allItems){
+
+    $childroute= '';
+
+      foreach ($allItems['parents'][$items] as $cat_id) {
+
+        if (!isset($allItems['parents'][$cat_id])) {
+            $childroute .= $allItems['items'][$cat_id]['link'] ."/";
+        }
+
+        if (isset($allItems['parents'][$cat_id])) {
+            $childroute.= $allItems['items'][$cat_id]['link']."/";
+
+            $childroute .=child($cat_id,$allItems);
+
+        }
+
+      }
+
+     $MyChild = $childroute;
+     unset($childroute);
+
+      return $MyChild;
+    }
+
+
+
 
     function getMenuItemsRecursive($parent, $allItems)
     {
-        global $i;
-        $i++;
+
+    // dd($allItems);
+
+
         $html = "" . PHP_EOL;
-//        dd($allItems);
         if (isset($allItems['parents'][$parent])) {
-//            $html .= '<ul class="' . ($i > 1 ? 'sub-menu text-right' : '') . '">' . PHP_EOL;
+
             foreach ($allItems['parents'][$parent] as $cat_id) {
                 if (!isset($allItems['parents'][$cat_id])) {
                     //وقتی منوی اصلی زیر منو ندازد
-                    $html .= '<li class="nav-item"><a href="' . getMenuLink($allItems['items'][$cat_id]) . '" class="nav-link active">' . $allItems['items'][$cat_id]['label'] . '</a></li>' . PHP_EOL;
-                }
-                if (isset($allItems['parents'][$cat_id])) {
-                    // وقتی منوی اصلی زیر منو دارد
-                    $html .= '<li class="nav-item"><a href="' . getMenuLink($allItems['items'][$cat_id]) . '" class="nav-link dropdown-toggle active">' . $allItems['items'][$cat_id]['label'] . ' <i class="fa fa-chevron-left"></i></a>' . PHP_EOL;
-                    $html .= ' <ul class="dropdown-menu">' . PHP_EOL;
+                    $html .= '<li class="nav-item"><a href="' . getMenuLink($allItems['items'][$cat_id]) . '" class="nav-link  '.isActive($allItems['items'][$cat_id]['link']).'">' . $allItems['items'][$cat_id]['label'] . '</a></li>' . PHP_EOL;
 
+                }
+
+                if (isset($allItems['parents'][$cat_id])) {
+
+                    // dd($cat_id);
+                    // dd($allItems);
+                    // $cat_id=7;
+                    $MyChild= child($cat_id,$allItems);
+
+                    $MyChild = array_filter(explode("/",$MyChild));
+
+                    $MyChild[]=$allItems['items'][$cat_id]['link'];
+
+                    $html .= '<li class="nav-item"><a href="' . getMenuLink($allItems['items'][$cat_id]) . '" class="nav-link dropdown-toggle  '.isActive($MyChild) .'">' . $allItems['items'][$cat_id]['label'] . ' <i class="fa fa-chevron-left"></i></a>' . PHP_EOL;
+                    $html .= ' <ul class="dropdown-menu">' . PHP_EOL;
                     $html .= getMenuItemsRecursive($cat_id, $allItems);
                     $html .= "</ul> " . PHP_EOL;
                     $html .= "</li> " . PHP_EOL;
+
                 }
             }
             $html .= "" . PHP_EOL;
@@ -79,11 +134,12 @@ function get_main_menu()
         return $html;
     }
 
+
+
 //    dd($menuItemsArray);
     return getMenuItemsRecursive(1, $menuItemsArray);
 
 }
-
 
 /**
  * Get sidebar categories list
@@ -114,7 +170,6 @@ function get_sidebar_categories()
                 if (!isset($category['parent_cats'][$cat_id])) {
                     $html .= '<li><a href="' . route('front.blog', ['category' => $category['categories'][$cat_id]['slug']]) . '">' . $category['categories'][$cat_id]['title'] . '</a></li>' . PHP_EOL;
                 }
-
                 if (isset($category['parent_cats'][$cat_id])) {
                     $html .= '<li><a href="' . route('front.blog', ['category' => $category['categories'][$cat_id]['slug']]) . '">' . $category['categories'][$cat_id]['title'] . '</a>' . PHP_EOL;
                     $html .= get_recursive_categories($cat_id, $category);

@@ -23,7 +23,7 @@ class Transition extends Model
      * @var array
      */
     protected $fillable = [
-        'key_id',
+        'translatable_id',
         'transition',
         'language'
     ];

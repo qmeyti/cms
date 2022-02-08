@@ -103,5 +103,180 @@ class MenuSeeder extends Seeder
             ]
         );
 
+        ////////////////////////
+
+        $footermenu1 = Menu::create([
+            'name' => 'منوی فوتر 1',
+        ]);
+
+        $footermenu1->items()->create(
+            [
+                'label' =>' توسعه دهنده',
+                'link' =>'front.contact',
+                'parent'=>1,
+
+                'type' =>'route',
+                'sort' =>0,
+                'depth' =>0,
+            ],
+        );
+        $footermenu1->items()->create(
+            [
+                'label' =>' تجارت الکترونیک',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ]
+        );
+        $footermenu1->items()->create(
+            [
+                'label' =>'طراحی سایت',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ],
+        );
+
+        $footermenu1->items()->create(
+            [
+                'label' =>'برند تجاری',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ],
+        );
+        $footermenu1->items()->create(
+            [
+                'label' =>' شبکه ملی',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ]
+        );
+
+        ////////////////////////
+
+        $footermenu2 = Menu::create([
+            'name' => 'منوی فوتر 2',
+        ]);
+
+        $footermenu2->items()->create(
+            [
+                'label' =>' صفحه اصلی',
+                'link' =>'front.contact',
+                'parent'=>1,
+                'type' =>'route',
+                'sort' =>0,
+                'depth' =>0,
+            ],
+        );
+        $footermenu2->items()->create(
+            [
+                'label' =>'درباره ما',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ]
+        );
+        $footermenu2->items()->create(
+            [
+                'label' =>'وبلاگ',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ],
+        );
+
+        $footermenu2->items()->create(
+            [
+                'label' =>' تیم فنی',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ],
+        );
+        $footermenu2->items()->create(
+            [
+                'label' =>'سوالات متداول',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ]
+        );
+
+        /////////////////////////////////////////////
+
+        $footermenu3 = Menu::create([
+            'name' => 'منوی فوتر 3',
+        ]);
+
+        $footermenu3->items()->create(
+            [
+                'label' =>' ایران ، اهواز',
+                'link' =>'front.contact',
+                'parent'=>1,
+                'type' =>'route',
+                'sort' =>0,
+                'depth' =>0,
+            ],
+        );
+        $footermenu3->items()->create(
+            [
+                'label' =>'021-87654321',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ]
+        );
+        $footermenu3->items()->create(
+            [
+                'label' =>'وبلاگ',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ],
+        );
+
+        $footermenu3->items()->create(
+            [
+                'label' =>' تیم فنی',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ],
+        );
+        $footermenu3->items()->create(
+            [
+                'label' =>'mail@everb.com',
+                'link' =>'front.contact',
+                'type' =>'route',
+                'parent'=>1,
+                'sort' =>0,
+                'depth' =>0,
+            ]
+        );
+
     }
 }

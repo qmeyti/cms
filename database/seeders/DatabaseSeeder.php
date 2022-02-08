@@ -101,6 +101,8 @@ class DatabaseSeeder extends Seeder
 
         Setting::insert($settings);
 
+        $this->call(MenuSeeder::class);
+
         // \App\Models\User::factory(10)->create();
     }
 }

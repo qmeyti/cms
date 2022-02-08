@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 
 if (!function_exists('__sanitize')) {
 
@@ -314,7 +316,7 @@ function __author_url(\App\Models\Page $page)
  */
 function __page_content(\App\Models\Page $page)
 {
-    return html_entity_decode($page->content);
+    return strip_tags(html_entity_decode($page->content));
 }
 
 /**
@@ -352,13 +354,7 @@ function __feature_photo(\App\Models\Page $page, string $default = null)
     return \App\Libraries\PageInterpreter::featurePhoto($page, $default);
 }
 
-/**
- * @param \App\Models\Page $page
- * @param string $format
- * @param string $type
- * @return string
- */
-function __page_date(\App\Models\Page $page, string $format = 'd F , Y', string $type = 'jalali')
+ function __page_date(\App\Models\Page $page, string $format = 'd F , Y', string $type = 'jalali')
 {
     return \App\Libraries\PageInterpreter::getDate($page, $format, $type);
 }
@@ -387,3 +383,8 @@ function __tr($key)
 {
     return \App\Libraries\Translation\Translation::find($key);
 }
+
+
+
+
+

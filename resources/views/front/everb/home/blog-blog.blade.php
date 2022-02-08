@@ -14,50 +14,23 @@
                 <div class="recent-blog">
                     <h3>پست های اخیر</h3>
 
-                    <article class="recent-post">
-                        <a href="#"><img src="assets/img/blog/recent-3.png" alt="recent post image"></a>
-                        <h3><a href="#">تقاضای نوشتن محتوا روز به روز در محتوای سایت ها افزایش می یابد</a></h3>
-                        <ul>
-                            <li>
-                                <i class="icofont-user-alt-3"></i>
-                                مدیر
-                            </li>
-                            <li>
-                                <i class="icofont-user-alt-3"></i>
-                                03 دی 1398
-                            </li>
-                        </ul>
-                    </article>
+                    @foreach($lastposts as $item)
 
                     <article class="recent-post">
-                        <a href="#"><img src="assets/img/blog/recent-2.png" alt="recent post image"></a>
-                        <h3><a href="#">تقاضای نوشتن محتوا روز به روز در محتوای سایت ها افزایش می یابد</a></h3>
+                        <a href="{{ route('front.single.id',$item->id) }}"><img src="{{ __feature_photo($item) }}" alt="recent post image"></a>
+                        <h3><a href="{{ route('front.single.id',$item->id) }}">{{ $item->title}}</a></h3>
                         <ul>
                             <li>
                                 <i class="icofont-user-alt-3"></i>
-                                مدیر
+                                {{  $item->writer->getFullName()  }}
                             </li>
                             <li>
                                 <i class="icofont-user-alt-3"></i>
-                                03 دی 1398
+                                {{__page_date($item)}}
                             </li>
                         </ul>
                     </article>
-
-                    <article class="recent-post">
-                        <a href="#"><img src="assets/img/blog/recent-3.png" alt="recent post image"></a>
-                        <h3><a href="#">تقاضای نوشتن محتوا روز به روز در محتوای سایت ها افزایش می یابد</a></h3>
-                        <ul>
-                            <li>
-                                <i class="icofont-user-alt-3"></i>
-                                مدیر
-                            </li>
-                            <li>
-                                <i class="icofont-user-alt-3"></i>
-                                03 دی 1398
-                            </li>
-                        </ul>
-                    </article>
+                    @endforeach
                 </div>
 
                 <div class="blog-category">
@@ -118,22 +91,29 @@
 
             <div class="col-lg-8">
                 <div class="row">
+
+                    @foreach($posts as $post)
+
+                    {{-- @dd($post) --}}
                     <div class="col-lg-6 col-md-6">
                         <div class="blog-card">
                             <div class="blog-img">
-                                <a href="blog-details.html"><img src="{{asset('front/everb/img/blog/1.jpg')}}" alt="blog image"></a>
+                                {{-- @dd(__feature_photo($post) ) --}}
+                                <a href="blog-details.html"><img src="{{ __feature_photo($post) }}" alt="blog image"></a>
                                 <div class="blog-date">
-                                    <span>21 دی</span>
+                                    <span>{{__page_date($post)}}</span>
                                 </div>
                             </div>
                             <div class="blog-text">
 
-                                <h3><a href="blog-details.html">نسل بعدی فناوری اطلاعات جهان را تغییر خواهد داد</a></h3>
+                                <h3><a href="blog-details.html">{{ $post->title}}</a></h3>
 
+{{--                                <p>{{ $post->meta_description}}</p>--}}
                                 <div class="post-info">
                                     <img src="{{asset('front/everb/img/blog/author-1.png')}}" alt="blog author">
-                                    <a href="#"><p>آکین وارد</p></a>
-                                    <a href="blog-details.html" class="blog-btn">
+                                    {{-- @dd($post->writer()) --}}
+                                    <a href="#"><p>{{  $post->writer->getFullName()  }}</p></a>
+                                    <a href="{{ route('front.single.id',$post->id) }}" class="blog-btn">
                                         ادامه خواندن
                                         <i class="fa fa-chevron-left"></i>
                                     </a>
@@ -142,173 +122,8 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="blog-card">
-                            <div class="blog-img">
-                                <a href="blog-details.html"><img src="{{asset('front/everb/img/blog/2.jpg')}}" alt="blog image"></a>
-                                <div class="blog-date">
-                                    <span>21 دی</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
+                    @endforeach
 
-                                <h3><a href="blog-details.html">نسل بعدی فناوری اطلاعات جهان را تغییر خواهد داد</a></h3>
-
-                                <div class="post-info">
-                                    <img src="assets/img/blog/author-2.png" alt="blog author">
-                                    <a href="#"><p>آکین وارد</p></a>
-                                    <a href="blog-details.html" class="blog-btn">
-                                        ادامه خواندن
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="blog-card">
-                            <div class="blog-img">
-                                <a href="blog-details.html"><img src="{{asset('front/everb/img/blog/3.jpg')}}" alt="blog image"></a>
-                                <div class="blog-date">
-                                    <span>21 دی</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
-
-                                <h3><a href="blog-details.html">نسل بعدی فناوری اطلاعات جهان را تغییر خواهد داد</a></h3>
-
-                                <div class="post-info">
-                                    <img src="assets/img/blog/author-3.png" alt="blog author">
-                                    <a href="#"><p>آکین وارد</p></a>
-                                    <a href="blog-details.html" class="blog-btn">
-                                        ادامه خواندن
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="blog-card">
-                            <div class="blog-img">
-                                <a href="blog-details.html"><img src="{{asset('front/everb/img/blog/5.jpg')}}" alt="blog image"></a>
-                                <div class="blog-date">
-                                    <span>21 دی</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
-
-                                <h3><a href="blog-details.html">نسل بعدی فناوری اطلاعات جهان را تغییر خواهد داد</a></h3>
-
-                                <div class="post-info">
-                                    <img src="assets/img/blog/author-1.png" alt="blog author">
-                                    <a href="#"><p>آکین وارد</p></a>
-                                    <a href="blog-details.html" class="blog-btn">
-                                        ادامه خواندن
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="blog-card">
-                            <div class="blog-img">
-                                <a href="#"><img src="{{asset('front/everb/img/blog/6.jpg')}}" alt="blog image"></a>
-                                <div class="blog-date">
-                                    <span>21 دی</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
-
-                                <h3><a href="blog-details.html">نسل بعدی فناوری اطلاعات جهان را تغییر خواهد داد</a></h3>
-
-                                <div class="post-info">
-                                    <img src="assets/img/blog/author-2.png" alt="blog author">
-                                    <a href="#"><p>آکین وارد</p></a>
-                                    <a href="blog-details.html" class="blog-btn">
-                                        ادامه خواندن
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="blog-card">
-                            <div class="blog-img">
-                                <a href="blog-details.html"><img src="{{asset('front/everb/img/blog/1.jpg')}}" alt="blog image"></a>
-                                <div class="blog-date">
-                                    <span>21 دی</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
-
-                                <h3><a href="blog-details.html">نسل بعدی فناوری اطلاعات جهان را تغییر خواهد داد</a></h3>
-
-                                <div class="post-info">
-                                    <img src="assets/img/blog/author-3.png" alt="blog author">
-                                    <a href="#"><p>آکین وارد</p></a>
-                                    <a href="blog-details.html" class="blog-btn">
-                                        ادامه خواندن
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="blog-card">
-                            <div class="blog-img">
-                                <a href="#"><img src="{{asset('front/everb/img/blog/7.jpg')}}" alt="blog image"></a>
-                                <div class="blog-date">
-                                    <span>21 دی</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
-
-                                <h3><a href="blog-details.html">نسل بعدی فناوری اطلاعات جهان را تغییر خواهد داد</a></h3>
-
-                                <div class="post-info">
-                                    <img src="assets/img/blog/author-1.png" alt="blog author">
-                                    <a href="#"><p>آکین وارد</p></a>
-                                    <a href="blog-details.html" class="blog-btn">
-                                        ادامه خواندن
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="blog-card">
-                            <div class="blog-img">
-                                <a href="#"><img src="{{asset('front/everb/img/blog/8.jpg')}}" alt="blog image"></a>
-                                <div class="blog-date">
-                                    <span>21 دی</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
-
-                                <h3><a href="blog-details.html">نسل بعدی فناوری اطلاعات جهان را تغییر خواهد داد</a></h3>
-
-                                <div class="post-info">
-                                    <img src="assets/img/blog/author-2.png" alt="blog author">
-                                    <a href="#"><p>آکین وارد</p></a>
-                                    <a href="blog-details.html" class="blog-btn">
-                                        ادامه خواندن
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

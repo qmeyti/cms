@@ -10,13 +10,14 @@
 
     @include('front.everb.home.modal')
 
-    @include('front.everb.home.blog-title')
-    @include('front.everb.home.blog-blog')
 
-    @include('front.everb.home.newsletter')
+    @include('front.everb.home.faq-title')
+
+    @include('front.everb.home.faq')
+
+    @include('front.everb.home.contact')
 
     @include('front.everb.home.footer')
-
 
 
 @endsection

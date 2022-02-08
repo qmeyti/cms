@@ -20,7 +20,7 @@ return [
                 'title' => 'نوشته ها',
                 'class' => '',
                 'active' => ['pages.*', 'category.*', 'tags.*'],
-                'permissions' => null,
+                'permissions' => ['show-posts','show-posts'],
                 'items' => [
                     [
                         'icon' => '',
@@ -104,6 +104,13 @@ return [
                     ],
                     [
                         'icon' => '',
+                        'title' => 'سوالات متداول',
+                        'url' => route('faq.index'),
+                        'permissions' => ['show-posts'],
+                        'active' => ['faq.*'],
+                    ],
+                    [
+                        'icon' => '',
                         'title' => 'تماس ها',
                         'url' => route('contacts.index'),
                         'permissions' => ['show-posts'],
@@ -131,7 +138,7 @@ return [
     ],
     [
         'title' => 'ابزار مدیریتی',
-        'permissions' => [''],
+        'permissions' => ['show-posts','show-posts'],
         'parts' => [
             [
                 'icon' => 'fas fa-tools',

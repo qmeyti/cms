@@ -24,7 +24,13 @@ class BlogController extends Controller
     public function index()
     {
 //        dd('hi');
-        return view('front.' . __stg('template') . '.blog');
+
+        $posts = Page::where('type','post')->where('status','published')->get();
+        $lastposts = Page::where('type','post')->where('status','published')->latest()->take(3)->get();
+
+        //        dd($posts);
+        // dd($posts);
+        return view('front.' . __stg('template') . '.blog' , compact('posts','lastposts'));
 
     }
 
@@ -171,6 +177,7 @@ class BlogController extends Controller
      */
     public function postId(Request $request, int $id)
     {
+        // dd('hi');
         if (is_null($post = Page::findBy('id', $id)))
             abort(404);
 
@@ -181,7 +188,8 @@ class BlogController extends Controller
 
         $tags = Tag::getShuffleForPage($post->tags);
 
-        return view('front.' . __stg('template') . '.inner.pages.single', [
+        // dd(Statistic::postViewCount($post->id));
+        return view('front.' . __stg('template') . '.blog-details', [
             'next' => Page::theNearPage($post),
             'prev' => Page::theNearPage($post, false),
             'pageTitle' => $post->title,
@@ -197,6 +205,8 @@ class BlogController extends Controller
             'pageKeywords' => $post->meta_keywords,
             'pageDescriptions' => $post->meta_description,
         ]);
+
+        // return view('front.' . __stg('template') . '.blog-details');
 
 
     }

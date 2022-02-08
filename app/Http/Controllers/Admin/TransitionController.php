@@ -35,15 +35,15 @@ class TransitionController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate($request, [
-            'key_id' => 'required|integer|exists:transition_key,id',
+            'translatable_id' => 'required|integer|exists:transition_key,id',
             'transition' => 'required|string',
             'language' => 'required|string|exists:languages,code',
 
         ]);
 
         Transition::create($data);
-        
-        
+
+
         // Cache::remember('translations', 60*60*24, function() {
         //     return DB::table('transitions')->get();
         // });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Translation;
+use App\Models\TranslationKey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -35,18 +36,16 @@ class TranslationController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate($request, [
-            'key_id' => 'required|integer|exists:translation_key,id',
+            'translatable_id' => 'required|integer|exists:translation_key,id',
             'translation' => 'required|string',
             'language' => 'required|string|exists:languages,code',
 
         ]);
 
+        $data['translatable_type'] = TranslationKey::class;
+
         Translation::create($data);
 
-
-        // Cache::remember('translations', 60*60*24, function() {
-        //     return DB::table('translations')->get();
-        // });
         \App\Libraries\Translation\Translation::clearCache();
 
         return redirect('admin/translationkey')->with('flash_message', 'ترجمه جدید اضافه شد');

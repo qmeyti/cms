@@ -17,14 +17,10 @@ class TranslationKeyController extends Controller
      */
     public function index(Request $request)
     {
-        // dd('hi');
-
-        // \App\Libraries\Translation\Translation::clearCache();
 
         $keyword = $request->get('search');
-        // $perPage = __stg('element_per_page', 25);
-        $perPage =25 ;
 
+        $perPage = 25 ;
 
         if (!empty($keyword)) {
             $translationkey = TranslationKey::where('key', 'LIKE', "%$keyword%")
@@ -49,15 +45,12 @@ class TranslationKeyController extends Controller
      */
     public function create()
     {
-//        dd('hi');
         $pageTitle = 'ایجاد دسته بندی جدید';
         $breadcrumb = [route('translationkey.index') => 'ترجمه ها'];
         $pageBc = 'دسته بندی جدید';
         $pageSubtitle = 'برای ایجاد دسته جدید، یک عنوان دلخواه و نامک یکتا انتخاب کنید.';
 
-        // dd($_REQUEST['language']);
-        // Session::flash('language',$_REQUEST['language']);
-        // Session::flash('parent',$_REQUEST['parent']);
+
         return view('admin.translationkey.create', compact('pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
     }
 
@@ -69,13 +62,15 @@ class TranslationKeyController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate($request, [
-            'key' => 'required|string||regex:!^[a-zA-Z0-9\-_.]+$!|max:100',
-            'side' => 'required|string||regex:!^[a-zA-Z0-9\-_.]+$!|max:100',
+            'key' => 'required|string|unique:translation_key,key|regex:!^[a-zA-Z0-9\-_.]+$!|max:100',
+            'side' => 'required|string|regex:!^[a-zA-Z0-9\-_.]+$!|max:100',
         ]);
 
         TranslationKey::create($data);
+
         \App\Libraries\Translation\Translation::clearCache();
-        return redirect('admin/translationkey')->with('flash_message', 'دسته بندی اضافه شد.');
+
+        return route('translationkey.index')->with('flash_message', 'دسته بندی اضافه شد.');
     }
 
     /**

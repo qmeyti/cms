@@ -24,36 +24,21 @@
                 <div class="footer-widget pl-75">
                     <h3>خدمات شرکت</h3>
                     <ul>
-                        <li>
-                            <a href="service.html">
-                                <i class="fa fa-chevron-left"></i>
-                                توسعه دهنده
-                            </a>
-                        </li>
-                        <li>
-                            <a href="service.html">
-                                <i class="fa fa-chevron-left"></i>
-                                تجارت الکترونیک
-                            </a>
-                        </li>
-                        <li>
-                            <a href="service.html">
-                                <i class="fa fa-chevron-left"></i>
-                                طراحی سایت
-                            </a>
-                        </li>
-                        <li>
-                            <a href="service.html">
-                                <i class="fa fa-chevron-left"></i>
-                                برند تجاری
-                            </a>
-                        </li>
-                        <li>
-                            <a href="service.html">
-                                <i class="fa fa-chevron-left"></i>
-                                شبکه ملی
-                            </a>
-                        </li>
+                      
+                            @php 
+                                $menufooters1 = \App\Models\Menu::where('name','منوی فوتر 1')->with('items')->first();
+                            @endphp
+                            @foreach($menufooters1->items as $menufooter1)
+                            <li>
+                               
+                                <a href="{{route($menufooter1->link)}}">
+                                    <i class="fa fa-chevron-left"></i>
+                                    {{$menufooter1->label}}
+                                </a>
+                            </li>
+                            @endforeach
+                           
+                      
                     </ul>
                 </div>
             </div>
@@ -62,36 +47,19 @@
                 <div class="footer-widget pl-75">
                     <h3>لینکهای سریع</h3>
                     <ul>
+                        @php 
+                            $menufooters2 = \App\Models\Menu::where('name','منوی فوتر 2')->with('items')->first();
+                        @endphp
+                        @foreach($menufooters2->items as $menufooter2)
                         <li>
-                            <a href="index.html">
+                           
+                            <a href="{{route($menufooter2->link)}}">
                                 <i class="fa fa-chevron-left"></i>
-                                صفحه اصلی
+                                {{$menufooter2->label}}
                             </a>
                         </li>
-                        <li>
-                            <a href="about.html">
-                                <i class="fa fa-chevron-left"></i>
-                                درباره ما
-                            </a>
-                        </li>
-                        <li>
-                            <a href="blog.html">
-                                <i class="fa fa-chevron-left"></i>
-                                وبلاگ
-                            </a>
-                        </li>
-                        <li>
-                            <a href="team.html">
-                                <i class="fa fa-chevron-left"></i>
-                                تیم فنی
-                            </a>
-                        </li>
-                        <li>
-                            <a href="faq.html">
-                                <i class="fa fa-chevron-left"></i>
-                                سوالات متداول
-                            </a>
-                        </li>
+                        @endforeach
+                       
                     </ul>
                 </div>
             </div>
@@ -100,34 +68,18 @@
                 <div class="footer-widget pl-75">
                     <h3>تماس بگیرید</h3>
                     <ul>
-                        <li>
+                        @php 
+                        $menufooters3 = \App\Models\Menu::where('name','منوی فوتر 3')->with('items')->first();
+                    @endphp
+                    @foreach($menufooters3->items as $menufooter3)
+                    <li>
+                       
+                        <a href="{{route($menufooter3->link)}}">
                             <i class="fa fa-chevron-left"></i>
-                            ایران ، استان تهران
-                        </li>
-                        <li>
-                            <a href="tel:021-87654321">
-                                <i class="fa fa-chevron-left"></i>
-                                021-87654321
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tel:021-12345678">
-                                <i class="fa fa-chevron-left"></i>
-                                021-12345678
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:info@everb.com">
-                                <i class="fa fa-chevron-left"></i>
-                                info@everb.com
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:info@everb.com">
-                                <i class="fa fa-chevron-left"></i>
-                                mail@everb.com
-                            </a>
-                        </li>
+                            {{$menufooter3->label}}
+                        </a>
+                    </li> 
+                 @endforeach
                     </ul>
                 </div>
             </div>

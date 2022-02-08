@@ -38,6 +38,7 @@ Route::group(['middleware' => ['locale']], function () {
         //
         Route::resource('/translationkey', 'TranslationKeyController');
         Route::resource('/translations', 'TranslationController');
+        Route::resource('/faq', 'FaqController');
 
         //
 
@@ -110,12 +111,15 @@ Route::group(['middleware' => ['locale']], function () {
         Route::get('/service', 'ServiceController@index')->name('service');
         Route::get('/portfolio', 'PortfolioController@index')->name('portfolio');
         Route::get('/contact', 'ContactController@index')->name('contact');
+        Route::get('/faq', 'FAQController@index')->name('faq');
+
         Route::get('/blog', 'BlogController@index')->name('blog');
-
-        ///
-
         Route::get('/post/{id}', 'BlogController@postId')->name('single.id');
         Route::get('/{slug}', 'BlogController@postSlug')->name('single.slug');
+        ///
+
+        // Route::get('/post/{id}', 'BlogController@postId')->name('single.id');
+        // Route::get('/{slug}', 'BlogController@postSlug')->name('single.slug');
 
     });
 

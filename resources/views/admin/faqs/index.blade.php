@@ -5,14 +5,14 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">
-                    ترجمه ها
+                    سوالات متداول
                 </h4>
             </div>
             <div class="card-body">
                 <div class="row mb-3">
 
                     <div class="col-sm-auto p-1">
-                        {!! Form::open(['method' => 'GET', 'url' => '/admin/category', 'class' => 'form-inline', 'role' => 'search'])  !!}
+                        {!! Form::open(['method' => 'GET', 'url' => '/admin/faq', 'class' => 'form-inline', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="جستجو..." value="{{ request('search') }}">
 
@@ -24,10 +24,10 @@
                     </div>
 
                     <div class="col d-flex justify-content-end p-1">
-                        <a href="{{ url('/admin/translationkey/create') }}" class="btn btn-success" title="افزودن یک دسته جدید">
+                        <a href="{{ url('/admin/faq/create') }}" class="btn btn-success" title="افزودن سوال متداول جدید">
                             <i class="fas fa-plus" aria-hidden="true"></i>
-                            افزودن ترجمه جدبد
-                        </a>
+                            افزودن سوال متداول جدید       
+                            </a>
                     </div>
                 </div>
 
@@ -36,33 +36,31 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>کلید</th>
-                            <th>ساید</th>
+                            <th>سوال</th>
+                            <th>پاسخ</th>
+                            <th>والد</th>
                             <th>عملیات</th>
                             <th>افزودن زبان</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($translationkey as $item)
+                        @foreach($faq as $item)
                             <tr>
-
-                                @php
-                                // dd($item->translations->where('language', 'fa'))
-                                @endphp
                                 <td>{{ $item->id }}</td>
-                                <td>{{ $item->key }}</td>
-                                <td>{{ $item->side }}</td>
+                                <td>{{ $item->question }}</td>
+                                <td>{{ $item->answer }}</td>
+                                <td>{{ is_null($c = $item->parent()->first()) ? '' : $c->title }}</td>
                                 <td>
-                                    <a href="{{ url('/admin/translationkey/' . $item->id) }}" title="نمایش دسته بندی">
+                                    <a href="{{ url('/admin/faq/' . $item->id) }}" title="نمایش سوال">
                                         <button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i></button>
                                     </a>
-                                    <a href="{{ url('/admin/translationkey/' . $item->id . '/edit') }}" title="ویرایش دسته بندی">
+                                    <a href="{{ url('/admin/faq/' . $item->id . '/edit') }}" title="ویرایش دسته بندی">
                                         <button class="btn btn-warning btn-sm"><i class="fas fa-pencil-ruler" aria-hidden="true"></i></button>
                                     </a>
                                     {!! Form::open([
                                         'method' => 'DELETE',
-                                        'url' => ['/admin/translationkey', $item->id],
+                                        'url' => ['/admin/faq', $item->id],
                                         'style' => 'display:inline'
                                     ]) !!}
                                     {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i>', array(
@@ -78,30 +76,23 @@
                                     @foreach($languages as $language )
 
 
-                                        {{-- <a href="{{  url('/admin/transitionkey/' . $item->id . '/edit')}}" title="{{ $language->language_name }}"  class="btn btn-success btn-sm">
-                                           {{ $language->code }}
-                                        </a> --}}
                                         @php
-                                            // dd(null !==$item->translations->where('language', $language->code) );
-                                            // route('transitions.edit',['id' => $item->id])
-                                             $languagetranslation=$item->translations->where('language', $language->code)->first();
-                                            //   dd($languagetranslation->id)
+
+                                           if($item->language===$language->code)
+                                            continue;
+                                            $haveTranslition  = $item->haveTranslition->where('language',$language->code)->first()
                                         @endphp
-
-
-                                        @if(null !==$languagetranslation )
-                                        <a href="{{  url('/admin/translations/' . $languagetranslation->id . '/edit')  }}" title="{{ $language->language_name }}"  class="btn btn-success btn-sm">
-                                            {{ $language->code }}
-                                         </a>
-
-                                         @else
-
-
-                                        <a href="{{  route('translations.create',['translatable_id' => $item->id,'language' => $language->code])  }}" title="{{ $language->language_name }}"  class="btn btn-danger btn-sm">
+                                        @if(  null !== $haveTranslition)
+                                        <a href="{{  url('/admin/faq/' . $haveTranslition->id . '/edit')}}" title="{{ $language->language_name }}"  class="btn btn-success btn-sm">
                                            {{ $language->code }}
                                         </a>
-
+                                        @else
+                                            <a href="{{ route('faq.create',['parent'=>$item->id,'language'=>$language->code]) }}" title="{{ $language->language_name }} "   class="btn btn-danger btn-sm">
+                                                {{ $language->code }}
+                                            </a>
                                         @endif
+
+                                        {{-- @endforeach --}}
 
                                     @endforeach
                                 </td>
@@ -116,7 +107,7 @@
             </div>
             <div class="card-footer ltr">
                 <div class="pagination-wrapper">
-                    {!! $translationkey->appends(['search' => Request::get('search')])->render() !!}
+                    {!! $faq->appends(['search' => Request::get('search')])->render() !!}
                 </div>
             </div>
         </div>

@@ -29,7 +29,7 @@ class TransitionKey extends Model
 
     public function translations()
     {
-        return $this->hasMany(Transition::class, 'key_id', 'id');
+        return $this->hasMany(Transition::class, 'translatable_id', 'id');
     }
 
 

@@ -23,10 +23,16 @@ class Translation extends Model
      * @var array
      */
     protected $fillable = [
-        'key_id',
+        'translatable_id',
+        'translatable_type',
         'translation',
         'language'
     ];
+
+    public function translatable()
+    {
+        return $this->morphTo();
+    }
 }
 
 

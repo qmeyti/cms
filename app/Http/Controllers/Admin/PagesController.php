@@ -225,6 +225,7 @@ class PagesController extends Controller
 
 //                if ()
 
+
                 unset($data['parent']);
                 /**
                  * Insert categories

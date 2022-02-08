@@ -7,7 +7,7 @@
                     <i class="flaticon-pin"></i>
                     <h3>موقعیت</h3>
                     <ul>
-                        <li> ایران ، استان تهران</li>
+                        <li>{{ __tr('front.contact.location') }}</li>
                         <li> ایران ، استان تهران</li>
                     </ul>
                 </div>

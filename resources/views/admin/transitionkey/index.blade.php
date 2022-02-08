@@ -46,7 +46,7 @@
                         <tbody>
                         @foreach($transitionkey as $item)
                             <tr>
-                                
+
                                 @php
                                 // dd($item->translations->where('language', 'fa'))
                                 @endphp
@@ -77,7 +77,7 @@
                                 <td>
                                     @foreach($languages as $language )
 
-     
+
                                         {{-- <a href="{{  url('/admin/transitionkey/' . $item->id . '/edit')}}" title="{{ $language->language_name }}"  class="btn btn-success btn-sm">
                                            {{ $language->code }}
                                         </a> --}}
@@ -88,21 +88,21 @@
                                             //   dd($languagetranslation->id)
                                         @endphp
 
-                           
+
                                         @if(null !==$languagetranslation )
                                         <a href="{{  url('/admin/transitions/' . $languagetranslation->id . '/edit')  }}" title="{{ $language->language_name }}"  class="btn btn-success btn-sm">
                                             {{ $language->code }}
                                          </a>
 
                                          @else
-                                
 
-                                        <a href="{{  route('transitions.create',['key_id' => $item->id,'language' => $language->code])  }}" title="{{ $language->language_name }}"  class="btn btn-danger btn-sm">
+
+                                        <a href="{{  route('transitions.create',['translatable_id' => $item->id,'language' => $language->code])  }}" title="{{ $language->language_name }}"  class="btn btn-danger btn-sm">
                                            {{ $language->code }}
                                         </a>
 
                                         @endif
-                                      
+
                                     @endforeach
                                 </td>
 

@@ -8,7 +8,7 @@
 @if(isset($_REQUEST['language']))
 
 <input type="hidden" name="language" value="{{ $_REQUEST['language']}}" >
-<input type="hidden" name="key_id" value="{{ $_REQUEST['key_id'] }}">
+<input type="hidden" name="translatable_id" value="{{ $_REQUEST['translatable_id'] }}">
 
 @endif
 <div class="form-group">

@@ -67,4 +67,13 @@ class Setting extends Model
     {
         self::where('key', $key)->delete();
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function translations()
+    {
+        return $this->morphMany(Translation::class, 'translatable');
+    }
+
 }

@@ -132,11 +132,12 @@ class ForeignKey extends Migration
                 ->cascadeOnUpdate();
         });
 
-        Schema::table('translations', function (Blueprint $table) {
 
-            $table->foreign('key_id')
+        Schema::table('faqs', function (Blueprint $table) {
+
+            $table->foreign('parent')
                 ->references('id')
-                ->on('translation_key')
+                ->on('faqs')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
         });

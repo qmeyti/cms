@@ -75,4 +75,11 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function getFullName()
+    {
+    return "$this->name"." "."$this->family";
+    // return "{$this->name}                   {$this->family}";
+
+    }
+
 }

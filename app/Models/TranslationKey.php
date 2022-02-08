@@ -16,7 +16,6 @@ class TranslationKey extends Model
      */
     protected $table = 'translation_key';
 
-
      /**
      * Attributes that should be mass-assignable.
      *
@@ -29,8 +28,6 @@ class TranslationKey extends Model
 
     public function translations()
     {
-        return $this->hasMany(Translation::class, 'key_id', 'id');
+        return $this->morphMany(Translation::class, 'translatable');
     }
-
-
 }
