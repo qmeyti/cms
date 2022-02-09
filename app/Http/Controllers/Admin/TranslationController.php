@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\MenuItem;
 use App\Models\Setting;
 use App\Models\Translation;
 use App\Models\TranslationKey;
@@ -36,20 +37,34 @@ class TranslationController extends Controller
     {
 
         $data = $this->validate($request, [
-            'model' => 'nullable|sometimes|string|in:setting,translationkey',
+            'model' => 'nullable|sometimes|string|in:setting,translationkey,menu',
             'translatable_id' => 'required|integer|exists:settings,id',
             'translation' => 'required|string',
             'language' => 'required|string|exists:languages,code',
         ]);
 
-        $data['model'] == 'setting' ? $data['translatable_type'] = Setting::class : $data['translatable_type'] = TranslationKey::class;
-        Translation::create($data);
         \App\Libraries\Translation\Translation::clearCache();
 
-        if ($data['model'] == 'setting')
-            return redirect('admin/settings')->with('flash_message', 'ترجمه جدید اضافه شد');
-        if ($data['model'] == 'translationkey')
-            return redirect('admin/translationkey')->with('flash_message', 'ترجمه جدید اضافه شد');
+
+        if ($data['model'] == 'setting') {
+            $data['translatable_type'] = Setting::class;
+            $return = redirect('admin/settings')->with('flash_message', 'ترجمه جدید اضافه شد');
+        }
+
+        elseif ($data['model'] == 'translationkey') {
+                $data['translatable_type'] = TranslationKey::class;
+                $return = redirect('admin/translationkey')->with('flash_message', 'ترجمه جدید اضافه شد');
+        }
+
+        elseif ($data['model'] == 'menus') {
+            $data['translatable_type'] = MenuItem::class;
+            $return = redirect('admin/menus')->with('flash_message', 'ترجمه جدید اضافه شد');
+        }
+
+
+        Translation::create($data);
+        return $return;
+
     }
 
 

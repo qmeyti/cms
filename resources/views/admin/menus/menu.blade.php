@@ -7,8 +7,6 @@
         return '
 
 
-
-
                 <div>
                     <a href="' . route('menu_items.edit', ['menu' => $data['menu'], 'menu_item' => $data['id']]) . '" class="btn btn-warning btn-sm">
                         <i class="fa fa-edit"></i> ویرایش
