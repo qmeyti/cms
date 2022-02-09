@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Language;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -20,6 +21,8 @@ class SettingsController extends Controller
 
         $perPage = __stg('element_per_page', 25);
 
+        $perPage = __stg('element_per_page', 25);
+
         if (!empty($keyword)) {
             $settings = Setting::where('key', 'LIKE', "%$keyword%")
                 ->orWhere('value', 'LIKE', "%$keyword%")
@@ -27,13 +30,13 @@ class SettingsController extends Controller
         } else {
             $settings = Setting::orderBy('key')->paginate($perPage);
         }
-
+        $languages = Language::all();
         $pageTitle = 'لیست تنظیمات';
         $breadcrumb = [];
         $pageBc = 'لیست تنظیمات';
         $pageSubtitle = '';
 
-        return view('admin.settings.index', compact('settings', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle'));
+        return view('admin.settings.index', compact('settings', 'pageTitle', 'breadcrumb', 'pageBc', 'pageSubtitle','languages'));
     }
 
     /**

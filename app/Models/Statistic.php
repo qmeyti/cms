@@ -80,4 +80,7 @@ class Statistic extends Model
             'type' => 'page',
         ]);
     }
+
+
+
 }

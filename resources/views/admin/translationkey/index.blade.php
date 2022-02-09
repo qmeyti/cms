@@ -97,7 +97,7 @@
                                          @else
 
 
-                                        <a href="{{  route('translations.create',['translatable_id' => $item->id,'language' => $language->code])  }}" title="{{ $language->language_name }}"  class="btn btn-danger btn-sm">
+                                        <a href="{{  route('translations.create',['translatable_id' => $item->id,'language' => $language->code,'model'=>'translationkey'])  }}" title="{{ $language->language_name }}"  class="btn btn-danger btn-sm">
                                            {{ $language->code }}
                                         </a>
 

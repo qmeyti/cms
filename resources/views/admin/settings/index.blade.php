@@ -36,6 +36,8 @@
                             <th>نوع داده ای</th>
                             <th>بخش فعال</th>
                             <th>عملیات</th>
+                            <th>افزودن ترجمه</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -73,6 +75,40 @@
                                     )) !!}
                                     {!! Form::close() !!}
                                 </td>
+
+                                <td>
+                                    @if($item->type == 'string')
+
+                                        @foreach($languages as $language )
+
+                                            @php
+                                                // dd(null !==$item->translations->where('language', $language->code) );
+                                                // route('transitions.edit',['id' => $item->id])
+                                                 $languagetranslation=$item->translations->where('language', $language->code)->first();
+                                                //   dd($languagetranslation->id)
+                                            @endphp
+
+
+                                            @if(null !==$languagetranslation )
+                                                <a href="{{  url('/admin/translations/' . $languagetranslation->id . '/edit')  }}" title="{{ $language->language_name }}"  class="btn btn-success btn-sm">
+                                                    {{ $language->code }}
+                                                </a>
+
+                                            @else
+
+
+                                                <a href="{{  route('translations.create',['translatable_id' => $item->id,'language' => $language->code,'model'=>'setting'])  }}" title="{{ $language->language_name }}"  class="btn btn-danger btn-sm">
+                                                    {{ $language->code }}
+                                                </a>
+
+                                            @endif
+
+                                        @endforeach
+
+
+                                    @endif
+                                </td>
+
                             </tr>
                         @endforeach
                         </tbody>

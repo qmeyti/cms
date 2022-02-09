@@ -42,4 +42,9 @@ class MenuItem extends Model
             'depth' => 0
         ]);
     }
+
+    public function translations()
+    {
+        return $this->morphMany(Translation::class, 'translatable');
+    }
 }
