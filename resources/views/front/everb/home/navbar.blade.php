@@ -2,7 +2,7 @@
     <!-- Menu For Mobile Device -->
     <div class="mobile-nav">
         <a href="index.html" class="logo">
-            <img src="{{asset('front/everb/img/logo-two.png')}}" alt="logo">
+            <img src="{{__stg('__logo')}}" alt="logo">
         </a>
     </div>
 
@@ -11,7 +11,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="index.html">
-                    <img src="{{asset('front/everb/img/logo.png')}}" alt="logo">
+                    <img src="{{__stg('__logo')}}" alt="logo">
                 </a>
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     @php

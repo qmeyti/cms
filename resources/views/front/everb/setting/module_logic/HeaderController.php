@@ -20,6 +20,8 @@ class HeaderController implements \App\Libraries\Template\TemplateControllerInte
             '__logo' => 'required|string|url|max:2000',
 
             '__header_phone' => 'required|string|min:3|max:255',
+            '__header_email' => 'required|string|min:3|max:255',
+
         ]);
 
         DB::beginTransaction();
@@ -28,6 +30,7 @@ class HeaderController implements \App\Libraries\Template\TemplateControllerInte
             __add_stg('__main_menu', $data['__main_menu'], 'int', 'home');
 
             __add_stg('__header_phone', $data['__header_phone'], 'string', 'home');
+            __add_stg('__header_email', $data['__header_email'], 'string', 'home');
 
             __add_stg('__logo', $data['__logo'], 'text', 'home');
 
@@ -59,6 +62,6 @@ class HeaderController implements \App\Libraries\Template\TemplateControllerInte
         $pageBc = 'تنظیمات سرصفحه';
         $pageSubtitle = '';
 
-        return view('front.carly.setting.module_views.header', compact('menus','pageTitle','breadcrumb','pageBc','pageSubtitle'));
+        return view('front.everb.setting.module_views.header', compact('menus','pageTitle','breadcrumb','pageBc','pageSubtitle'));
     }
 }

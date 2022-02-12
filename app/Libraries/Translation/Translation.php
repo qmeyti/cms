@@ -50,6 +50,8 @@ class Translation
         $languages = Language::all();
         foreach ($languages as $language) {
 
+
+            //   TranslationKey
             $translations = TranslationKey::with(['translations' => function ($query) use ($language) {
                 $query->where('language', $language->code);
             }])->where('side', $side)->get();
@@ -61,17 +63,18 @@ class Translation
                 }
             }
 
+            //   Setting
             $settings = Setting::with(['translations' => function ($query) use ($language) {
                 $query->where('language', $language->code);
             }])->where('type', 'string')->where('part',$side =='back' ? 'admin' :'home')->get();
 
-            // dd($settings);
             if (!!$settings->count()) {
                 foreach ($settings as $item) {
                     $t = $item->translations->first();
                     self::$translations[$item->key] = is_null($t) ? "" : $t->translation;
                 }
             }
+
 
 
             // dd(self::$translations);

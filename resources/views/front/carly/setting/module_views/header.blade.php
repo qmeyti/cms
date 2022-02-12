@@ -26,6 +26,12 @@
                     {!! $errors->first('__header_phone', '<p class="help-block">:message</p>') !!}
                 </div>
 
+                <div class="form-group{{ $errors->has('__header_email') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__header_email', 'شماره ی تماس', ['class' => 'control-label mb-3' ]) !!}
+                    {!! Form::text('__header_email', __stg_straight('__header_email'), ['class' => 'form-control ltr', 'required' => 'required','maxlength' => 255,'placeholder' => 'ایمیل هدر']) !!}
+                    {!! $errors->first('__header_email', '<p class="help-block">:message</p>') !!}
+                </div>
+
                 @include('admin.component.image_uploader',['fieldTitle' => 'انتخاب لوگوی سایت','fieldName' => '__logo', 'old' => old( '__logo', __stg_straight('__logo'))])
 
                 <div class="form-group">
