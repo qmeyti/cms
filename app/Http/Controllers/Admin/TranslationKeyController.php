@@ -70,7 +70,7 @@ class TranslationKeyController extends Controller
 
         \App\Libraries\Translation\Translation::clearCache();
 
-        return route('translationkey.index')->with('flash_message', 'دسته بندی اضافه شد.');
+        return redirect('admin/translationkey')->with('flash_message', 'دسته بندی اضافه شد.');
     }
 
     /**

@@ -3,12 +3,13 @@
 namespace App\Libraries\Translation;
 
 use App\Models\Language;
+use App\Models\Setting;
 use App\Models\TranslationKey;
 use Illuminate\Filesystem\Filesystem;
 
 class Translation
 {
-    private static array $translations;
+    private static $translations =[];
 
 
     /**
@@ -35,6 +36,8 @@ class Translation
      */
     public static function callTranslation(string $side)
     {
+        // dd(self::$translations);
+
         // check cache exist
         if (file_exists(storage_path('framework/cache/translation/' . __lng() . '-' . $side . '.txt'))) {
             $rs = file_get_contents(storage_path('framework/cache/translation/' . __lng() . '-' . $side . '.txt'));
@@ -56,12 +59,26 @@ class Translation
                     $t = $item->translations->first();
                     self::$translations[$item->key] = is_null($t) ? "" : $t->translation;
                 }
-
-                $string_data = serialize(self::$translations);
-                file_put_contents(storage_path('framework/cache/translation/' . $language->code . '-' . $side . '.txt'), $string_data);
-                self::$translations = [];
             }
 
+            $settings = Setting::with(['translations' => function ($query) use ($language) {
+                $query->where('language', $language->code);
+            }])->where('type', 'string')->where('part',$side =='back' ? 'admin' :'home')->get();
+
+            // dd($settings);
+            if (!!$settings->count()) {
+                foreach ($settings as $item) {
+                    $t = $item->translations->first();
+                    self::$translations[$item->key] = is_null($t) ? "" : $t->translation;
+                }
+            }
+
+
+            // dd(self::$translations);
+
+            $string_data = serialize(self::$translations);
+            file_put_contents(storage_path('framework/cache/translation/' . $language->code . '-' . $side . '.txt'), $string_data);
+            self::$translations = [];
 
         }
 

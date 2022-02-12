@@ -10,99 +10,46 @@
             <div class="card-body">
                 {!! Form::open(['url' => route('template.store',['module' => 'contact']), 'class' => 'form-horizontal', 'files' => true]) !!}
 
-                <div class="form-group{{ $errors->has('__contact_us_title_1') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_title_1', 'عنوان بخش تماس با ما ۱', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_title_1', __stg_straight('__contact_us_title_1'),['class' => 'form-control']) !!}
-                    {!! $errors->first('__contact_us_title_1', '<p class="help-block">:message</p>') !!}
+                <div class="form-group{{ $errors->has('__contact_us_local_1') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__contact_us_local_1', 'موقعبت ما 1', ['class' => 'control-label mb-3']) !!}
+                    {!! Form::text('__contact_us_local_1', __stg_straight('__contact_us_local_1'),['class' => 'form-control']) !!}
+                    {!! $errors->first('__contact_us_local_1', '<p class="help-block">:message</p>') !!}
                 </div>
 
-                <div class="form-group{{ $errors->has('__contact_us_title_2') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_title_2', 'عنوان بخش تماس با ما ۲', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_title_2', __stg_straight('__contact_us_title_2'),['class' => 'form-control']) !!}
-                    {!! $errors->first('__contact_us_title_2', '<p class="help-block">:message</p>') !!}
-                </div>
-                <hr>
-
-                <div class="form-group{{ $errors->has('__contact_us_address_title_1') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_title_1', 'عنوان باکس تماس ۱', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_title_1', __stg_straight('__contact_us_address_title_1'),['class' => 'form-control']) !!}
-                    {!! $errors->first('__contact_us_address_title_1', '<p class="help-block">:message</p>') !!}
-                </div>
-
-                <div class="form-group{{ $errors->has('__contact_us_address_icon_1') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_icon_1', 'آیکون باکس تماس ۱', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_icon_1', __stg_straight('__contact_us_address_icon_1'),['class' => 'form-control ltr']) !!}
-                    {!! $errors->first('__contact_us_address_icon_1', '<p class="help-block">:message</p>') !!}
-                </div>
-
-                <div class="form-group{{ $errors->has('__contact_us_address_line_1_1') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_line_1_1', 'عنوان خط اول باکس تماس ۱', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_line_1_1', __stg_straight('__contact_us_address_line_1_1'),['class' => 'form-control']) !!}
-                    {!! $errors->first('__contact_us_address_line_1_1', '<p class="help-block">:message</p>') !!}
-                </div>
-
-                <div class="form-group{{ $errors->has('__contact_us_address_line_2_1') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_line_2_1', 'عنوان خط دوم باکس تماس ۱', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_line_2_1', __stg_straight('__contact_us_address_line_2_1'),['class' => 'form-control']) !!}
-                    {!! $errors->first('__contact_us_address_line_2_1', '<p class="help-block">:message</p>') !!}
-                </div>
-
-                <div class="form-group{{ $errors->has('__contact_us_address_line_1_data_1') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_line_1_data_1', 'دیتای خط اول باکس تماس ۱', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_line_1_data_1', __stg_straight('__contact_us_address_line_1_data_1'),['class' => 'form-control ltr']) !!}
-                    {!! $errors->first('__contact_us_address_line_1_data_1', '<p class="help-block">:message</p>') !!}
-                </div>
-
-                <div class="form-group{{ $errors->has('__contact_us_address_line_2_data_1') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_line_2_data_1', 'دیتای خط دوم باکس تماس ۱', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_line_2_data_1', __stg_straight('__contact_us_address_line_2_data_1'),['class' => 'form-control ltr']) !!}
-                    {!! $errors->first('__contact_us_address_line_2_data_1', '<p class="help-block">:message</p>') !!}
+                <div class="form-group{{ $errors->has('__contact_us_local_2') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__contact_us_local_2', 'موقعبت ما 2', ['class' => 'control-label mb-3']) !!}
+                    {!! Form::text('__contact_us_local_2', __stg_straight('__contact_us_local_2'),['class' => 'form-control']) !!}
+                    {!! $errors->first('__contact_us_local_2', '<p class="help-block">:message</p>') !!}
                 </div>
 
                 <hr>
 
-                <div class="form-group{{ $errors->has('__contact_us_address_title_2') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_title_2', 'عنوان باکس تماس ۲', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_title_2', __stg_straight('__contact_us_address_title_2'),['class' => 'form-control']) !!}
-                    {!! $errors->first('__contact_us_address_title_2', '<p class="help-block">:message</p>') !!}
+                <div class="form-group{{ $errors->has('__contact_us_phone_1') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__contact_us_phone_1', 'شماره تماس 1', ['class' => 'control-label mb-3']) !!}
+                    {!! Form::text('__contact_us_phone_1', __stg_straight('__contact_us_phone_1'),['class' => 'form-control']) !!}
+                    {!! $errors->first('__contact_us_phone_1', '<p class="help-block">:message</p>') !!}
                 </div>
 
-                <div class="form-group{{ $errors->has('__contact_us_address_icon_2') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_icon_2', 'آیکون باکس تماس ۲', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_icon_2', __stg_straight('__contact_us_address_icon_2'),['class' => 'form-control ltr']) !!}
-                    {!! $errors->first('__contact_us_address_icon_2', '<p class="help-block">:message</p>') !!}
+                <div class="form-group{{ $errors->has('__contact_us_phone_2') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__contact_us_phone_2', 'شماره تماس 2', ['class' => 'control-label mb-3']) !!}
+                    {!! Form::text('__contact_us_phone_2', __stg_straight('__contact_us_phone_2'),['class' => 'form-control']) !!}
+                    {!! $errors->first('__contact_us_phone_2', '<p class="help-block">:message</p>') !!}
                 </div>
 
-                <div class="form-group{{ $errors->has('__contact_us_address_line_1_2') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_line_1_2', 'عنوان خط اول باکس تماس ۲', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_line_1_2', __stg_straight('__contact_us_address_line_1_2'),['class' => 'form-control']) !!}
-                    {!! $errors->first('__contact_us_address_line_1_2', '<p class="help-block">:message</p>') !!}
-                </div>
-
-                <div class="form-group{{ $errors->has('__contact_us_address_line_2_2') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_line_2_2', 'عنوان خط دوم باکس تماس ۲', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_line_2_2', __stg_straight('__contact_us_address_line_2_2'),['class' => 'form-control']) !!}
-                    {!! $errors->first('__contact_us_address_line_2_2', '<p class="help-block">:message</p>') !!}
-                </div>
-
-                <div class="form-group{{ $errors->has('__contact_us_address_line_1_data_2') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_line_1_data_2', 'دیتای خط اول باکس تماس ۲', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_line_1_data_2', __stg_straight('__contact_us_address_line_1_data_2'),['class' => 'form-control ltr']) !!}
-                    {!! $errors->first('__contact_us_address_line_1_data_2', '<p class="help-block">:message</p>') !!}
-                </div>
-
-                <div class="form-group{{ $errors->has('__contact_us_address_line_2_data_2') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_address_line_2_data_2', 'دیتای خط دوم باکس تماس ۲', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::text('__contact_us_address_line_2_data_2', __stg_straight('__contact_us_address_line_2_data_2'),['class' => 'form-control ltr']) !!}
-                    {!! $errors->first('__contact_us_address_line_2_data_2', '<p class="help-block">:message</p>') !!}
-                </div>
                 <hr>
 
-                <div class="form-group{{ $errors->has('__contact_us_form_text') ? 'has-error' : ''}} mb-3">
-                    {!! Form::label('__contact_us_form_text', 'متن فرم تماس با ما', ['class' => 'control-label mb-3']) !!}
-                    {!! Form::textarea('__contact_us_form_text', __stg_straight('__contact_us_form_text'),['class' => 'form-control']) !!}
-                    {!! $errors->first('__contact_us_form_text', '<p class="help-block">:message</p>') !!}
+                <div class="form-group{{ $errors->has('__contact_us_email_1') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__contact_us_email_1', 'آدرس ایمیل 1', ['class' => 'control-label mb-3']) !!}
+                    {!! Form::text('__contact_us_email_1', __stg_straight('__contact_us_email_1'),['class' => 'form-control']) !!}
+                    {!! $errors->first('__contact_us_email_1', '<p class="help-block">:message</p>') !!}
                 </div>
+
+                <div class="form-group{{ $errors->has('__contact_us_email_2') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__contact_us_email_2', 'آدرس ایمیل 2', ['class' => 'control-label mb-3']) !!}
+                    {!! Form::text('__contact_us_email_2', __stg_straight('__contact_us_email_2'),['class' => 'form-control']) !!}
+                    {!! $errors->first('__contact_us_email_2', '<p class="help-block">:message</p>') !!}
+                </div>
+
 
 
                 <div class="form-group">
