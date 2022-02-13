@@ -6,10 +6,12 @@
                 <div class="footer-widget">
                     <div class="footer-logo">
                         <a href="index.html">
-                            <img src="{{asset('front/everb/img/logo-two.png')}}" alt="logo">
+                            <img src="{{__stg('__footer_logo')}}" alt="logo">
                         </a>
                     </div>
-                    <p>لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است.</p>
+                    {{-- <p>{{ __stg('__footer_description')}}</p> --}}
+                    <p>{{ __tr('__footer_description' ) ? __tr('__footer_description' ):__stg('__footer_description') }}</p>
+
 
                     <div class="footer-social">
                         <a href="#"><i class="flaticon-facebook"></i></a>
@@ -26,9 +28,9 @@
                     <ul>
                       
                             @php 
-                                $menufooters1 = \App\Models\Menu::where('name','منوی فوتر 1')->with('items')->first();
+                                $menufooters1 = __get_footer_menu('__footer_menu_services');
                             @endphp
-                            @foreach($menufooters1->items as $menufooter1)
+                            @foreach($menufooters1 as $menufooter1)
                             <li>
                                
                                 <a href="{{route($menufooter1->link)}}">
@@ -48,9 +50,9 @@
                     <h3>لینکهای سریع</h3>
                     <ul>
                         @php 
-                            $menufooters2 = \App\Models\Menu::where('name','منوی فوتر 2')->with('items')->first();
+                                $menufooters2 = __get_footer_menu('__footer_menu_suitable');
                         @endphp
-                        @foreach($menufooters2->items as $menufooter2)
+                        @foreach($menufooters2 as $menufooter2)
                         <li>
                            
                             <a href="{{route($menufooter2->link)}}">
@@ -69,9 +71,9 @@
                     <h3>تماس بگیرید</h3>
                     <ul>
                         @php 
-                        $menufooters3 = \App\Models\Menu::where('name','منوی فوتر 3')->with('items')->first();
+                                $menufooters3 = __get_footer_menu('__footer_menu_contact');
                     @endphp
-                    @foreach($menufooters3->items as $menufooter3)
+                    @foreach($menufooters3 as $menufooter3)
                     <li>
                        
                         <a href="{{route($menufooter3->link)}}">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MenuItem;
 use Illuminate\Support\Facades\Route;
 
 
@@ -384,6 +385,11 @@ function __tr($key)
     return \App\Libraries\Translation\Translation::find($key);
 }
 
+
+function __get_footer_menu($key)
+{
+    return \App\Models\MenuItem::where('menu', __stg($key))->get();
+}
 
 
 

@@ -8,18 +8,18 @@
                         <li>
                             <a href="tel:021-12345678">
                                 <i class="flaticon-call"></i>
-                                تلفن {{__stg('__phone')}}
+                                تلفن {{__stg('__header_phone')}}
                             </a>
                         </li>
                         <li>
                             <a href="mailto:info@everb.com">
-                                info@everb.com
+                                {{__stg('__header_email')}}
                                 <i class="flaticon-envelope"></i>
                             </a>
                         </li>
                         <li>
                             <i class="flaticon-pin"></i>
-                            ایران ، استان تهران
+                            {{__tr('__header_address') =="" ? __stg('__header_address') : __tr('__header_address')}} 
                         </li>
                     </ul>
                 </div>
@@ -29,16 +29,16 @@
                     <div class="header-social">
                         <ul>
                             <li>
-                                <a href="#"><i class="flaticon-facebook"></i></a>
+                                <a href="{{__stg('__header_facebok_link')}}"><i class="flaticon-facebook"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="flaticon-twitter"></i></a>
+                                <a href="{{__stg('__header_twitter_link')}}"><i class="flaticon-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="flaticon-linkedin"></i></a>
+                                <a href="{{__stg('__header_linkedin_link')}}"><i class="flaticon-linkedin"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="flaticon-instagram"></i></a>
+                                <a href="{{__stg('__header_instagram_link')}}"><i class="flaticon-instagram"></i></a>
                             </li>
                         </ul>
                     </div>

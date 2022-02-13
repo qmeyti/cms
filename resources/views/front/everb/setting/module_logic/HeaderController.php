@@ -21,6 +21,14 @@ class HeaderController implements \App\Libraries\Template\TemplateControllerInte
 
             '__header_phone' => 'required|string|min:3|max:255',
             '__header_email' => 'required|string|min:3|max:255',
+            '__header_address' => 'required|string|min:3|max:255',
+
+
+            '__header_facebok_link' => 'nullable|string|min:3|max:255',
+            '__header_twitter_link' => 'nullable|string|min:3|max:255',
+            '__header_linkedin_link' => 'nullable|string|min:3|max:255',
+            '__header_instagram_link' => 'nullable|string|min:3|max:255',
+
 
         ]);
 
@@ -31,6 +39,13 @@ class HeaderController implements \App\Libraries\Template\TemplateControllerInte
 
             __add_stg('__header_phone', $data['__header_phone'], 'string', 'home');
             __add_stg('__header_email', $data['__header_email'], 'string', 'home');
+            __add_stg('__header_address', $data['__header_address'], 'string', 'home');
+
+
+            __add_stg('__header_facebok_link', $data['__header_facebok_link'], 'text', 'home');
+            __add_stg('__header_twitter_link', $data['__header_twitter_link'], 'text', 'home');
+            __add_stg('__header_linkedin_link', $data['__header_linkedin_link'], 'text', 'home');
+            __add_stg('__header_instagram_link', $data['__header_instagram_link'], 'text', 'home');
 
             __add_stg('__logo', $data['__logo'], 'text', 'home');
 

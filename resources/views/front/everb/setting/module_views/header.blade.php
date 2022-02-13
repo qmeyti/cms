@@ -32,6 +32,38 @@
                     {!! $errors->first('__header_email', '<p class="help-block">:message</p>') !!}
                 </div>
 
+                <div class="form-group{{ $errors->has('__header_address') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__header_address', 'آدرس', ['class' => 'control-label mb-3' ]) !!}
+                    {!! Form::text('__header_address', __stg_straight('__header_address'), ['class' => 'form-control ltr', 'required' => 'required','maxlength' => 255,'placeholder' => 'آدرس هدر']) !!}
+                    {!! $errors->first('__header_address', '<p class="help-block">:message</p>') !!}
+                </div>
+
+                {{-- ////////////////// --}}
+
+                <div class="form-group{{ $errors->has('__header_facebok_link') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__header_facebok_link', 'لینک فیسبوک', ['class' => 'control-label mb-3' ]) !!}
+                    {!! Form::text('__header_facebok_link', __stg_straight('__header_facebok_link'), ['class' => 'form-control ltr','placeholder' => 'لینک فیسبوک']) !!}
+                    {!! $errors->first('__header_facebok_link', '<p class="help-block">:message</p>') !!}
+                </div>
+
+                <div class="form-group{{ $errors->has('__header_twitter_link') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__header_twitter_link', 'لینک تویتر', ['class' => 'control-label mb-3' ]) !!}
+                    {!! Form::text('__header_twitter_link', __stg_straight('__header_twitter_link'), ['class' => 'form-control ltr','placeholder' => 'لینک تویتر']) !!}
+                    {!! $errors->first('__header_twitter_link', '<p class="help-block">:message</p>') !!}
+                </div>
+
+                <div class="form-group{{ $errors->has('__header_linkedin_link') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__header_linkedin_link', 'لینک لینکدین', ['class' => 'control-label mb-3' ]) !!}
+                    {!! Form::text('__header_linkedin_link', __stg_straight('__header_linkedin_link'), ['class' => 'form-control ltr','placeholder' => 'لینک لینکدین']) !!}
+                    {!! $errors->first('__header_linkedin_link', '<p class="help-block">:message</p>') !!}
+                </div>
+
+                <div class="form-group{{ $errors->has('__header_instagram_link') ? 'has-error' : ''}} mb-3">
+                    {!! Form::label('__header_instagram_link', 'لینک اینستاگرام', ['class' => 'control-label mb-3' ]) !!}
+                    {!! Form::text('__header_instagram_link', __stg_straight('__header_instagram_link'), ['class' => 'form-control ltr','placeholder' => 'لینک اینستاگرام']) !!}
+                    {!! $errors->first('__header_instagram_link', '<p class="help-block">:message</p>') !!}
+                </div>
+
                 @include('admin.component.image_uploader',['fieldTitle' => 'انتخاب لوگوی سایت','fieldName' => '__logo', 'old' => old( '__logo', __stg_straight('__logo'))])
 
                 <div class="form-group">
