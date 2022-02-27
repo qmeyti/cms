@@ -56,8 +56,12 @@ class SettingProducer
     public static function getItem(string $name, $default = null)
     {
         $item = self::$settings->where('key', $name)->first();
+        $defaultLanguage = 'fa';
 
         if (!is_null($item)) {
+            if( ($item->type =='string' ||  $item->type =='text')&&  __lng() != $defaultLanguage && $item->translations->where('language', __lng())->first()!== null){
+            return __tr($item->key);
+        }
 
             $type = $item->type;
 

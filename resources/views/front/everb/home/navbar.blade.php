@@ -32,10 +32,19 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="sidebar-toggle">
-                            <button type="button" class="btn btn-demo toggle-button navbar-toggle" data-bs-toggle="modal" data-bs-target="#sidebar-right">
-                                <i class="flaticon-list"></i>
+                        <div class="sidebar-toggle dropdown">
+                            <button type="button" class="btn btn-demo toggle-button navbar-toggle" id="CHANGE_LANGUAGE" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-language"></i>
                             </button>
+                            <ul class="dropdown-menu" aria-labelledby="CHANGE_LANGUAGE">
+
+                                @foreach(\App\Models\Language::all() as $language)
+
+                                <li><a class="dropdown-item" href="{{route('locale' ,$language->code) }}">{{ $language->language_name }}</a></li>
+
+                                @endforeach
+
+                            </ul>
                         </div>
                     </div>
                 </div>

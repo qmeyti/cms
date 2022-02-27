@@ -19,7 +19,7 @@
                         </li>
                         <li>
                             <i class="flaticon-pin"></i>
-                            {{__tr('__header_address') =="" ? __stg('__header_address') : __tr('__header_address')}} 
+                            {{__stg('__header_address')}} 
                         </li>
                     </ul>
                 </div>

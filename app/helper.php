@@ -117,11 +117,12 @@ if (!function_exists('__add_stg')) {
      * @param $value
      * @param string $type
      * @param string|null $part
+     * @param bool $transable
      * @return \App\Models\Setting
      */
-    function __add_stg(string $key, $value, string $type = 'text', string $part = null)
+    function __add_stg(string $key, $value, string $type = 'text', string $part = null , bool $transable=false)
     {
-        return \App\Models\Setting::addOrUpdate($key, $value, $type, $part);
+        return \App\Models\Setting::addOrUpdate($key, $value, $type, $part, $transable);
     }
 }
 

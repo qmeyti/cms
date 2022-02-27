@@ -10,7 +10,7 @@ class ContactController implements \App\Libraries\Template\TemplateControllerInt
      */
     public function store(\Illuminate\Http\Request $request)
     {
-        
+
 
         __sanitize('__contact_us_local_1');
         __sanitize('__contact_us_local_2');
@@ -28,8 +28,8 @@ class ContactController implements \App\Libraries\Template\TemplateControllerInt
 
         DB::beginTransaction();
         try {
-            __add_stg('__contact_us_local_1', $data['__contact_us_local_1'], 'string', 'home');
-            __add_stg('__contact_us_local_2', $data['__contact_us_local_2'], 'string', 'home');
+            __add_stg('__contact_us_local_1', $data['__contact_us_local_1'], 'string', 'home',1);
+            __add_stg('__contact_us_local_2', $data['__contact_us_local_2'], 'string', 'home',1);
             __add_stg('__contact_us_phone_1', $data['__contact_us_phone_1'], 'string', 'home');
             __add_stg('__contact_us_phone_2', $data['__contact_us_phone_2'], 'string', 'home');
             __add_stg('__contact_us_email_1', $data['__contact_us_email_1'], 'string', 'home');

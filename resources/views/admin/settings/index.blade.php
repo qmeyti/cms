@@ -77,11 +77,15 @@
                                 </td>
 
                                 <td>
-                                    @if($item->type == 'string')
+                                    @if(($item->type == 'string' || $item->type == 'text') && $item->transable == true )
 
                                         @foreach($languages as $language )
 
+                                             
+
                                             @php
+                                            if($language->code =='fa')
+                                            continue;
                                                 // dd(null !==$item->translations->where('language', $language->code) );
                                                 // route('transitions.edit',['id' => $item->id])
                                                  $languagetranslation=$item->translations->where('language', $language->code)->first();

@@ -9,14 +9,18 @@ class SliderController implements \App\Libraries\Template\TemplateControllerInte
     {
 
         $data = $request->validate([
-            '__main_slider' => 'required|integer|exists:sliders,id',
+            '__main_page' => 'required|integer|exists:pages,id',
+            '__main_page_image' => 'required|string|url|max:2000',
+            '__main_page_video_page_link' => 'required|string|min:3|max:255',
 
         ]);
 
         DB::beginTransaction();
         try {
 
-            __add_stg('__main_slider', $data['__main_slider'], 'int', 'home');
+            __add_stg('__main_page', $data['__main_page'], 'int', 'home');
+            __add_stg('__main_page_image', $data['__main_page_image'], 'text', 'home');
+            __add_stg('__main_page_video_page_link', $data['__main_page_video_page_link'], 'text', 'home');
 
             DB::commit();
         } catch (Exception $exception) {
@@ -30,15 +34,35 @@ class SliderController implements \App\Libraries\Template\TemplateControllerInte
         return redirect()->back()->with('flash_message', 'تنظیمات با موفقیت ذخیره شد!');
     }
 
+
+    private function getLinkablePages()
+    {
+        $pages = \App\Models\Page::getLinkablePages();
+
+        $items = [];
+        foreach ($pages as $page) {
+            $items[$page->id] =
+                $page->title . ' [' . str_replace(['page', 'post'], ['صفحه', 'خبر'], $page->type) . "#{$page->id}" . ']';
+        }
+
+        return $items;
+    }
+
+
     public function create(\Illuminate\Http\Request $request)
     {
-        $sliders = \App\Models\Slider::all()->pluck('title' ,'id');
-
-        $pageTitle = 'تنظیمات اسلایدر';
+        $pageTitle = 'صحفه ی اصلی';
         $breadcrumb = [];
-        $pageBc = 'تنظیمات اسلایدر';
+        $pageBc = 'صحفه ی اصلی';
         $pageSubtitle = '';
 
-        return view('front.carly.setting.module_views.slider', compact('sliders','pageTitle','breadcrumb','pageBc','pageSubtitle'));
+        return view('front.everb.setting.module_views.slider', [
+            'pageTitle' => $pageTitle,
+            'breadcrumb' => $breadcrumb,
+            'pageBc' => $pageBc,
+            'pageSubtitle' => $pageSubtitle,
+            'pages' => $this->getLinkablePages()
+        ]);
     }
+
 }

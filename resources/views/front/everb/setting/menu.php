@@ -23,7 +23,7 @@ return [
                     ],
                     [
                         'icon' => '',
-                        'title' => 'اسلایدر',
+                        'title' => 'صحفه ی اصلی',
                         'active' => ['template.create' => ['module' => 'slider']],
                         'permissions' => ['show-posts'],
                         'url' => route('template.create', ['module' => 'slider']),

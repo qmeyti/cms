@@ -39,9 +39,9 @@ class FooterController implements \App\Libraries\Template\TemplateControllerInte
             __add_stg('__footer_menu_suitable', $data['__footer_menu_suitable'], 'int', 'home');
             __add_stg('__footer_menu_contact', $data['__footer_menu_contact'], 'int', 'home');
 ;
-            __add_stg('__footer_description', $data['__footer_description'], 'string', 'home');
+            __add_stg('__footer_description', $data['__footer_description'], 'string', 'home',1);
             __add_stg('__footer_logo', $data['__footer_logo'], 'text', 'home');
-        
+
             __add_stg('__footer_facebook', $data['__footer_facebook'], 'text', 'home');
             __add_stg('__footer_twitter', $data['__footer_twitter'], 'text', 'home');
             __add_stg('__footer_linkedin', $data['__footer_linkedin'], 'text', 'home');
@@ -78,4 +78,5 @@ class FooterController implements \App\Libraries\Template\TemplateControllerInte
 
         return view('front.everb.setting.module_views.footer', compact('menus','pageTitle','breadcrumb','pageBc','pageSubtitle'));
     }
+
 }

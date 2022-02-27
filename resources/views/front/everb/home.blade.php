@@ -10,7 +10,9 @@
 
         @include('front.everb.home.modal')
 
-        @include('front.everb.home.banner')
+        @if(!is_null($mainPage= \App\Models\Page::where('id' ,__stg('__main_page',0))->first()))
+        @include('front.everb.home.banner',['mainPage' =>$mainPage ])
+        @endif
 
         @include('front.everb.home.video')
 

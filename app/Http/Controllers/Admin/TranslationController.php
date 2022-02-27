@@ -38,7 +38,7 @@ class TranslationController extends Controller
 
         $data = $this->validate($request, [
             'model' => 'nullable|sometimes|string|in:setting,translationkey,menu',
-            'translatable_id' => 'required|integer|exists:settings,id',
+            'translatable_id' => 'required|integer',
             'translation' => 'required|string',
             'language' => 'required|string|exists:languages,code',
         ]);
@@ -47,8 +47,15 @@ class TranslationController extends Controller
 
 
         if ($data['model'] == 'setting') {
+
+            if(!!Setting::where('id',$data['translatable_id'])->first()->transable){
             $data['translatable_type'] = Setting::class;
             $return = redirect('admin/settings')->with('flash_message', 'ترجمه جدید اضافه شد');
+            }
+            else{
+            abort(404);
+            }
+            
         }
 
         elseif ($data['model'] == 'translationkey') {

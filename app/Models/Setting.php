@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class Setting extends Model
 {
@@ -38,6 +39,8 @@ class Setting extends Model
         'user_id',
         'type',
         'part',
+        'transable',
+
     ];
 
     /**
@@ -49,7 +52,7 @@ class Setting extends Model
      * @param string|null $part
      * @return Setting
      */
-    public static function addOrUpdate(string $key, $value, string $type = 'text', string $part = null)
+    public static function addOrUpdate(string $key, $value, string $type = 'text', string $part = null ,  bool $transable=false )
     {
         return self::updateOrCreate(['key' => $key], [
             'key' => $key,
@@ -57,6 +60,8 @@ class Setting extends Model
             'user_id' => auth()->id(),
             'type' => in_array($type, ['int', 'float', 'json', 'bool', 'string', 'text', 'array']) ? $type : 'text',
             'part' => in_array($part, ['admin', 'home']) ? $part : null,
+            'transable' =>$transable,
+
         ]);
     }
 

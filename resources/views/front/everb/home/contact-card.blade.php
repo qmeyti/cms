@@ -7,8 +7,8 @@
                     <i class="flaticon-pin"></i>
                     <h3>موقعیت</h3>
                     <ul>
-                        <li>{{ __tr('__contact_us_local_1') }}</li>
-                        <li> {{ __tr('__contact_us_local_2') }}</li>
+                        <li>{{ __stg('__contact_us_local_1') }}</li>
+                        <li> {{ __stg('__contact_us_local_2') }}</li>
                     </ul>
                 </div>
             </div>
@@ -18,8 +18,8 @@
                     <i class="flaticon-call"></i>
                     <h3>تلفن</h3>
                     <ul>
-                        <li>{{ __tr('__contact_us_phone_1') }}</li>
-                        <li>{{ __tr('__contact_us_phone_2') }}</li>
+                        <li>{{ __stg('__contact_us_phone_1') }}</li>
+                        <li>{{ __stg('__contact_us_phone_2') }}</li>
                     </ul>
                 </div>
             </div>
@@ -29,8 +29,8 @@
                     <i class="flaticon-envelope"></i>
                     <h3>ایمیل</h3>
                     <ul>
-                        <li>{{ __tr('__contact_us_email_1') }}</li>
-                        <li>{{ __tr('__contact_us_email_2') }}</li>
+                        <li>{{ __stg('__contact_us_email_1') }}</li>
+                        <li>{{ __stg('__contact_us_email_2') }}</li>
                     </ul>
                 </div>
             </div>

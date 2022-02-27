@@ -66,8 +66,9 @@ class Translation
             //   Setting
             $settings = Setting::with(['translations' => function ($query) use ($language) {
                 $query->where('language', $language->code);
-            }])->where('type', 'string')->where('part',$side =='back' ? 'admin' :'home')->get();
+            }])->where('type', 'string')->orwhere('type', 'text')->where('part',$side =='back' ? 'admin' :'home')->get();
 
+            // dd($settings);
             if (!!$settings->count()) {
                 foreach ($settings as $item) {
                     $t = $item->translations->first();

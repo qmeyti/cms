@@ -10,7 +10,7 @@
                         </a>
                     </div>
                     {{-- <p>{{ __stg('__footer_description')}}</p> --}}
-                    <p>{{ __tr('__footer_description' ) ? __tr('__footer_description' ):__stg('__footer_description') }}</p>
+                    <p>{{ __stg('__footer_description') }}</p>
 
 
                     <div class="footer-social">
