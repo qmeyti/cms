@@ -30,7 +30,7 @@
                         <p>مدیریت کسب و کار</p>
                         <span>95%</span>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>
